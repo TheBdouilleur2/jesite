@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Run a one-line script
-      run: echo Hello, world!
     - name: PHP testing actions
       uses: 104corp/docker-php-testing@v1.0.0
+    - name: PHP Runner
+      uses: franzliedke/gh-action-php@0.2.0
