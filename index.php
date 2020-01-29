@@ -15,6 +15,9 @@ try {
 		sign_in();
 	}elseif($url[0]==='deconnection'){
 		require('controllers/php/deconnection.php');
+	}elseif($url[0]==='projects'){
+		require('controllers/projectsContolller.php');
+		getProjects();
 	}
 	else{
 		require('views/error404.html');
