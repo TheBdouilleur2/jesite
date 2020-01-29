@@ -1,4 +1,4 @@
-name: CI
+name: Test
 
 on: 
   push:
@@ -13,6 +13,5 @@ jobs:
     - uses: actions/checkout@v2
     - name: Run a one-line script
       run: echo Hello, world!
-    - uses: franzliedke/gh-action-php@master
-    - name: Run test
-      runs: php7.1 vendor/bin/phpunit
+    - name: PHP testing actions
+      uses: 104corp/docker-php-testing@v1.0.0
