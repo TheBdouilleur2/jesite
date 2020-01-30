@@ -1,5 +1,5 @@
 <?php 
-
+session_start();
 $url = '';
 try {
 	if (isset($_GET['url'])) {

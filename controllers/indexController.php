@@ -1,5 +1,4 @@
 <?php
-session_start();
 require ('models/UsersManager.php');
 
 $userManager = new UsersManager();
