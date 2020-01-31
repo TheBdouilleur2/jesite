@@ -3,7 +3,7 @@
 <?php ob_start(); ?>
 
 <!-- La page d'affichage des projets -->
-<?php while ($projects) { 
+<?php foreach($projects as $project) { 
     $tags = explode($project['tags'], "/");
     ?>
     <a href='index.php?url=project/<?=$project['ID'] ?>' class='unlink'>
@@ -15,10 +15,8 @@
                 <?php } ?>
 				<?php if (isset($_SESSION['state']) && $_SESSION['state']=="admin") {?>
 					<a href="index.php?url=edit_project/<?=$project['ID']?>" class='button'>Modifier le projet.</a>
-	<?php	} ?>
-				<?php if (isset($_SESSION['state']) && $_SESSION['state']=='admin') {?>
-						<a href="index?url=delete_project/<?=$project['ID']?>" class='button'>Suprimer le projet.</a>
-    <?php } ?>
+                    <a href="index?url=delete_project/<?=$project['ID']?>" class='button'>Suprimer le projet.</a>
+                <?php } ?>
 <?php }?>
 
 <?php $content = ob_get_clean();?>
