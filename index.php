@@ -16,8 +16,12 @@ try {
 	}elseif($url[0]==='deconnection'){
 		require('controllers/php/deconnection.php');
 	}elseif($url[0]==='projects'){
-		require('controllers/projectsContolller.php');
-		getProjects();
+		require('controllers/projectsContoller.php');
+		displayProjects();
+	}elseif($url[0]==='project' && isset($url[1])){
+        $project_id = (int)$url[1];
+		require('controllers/projectsContoller.php');
+		displayProject($project_id);
 	}
 	else{
 		require('views/error404.html');
