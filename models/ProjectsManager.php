@@ -7,7 +7,7 @@ class ProjectsManager extends Manager
 {
     public function getProjects(){
         $db = this->dbConnect();
-        $req_projects = $db->query('SELECT ID, creator, title, summary, DATE_FORMAT(publication_date, \'%d/%m/%Y à %Hh%imin\') AS date_fr, tags FROM projects');
+        $req_projects = $db->query('SELECT p.ID ID, u.username creator, p.title title, p.summary summary, DATE_FORMAT(publication_date, \'%d/%m/%Y à %Hh%imin\') AS date_fr, tags FROM projects p INNER JOIN users u ON u.ID = p.creator_id');
         $projects =$req_projects->fetch();   
         $req_projects->closeCursor();
         return $projects; 
@@ -15,7 +15,7 @@ class ProjectsManager extends Manager
     public function getProject($project_id){
         $project_id = (int)$project_id;
         $db = this->dbConnect();
-        $req_project = $db->prepare('SELECT ID, creator, title, content, publication_date, tags FROM projects WHERE ID=?');
+        $req_project = $db->prepare('SELECT p.ID ID, u.username creator, p.title title, p.content content,  DATE_FORMAT(publication_date, \'%d/%m/%Y à %Hh%imin\') AS date_fr, tags FROM projects p INNER JOIN users u ON u.ID = p.creator_id WHERE ID=? ');
         $req_project->execute(array($project_id));
         $project =$req_project->fetch(); 
         $req_project->closeCursor();  
