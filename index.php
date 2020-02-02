@@ -24,7 +24,7 @@ try {
 		displayProject($project_id);
 	}
 	else{
-		require('views/error404.html');
+		require('views/error404.php');
 	}
 } catch (Exception $e) {
 	echo 'Erreur '.$e->getMessage();

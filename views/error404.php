@@ -1,13 +1,6 @@
-<!DOCTYPE html>
-<html>
-	<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<link rel='shortcut icon' href="public/Images/Pythonsign.ico">
-	<meta http-equiv="Content-Security-Policy"
-	content="default-src &#39;none&#39;; base-uri &#39;self&#39;; connect-src &#39;self&#39;; form-action &#39;self&#39;; img-src &#39;self&#39; data:; script-src &#39;self&#39;; style-src &#39;unsafe-inline&#39;">
-	<meta content="origin" name="referrer">
-	<title>Oh no · JE, Inc.</title>
-	<meta name="viewport" content="width=device-width">
+<?php $title = 'Oh no · JE, Inc.'?>
+
+<?php ob_start(); ?>
 	<style type="text/css" media="screen">
 
 	body {
@@ -184,40 +177,18 @@
 
 	}
 
-	</style>
+</style>
 
-	</head>
-
-	
-
-	<body>
-
-	
-
-	<div class="container">
-
-	
-
+<div class="container">
 	<h1>Oopsy daisy!!!</h1>
-
 	<p>La page que vous recherchez n'est pas disponible pour le moment. </p>
-
 	<div id="suggestions">
-
 	<a href="mailto:bdouilleur@gmail.com">Nous contacter</a> —
-
 	<a href="index.php">Retour à la page d'accueil</a>
-
 	</div>
-
-	
-
 	<a href="index.php" class="logo logo-img-1x">
-
-	<img width="32" height="32" title="" alt="" src="https://thebdouilleur.github.io/Pythonsignev.png">
-
+	<img width="32" height="32" title="" alt="" src="public/Images/logo2.png">
 	</a>
-
-		</div>
-	</body>
-</html>
+</div>
+<?php $content = ob_get_clean();?>
+<?php require('views/template.php');?>
