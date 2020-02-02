@@ -32,7 +32,7 @@ class UsersManager extends Manager
     $passwd = sha1($passwd);
     $msg = 'Votre compte à bien été créé!';
     $insert_user = $db->prepare("INSERT INTO users (username, mail, passwd, state,  msg) VALUES(?, ?, ?, ?, ?)");
-    $insert_user->execute(array($username, $mail, $passwd, 'admin', $msg));
+    $insert_user->execute(array($username, $mail, $passwd, 'user', $msg));
     $insert_user->closeCursor();
   }
 

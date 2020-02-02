@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<title><?= $title ?></title>
-	<link rel="stylesheet" href="public/style/style.css">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link rel='shortcut icon' href="public/Images/Pythonsign.ico">
 	<link href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet">
@@ -25,12 +25,12 @@
 			<li class='nav-item'><a class="nav-link" href="index.php?url=projects" class="nav-link">Projets en cours</a></li>
 			<?php if(isset($_SESSION['ID']) AND $_SESSION['state']=='admin'){ ?>
 				<li class="nav-item dropdown">
-        				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
           					Discussions
         				</a>
         				<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          					<a class="dropdown-item" href="#">Discussion utilisateur</a>
-						<a class="dropdown-item" href="#">Discussion admin</a>
+          					<a class="dropdown-item" href="index.php?url=chat">Discussion utilisateur</a>
+						<a class="dropdown-item" href="index.php?url=chat_admin">Discussion admin</a>
         				</div>
       				</li>
 			<?php } else if(isset($_SESSION['ID'])){ ?>
@@ -46,12 +46,10 @@
 	 			echo $date;
 			?>
 		</div>
-		<div class='icones spacebetween'>
+		<div>
 		<?php if(isset($_SESSION['ID'])){ ?>
-			<a cl=lass='nav-link' href="index.php?url=edit_profil">
-			<div class="edition">
+			<a class='navbar-brand nav-link' href="index.php?url=edit_profil">
 				<?=$_SESSION['username']?>
-			</div>
 			</a>
 		<div>
 			<a href="index.php?url=deconnection">
