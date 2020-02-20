@@ -1,4 +1,8 @@
 <?php
+/*
+@todo: tesst du todo
+@body: Test du todo
+*/
 session_start();
 include_once('cookie_connect.php');
 try {new PDO('mysql:host=localhost;dbname=jesite', 'jesite_user', '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
