@@ -1,7 +1,7 @@
 <?php
 /*
-@todo: tesst du todo
-@body: Test du todo
+* @todo tesst du todo
+* @body Test du todo
 */
 session_start();
 include_once('cookie_connect.php');
