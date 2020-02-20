@@ -23,6 +23,10 @@ try {
 		require('controllers/projectsController.php');
 		displayProject($project_id);
 	}
+	/*
+		@todo: make all the route
+		@body : Make all the routes, this is a test with todo
+	*/
 	else{
 		require('views/error404.php');
 	}
