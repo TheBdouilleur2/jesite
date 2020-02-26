@@ -22,11 +22,10 @@ try {
         $project_id = (int)$url[1];
 		require('controllers/projectsController.php');
 		displayProject($project_id);
+	}elseif($url[0]==='new_project'){
+		require('controllers/projectsController.php');
+		createProject();
 	}
-	/*
-		@todo: make all the route
-		@body : Make all the routes, this is a test with todo
-	*/
 	else{
 		require('views/error404.php');
 	}
