@@ -25,6 +25,9 @@ try {
 	}elseif($url[0]==='new_project'){
 		require('controllers/projectsController.php');
 		createProject();
+	}elseif($url[0]==='chat'){
+		require('controllers/chatController.php');
+		displayUsersMessages();
 	}
 	else{
 		require('views/error404.php');
