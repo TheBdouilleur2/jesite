@@ -25,7 +25,7 @@
 				<li class='nav-item'><a class="nav-link" href="index.php?url=admin_space">Espace admin</a></li>
 			<?php } ?>
 			<!-- <li>Articles</li> -->
-			<li class='nav-item'><a class="nav-link" href="index.php?url=projects" class="nav-link">Projets en cours</a></li>
+			<!--<li class='nav-item'><a class="nav-link" href="index.php?url=projects" class="nav-link">Projets en cours</a></li> -->
 			<?php if(isset($_SESSION['ID']) AND $_SESSION['state']=='admin'){ ?>
 				<li class="nav-item dropdown">
         				<a class="nav-link dropdown-toggle" href="index.php?url=chats" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">

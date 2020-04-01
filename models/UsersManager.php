@@ -29,7 +29,7 @@ class UsersManager extends Manager
 
   public function createUser($username, $mail, $passwd){
     $db = $this->dbConnect();
-    $passwd = sha1($passwd);
+    $passwd = password_hash($passwd, PASSWORD_DEFAULT);
     $msg = 'Votre compte à bien été créé!';
     $insert_user = $db->prepare("INSERT INTO users (username, mail, passwd, state,  msg) VALUES(?, ?, ?, ?, ?)");
     $insert_user->execute(array($username, $mail, $passwd, 'user', $msg));
