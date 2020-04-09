@@ -2,7 +2,7 @@
 <?php ob_start(); ?>
    <p>Veuillez creer un compte.</p>
    	<p>Les champs marqué d'une * sont à renseigner obligatoirement.</p>
-   	<form action='' method="POST" id="sign-up">
+   	<form id="sign-up">
        <table>
             <tr>
                <td align="right">
@@ -18,14 +18,6 @@
                </td>
                <td>
                   <input type="email" placeholder="Votre mail" id="mail" name="mail" value="<?php if(isset($mail)) { echo $mail; } ?>" />
-               </td>
-            </tr>
-            <tr>
-               <td align="right">
-                  <label for="mail2">Confirmation du mail :</label>
-               </td>
-               <td>
-                  <input type="email" placeholder="Confirmez votre mail" id="mail2" name="mail2" value="<?php if(isset($mail2)) { echo $mail2; } ?>" />
                </td>
             </tr>
             <tr>
@@ -61,9 +53,8 @@
             </tr>
          </table>
    	</form>
-      <p><?php if (isset($error)) {
-         echo $error;
-      } ?></p>
+
+<script type="text/javascript" src="public/js/sign_upForm.js"></script>
 <?php $content=ob_get_clean();
 require("views/template.php");
 ?>
