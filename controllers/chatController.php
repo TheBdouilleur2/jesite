@@ -1,6 +1,6 @@
 <?php
 
-require_once("models/ChatManager.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/models/ChatManager.php");
 
 $chatManager = new ChatManager();
 

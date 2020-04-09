@@ -1,7 +1,7 @@
 <?php
 if (!isset($_SESSION['id']) && empty($_SESSION['id'])) {
 
-	require('models/UsersManager.php');
+	require($_SERVER['DOCUMENT_ROOT'] . '/models/UsersManager.php');
 
 	$UserManager = new UsersManager();
 
@@ -15,14 +15,14 @@ if (!isset($_SESSION['id']) && empty($_SESSION['id'])) {
 				$user_info = $UserManager->getUser($username_connect);
 				if(password_verify($passwd_connect, $user_info['passwd'])){
 					$_SESSION['ID'] = $user_info['ID'];
-				$_SESSION['username'] = $user_info['username'];
-				$_SESSION['mail'] = $user_info['mail'];
-				$_SESSION['state'] = $user_info['state'];
-				$_SESSION['msg'] = $user_info['msg'];
-				if(isset($_POST[rememberme])){
-					setcookie('username', $username_connect, time()+365*24*60*60);
-					setcookie('passwd', $passwd_connect, time()+365*24*60*60);
-				}
+					$_SESSION['username'] = $user_info['username'];
+					$_SESSION['mail'] = $user_info['mail'];
+					$_SESSION['state'] = $user_info['state'];
+					$_SESSION['msg'] = $user_info['msg'];
+					if(isset($_POST[rememberme])){
+						setcookie('username', $username_connect, time()+365*24*60*60);
+						setcookie('passwd', $passwd_connect, time()+365*24*60*60);
+					}
 				header('Location: index.php');
 			}else{
 				$error = "Mot de passe incorect";

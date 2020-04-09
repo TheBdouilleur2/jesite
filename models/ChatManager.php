@@ -1,6 +1,6 @@
 <?php
 
-require_once("models/Manager.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/models/Manager.php");
 
 /**
  * 

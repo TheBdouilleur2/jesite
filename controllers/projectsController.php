@@ -1,6 +1,6 @@
 <?php
 
-require('models/ProjectsManager.php');
+require($_SERVER['DOCUMENT_ROOT'] . '/models/ProjectsManager.php');
 $projectsManager = new ProjectsManager();
 
 function displayProjects(){
