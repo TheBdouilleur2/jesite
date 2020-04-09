@@ -1,7 +1,7 @@
 <?php
 if (!isset($_SESSION['id']) && empty($_SESSION['id'])) {
 
-	require('models/UsersManager.php');
+	require($_SERVER['DOCUMENT_ROOT'] . '/models/UsersManager.php');
 
 	$UserManager = new UsersManager();
 

@@ -1,5 +1,5 @@
 <?php
-require('models/Manager.php');
+require($_SERVER['DOCUMENT_ROOT'] . '/models/Manager.php');
 /**
  * Model to manage users.
  */

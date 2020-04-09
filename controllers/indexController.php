@@ -1,5 +1,5 @@
 <?php
-require ('models/UsersManager.php');
+require ($_SERVER['DOCUMENT_ROOT'] . '/models/UsersManager.php');
 
 $userManager = new UsersManager();
 $userManager->connectUser();
