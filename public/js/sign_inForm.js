@@ -10,7 +10,6 @@ document.getElementById("sign-in").addEventListener("submit", function(e) {
 			if (res.success) {
 				console.log("Utilisateur conecté !");
 				console.log(res.data);
-				alert("Votre compte à été créé avec succes!");
 
 				document.location.href = "http://jesite.fr/index.php"; /* Redirection vers la page d'acceuil */
 			} else {
