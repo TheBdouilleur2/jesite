@@ -15,7 +15,7 @@ try {
 		sign_in();
 	}elseif($url[0]==='deconnection'){
 		require('controllers/php/deconnection.php');
-	}elseif($url[0]==='projects'){
+	}/* elseif($url[0]==='projects'){
 		require('controllers/projectsController.php');
 		displayProjects();
 	}elseif($url[0]==='project' && isset($url[1])){
@@ -25,9 +25,12 @@ try {
 	}elseif($url[0]==='new_project'){
 		require('controllers/projectsController.php');
 		createProject();
-	}elseif($url[0]==='chat'){
+	} */elseif($url[0]==='chat'){
 		require('controllers/chatController.php');
 		displayUsersMessages();
+	}elseif ($url[0] === 'chat_admin') {
+		require_once("controllers/chatController.php");
+		displayAdminMessages();
 	}
 	else{
 		require('views/error404.php');
