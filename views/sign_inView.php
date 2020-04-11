@@ -2,7 +2,7 @@
 <?php ob_start(); ?>
    <p>Veuillez creer un compte.</p>
    	<p>Les champs marqué d'une * sont à renseigner obligatoirement.</p>
-   	<form action='' method="POST" id="sign_in">
+   	<form method="POST" id="sign-in">
        <table>
             <tr>
                <td align="right">
@@ -37,9 +37,8 @@
             </tr>
          </table>
    	</form>
-      <p><?php if (isset($error)) {
-         echo $error;
-      }?></p>
+   
+<script type="text/javascript" src="public/js/sign_inForm.js"></script>
 <?php $content=ob_get_clean();
 require("views/template.php");
 ?>

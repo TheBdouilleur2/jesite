@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 $success = 0;
 $msg = "Une erreur est survenue (script.php)";
 
@@ -14,7 +16,6 @@ if (!empty($_POST['username']) AND !empty($_POST['passwd']) AND !empty($_POST['p
 	    $is_username_exist = $UserManager->userTest($username);
 	    if(!$is_username_exist){
 	        if($passwd == $passwd2) {
-	        	$passwd = password_hash($passwd, PASSWORD_DEFAULT);
 	        	if(!empty($_POST['mail'])){
 	        		$mail = htmlspecialchars(strip_tags($_POST['mail']));
 	        	}else{
@@ -31,7 +32,7 @@ if (!empty($_POST['username']) AND !empty($_POST['passwd']) AND !empty($_POST['p
 	            $_SESSION['mail'] = $user_info['mail'];
 	            $_SESSION['state'] = $user_info['state'];
 		        $_SESSION['msg'] = $user_info['msg'];
-		        $success = 1;
+				$success = 1;
 		    }else {
 		        $msg = ("Vos mots de passes ne correspondent pas !");
 	        }
@@ -45,5 +46,5 @@ if (!empty($_POST['username']) AND !empty($_POST['passwd']) AND !empty($_POST['p
 	$msg = ("Tous les champs doivent être complétés !");
 }
 
-$res = ["success" => $success, "msg" => $msg];
-echo json_encode($res);
+echo json_encode(compact('success', 'msg'));
+

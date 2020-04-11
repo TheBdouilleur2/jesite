@@ -27,15 +27,23 @@ class UsersManager extends Manager
     return $user_info;
   }
 
+  /* createUser: 
+  params: username, mail and password
+  insert the user into the database users. */
   public function createUser($username, $mail, $passwd){
     $db = $this->dbConnect();
-    $passwd = password_hash($passwd, PASSWORD_DEFAULT);
+    $passwd = password_hash($passwd, PASSWORD_DEFAULT, ["cost" => 12]);
     $msg = 'Votre compte à bien été créé!';
     $insert_user = $db->prepare("INSERT INTO users (username, mail, passwd, state,  msg) VALUES(?, ?, ?, ?, ?)");
     $insert_user->execute(array($username, $mail, $passwd, 'user', $msg));
     $insert_user->closeCursor();
   }
 
+  /* setUser:
+  Change a value of an user like his username or password.
+  params: - ID of the user 
+          - name of the field we would change
+          - change value */
   public function setUser($user_id, $field_name, $new_value){
     $db = $this->dbConnect();
     $set_user = $db->prepare('UPDATE users SET ?=? WHERE ID=?');
@@ -43,6 +51,8 @@ class UsersManager extends Manager
     $set_user->closeCursor();
   }
 
+  /* connectUser:
+  If there are cookies, the user is connected. */
   public function connectUser(){
     if(isset($_COOKIE['username']) AND isset($_COOKIE['passwd']) && !empty($_COOKIE['username']) && !empty($_COOKIE['passwd'])){
       $db = $this->dbConnect();
@@ -61,6 +71,10 @@ class UsersManager extends Manager
     }
   }
 
+  /* userTest:
+  Check if the user whith username exist
+  return: True -> if the username is used
+          False -> if the username is not used. */
   public function userTest($user){
     $db = $this->dbConnect();
     $username = htmlspecialchars($user);
@@ -81,21 +95,6 @@ class UsersManager extends Manager
     $mail = htmlspecialchars($mail);
     $reqUserTest = $db->prepare('SELECT * FROM users WHERE mail=?');
     $reqUserTest->execute(array($mail));
-    $is_user_exist = $reqUserTest->rowCount();
-    if ($is_user_exist === 0) {
-        $reqUserTest->closeCursor();
-        return false;
-    }else{
-        $reqUserTest->closeCursor();
-        return true;
-    }
-  }
-
-  public function passwdTest($passwd){
-    $db = $this->dbConnect();
-    $passwd = sha1($passwd);
-    $reqUserTest = $db->prepare('SELECT * FROM users WHERE passwd=?');
-    $reqUserTest->execute(array($passwd));
     $is_user_exist = $reqUserTest->rowCount();
     if ($is_user_exist === 0) {
         $reqUserTest->closeCursor();
