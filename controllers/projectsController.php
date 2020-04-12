@@ -5,7 +5,7 @@ $projectsManager = new ProjectsManager();
 
 function displayProjects(){
     $projects = $projectsManager->getProjects();
-    require("views/projectsView.php");
+    require("views/projects/projectsView.php");
 } 
 
 function displayProject( $project_id){
@@ -16,5 +16,5 @@ function displayProject( $project_id){
     $Parsedown->setSafeMode(true);
     $content = $Parsedown->text($project['content']);
     $tags = explode($project['tags'], "/");
-    require("views/projectView.php");
+    require("views/projects/projectView.php");
 } 

@@ -8,4 +8,4 @@
 <?php var_dump($_SESSION); ?>
 
 <?php $content = ob_get_clean();?>
-<?php require('views/template.php');?>
+<?php require('views/templates/template.php');?>
