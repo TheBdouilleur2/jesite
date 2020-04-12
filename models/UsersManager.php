@@ -8,13 +8,15 @@ class UsersManager extends Manager
   /*
     $limit: number max of users which select.
   */
-  public function getUsers($limit){
+  public function getUsers(int $limit){
     $db = $this->dbConnect();
-    $users = $db->prepare('SELECT * FROM users ORDER BY id LIMIT ?,?');
+    $users = $db->prepare('SELECT * FROM users ORDER BY id DESC LIMIT ?,?');
     if($limit == 10){
       $users->execute(array(0, $limit));
-    }else{
+    }elseif($limit > 10){
       $users->execute(array($limit-10, $limit));
+    }else{
+      $users = $db->query('SELECT * FROM users ORDER BY id DESC');
     }
     return $users;
   }
@@ -43,11 +45,46 @@ class UsersManager extends Manager
   Change a value of an user like his username or password.
   params: - ID of the user 
           - name of the field we would change
-          - change value */
-  public function setUser($user_id, $field_name, $new_value){
+          - change value 
+          not functional*/
+  public function setUser(int $user_id, string $field_name, $new_value){
     $db = $this->dbConnect();
-    $set_user = $db->prepare('UPDATE users SET ?=? WHERE ID=?');
+    $set_user = $db->prepare("UPDATE users SET ?=? WHERE ID=?");
     $set_user->execute(array($field_name, $new_value, $user_id));
+    $set_user->closeCursor();
+  }
+
+    /* setUsername:
+  Change a value of an user's username.
+  params: - ID of the user 
+          - change value */
+  public function setUsername(int $user_id, $new_value){
+    $db = $this->dbConnect();
+    $set_user = $db->prepare("UPDATE users SET `username`=? WHERE ID=?");
+    $set_user->execute(array($new_value, $user_id));
+    $set_user->closeCursor();
+  }
+
+      /* setMail:
+  Change a value of an user's mail.
+  params: - ID of the user 
+          - change value */
+  public function setMail(int $user_id, $new_value){
+    $db = $this->dbConnect();
+    $set_user = $db->prepare("UPDATE users SET `mail`=? WHERE ID=?");
+    $set_user->execute(array($new_value, $user_id));
+    $set_user->closeCursor();
+  }
+
+  /* setPasswd:
+  Change a value of an user's passwd.
+  params: - ID of the user 
+          - change value */
+  public function setPasswd(int $user_id, $new_passwd){
+    $db = $this->dbConnect();
+    $passwd = password_hash($new_passwd, PASSWORD_DEFAULT, ["cost" => 12]);
+    $set_user = $db->prepare("UPDATE users SET `passwd`=? WHERE ID=?");
+    $set_user->execute(array($passwd, $user_id));
     $set_user->closeCursor();
   }
 
@@ -80,21 +117,6 @@ class UsersManager extends Manager
     $username = htmlspecialchars($user);
     $reqUserTest = $db->prepare('SELECT * FROM users WHERE username=?');
     $reqUserTest->execute(array($username));
-    $is_user_exist = $reqUserTest->rowCount();
-    if ($is_user_exist === 0) {
-        $reqUserTest->closeCursor();
-        return false;
-    }else{
-        $reqUserTest->closeCursor();
-        return true;
-    }
-  }
-
-  public function mailTest($mail){
-    $db = $this->dbConnect();
-    $mail = htmlspecialchars($mail);
-    $reqUserTest = $db->prepare('SELECT * FROM users WHERE mail=?');
-    $reqUserTest->execute(array($mail));
     $is_user_exist = $reqUserTest->rowCount();
     if ($is_user_exist === 0) {
         $reqUserTest->closeCursor();

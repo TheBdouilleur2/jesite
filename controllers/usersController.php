@@ -6,10 +6,16 @@ if (!isset($_SESSION['id']) && empty($_SESSION['id'])) {
 	$UserManager = new UsersManager();
 
 	function sign_up(){
-		require('views/sign_upView.php');
+		require('views/users/sign_upView.php');
 	}
 	function sign_in(){
-		require('views/sign_inView.php');
+		require('views/users/sign_inView.php');
+	}
+
+	function profile(){
+		$title = "Profil";
+
+		require_once($_SERVER['DOCUMENT_ROOT'] . '/views/users/profile.php');
 	}
 
 }else{
