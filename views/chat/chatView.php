@@ -2,7 +2,7 @@
 <form id='send_msg' >
 	<div class="form-group">
 		<label for="msg" ><?php echo $_SESSION['username']; ?>:</label>
-		<textarea class="form-control" id="msg" name='msg'></textarea>
+		<textarea autofocus class="form-control" id="msg" name='msg'></textarea>
 		<input type="text" hidden value='<?=$chat_category?>' name='category' id='category'>
 	</div>
 	<input type='submit' name='send_msg' value="Poster" />
@@ -29,4 +29,4 @@
 </script>
 
 <?php $content = ob_get_clean();?>
-<?php require('views/template.php');?>
+<?php require('views/templates/template.php');?>
