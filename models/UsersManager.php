@@ -29,6 +29,16 @@ class UsersManager extends Manager
     return $user_info;
   }
 
+  /* getUserByID:
+  get all field of an user by his ID. */
+  public function getUserByID(int $id){
+    $db = $this->dbConnect();
+    $user = $db->prepare('SELECT * FROM users WHERE ID=?');
+    $user->execute(array($id));
+    $user_info = $user->fetch();
+    return $user_info;
+  }
+
   /* createUser: 
   params: username, mail and password
   insert the user into the database users. */
@@ -88,6 +98,21 @@ class UsersManager extends Manager
     $set_user->closeCursor();
   }
 
+      /* setUsername:
+  Change a value of an user's state.
+  params: - ID of the user 
+          - change value */
+    public function setState(int $user_id, $new_value){
+        if($new_value === 'admin' || $new_value === 'user'){
+            $db = $this->dbConnect();
+            $set_user = $db->prepare("UPDATE users SET `state`=? WHERE ID=?");
+            $set_user->execute(array($new_value, $user_id));
+            $set_user->closeCursor();
+        }
+        return False;
+    }
+
+
   /* connectUser:
   If there are cookies, the user is connected. */
   public function connectUser(){
@@ -124,6 +149,17 @@ class UsersManager extends Manager
     }else{
         $reqUserTest->closeCursor();
         return true;
+    }
+  }
+
+  public function deleteUser(int $id){
+    $db = $this->dbConnect();
+    if($this->getUserByID($id)){
+      $req_delete = $db->prepare("DELETE FROM users WHERE ID=?");
+      $req_delete->execute(array($id));
+      return True;
+    }else{
+      return False;
     }
   }
 }
