@@ -40,7 +40,7 @@
 			<?php } else if(isset($_SESSION['ID'])){ ?>
 				<li class='nav-item'><a class="nav-link" href='chat'>Discussion</a></li>
 			<?php } else{ ?>
-				<li class='nav-item'><a class="nav-link" href='show'>Donner un avis</a></li>
+				<!-- <li class='nav-item'><a class="nav-link" href='show'>Donner un avis</a></li> -->
 			<?php }?>
 			
 		</ul>
