@@ -41,7 +41,6 @@ if(isset($newPasswd)){
             $user = $UserManager->getUser($_SESSION['username']);
             if(!password_verify($newPasswd, $user['passwd'])){
                 $UserManager->setPasswd($_SESSION['ID'], $newPasswd);
-                $_SESSION['passwd'] = $newPasswd;
                 $success = 1;
             }else{
                 $msg = 'Le mot de passe renseigné n\'est pas nouveau';

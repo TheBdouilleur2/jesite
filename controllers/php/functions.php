@@ -44,6 +44,5 @@ function getOld ($msgDate){
 	}if ($max_element === 'ans' && $max_element_value === '1') {
 		$max_element = 'an';
 	}
-	// TODO: Surpimer les zéros et les données inutiles.
 	return 'il y a ' . $max_element_value . ' ' . $max_element;
 }
