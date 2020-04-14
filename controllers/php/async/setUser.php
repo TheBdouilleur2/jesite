@@ -46,7 +46,7 @@ if(isset($newPasswd)){
                 $msg = 'Le mot de passe renseigné n\'est pas nouveau';
             }
         }else{
-            $msg = 'Les mots de passes ne corespondent pas!';
+            $msg = 'Les mots de passes ne correspondent pas!';
         }
     }else{
         $msg = 'Veuillez confirmer votre mot de passe!';

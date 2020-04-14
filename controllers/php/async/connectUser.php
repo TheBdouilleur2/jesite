@@ -26,10 +26,10 @@ if (!empty($username_connect) && !empty($passwd_connect)) {
                 setcookie('passwd', $passwd_connect, time()+365*24*60*60);
             }
         }else{
-            $msg = "Mot de passe incorect";
+            $msg = "Mot de passe incorrect";
         }							
     }else{
-        $msg = "Pseudo inconnu, si vous n'avez pas de compte, créé en un";
+        $msg = "Pseudo inconnu, si vous n'avez pas de compte, créez en un";
     }
 }else{
     $msg = 'Tout les champs doivent être remplis';

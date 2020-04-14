@@ -1,7 +1,7 @@
-<?php $title = "Creer un compte"; ?>
+<?php $title = "Créer un compte"; ?>
 <?php ob_start(); ?>
-   <p>Veuillez creer un compte.</p>
-   	<p>Les champs marqué d'une * sont à renseigner obligatoirement.</p>
+   <p>Veuillez créer un compte.</p>
+   	<p>Les champs marqués d'une * sont à renseigner obligatoirement.</p>
    	<form id="sign-up">
        <table>
             <tr>

@@ -46,7 +46,7 @@ $(".supr").click(function(e){
 			console.log(this.response);
 			var res = this.response;
 			if (res.success) {
-				console.log("Utilisateur suprimé");
+				console.log("Utilisateur supprimé");
 				$('.users').load('../controllers/php/loadUsers.php');
 			} else {
 				alert(res.msg);
@@ -56,7 +56,7 @@ $(".supr").click(function(e){
 		}
 	};
 
-    alert('Êtes vous bien sûr de vouloir suprimer cet utilisateur?');
+    alert('Êtes vous bien sûr de vouloir supprimer cet utilisateur?');
 	xhr.open("POST", "controllers/php/async/deleteUser.php", true);
 	xhr.responseType = "json";
     xhr.send(data);
