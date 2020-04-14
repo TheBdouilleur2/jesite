@@ -8,10 +8,10 @@ document.getElementById("sign-in").addEventListener("submit", function(e) {
 			console.log(this.response);
 			var res = this.response;
 			if (res.success) {
-				console.log("Utilisateur conecté !");
+				console.log("Utilisateur connecté !");
 				console.log(res.data);
 
-				document.location.href = "http://jesite.fr/index.php"; /* Redirection vers la page d'acceuil */
+				document.location.href = "http://jesite.fr/index.php"; /* Redirection vers la page d'acceuil *///Mauvaise adresse
 			} else {
 				alert(res.msg);
 			}
