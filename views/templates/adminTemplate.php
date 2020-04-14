@@ -57,7 +57,7 @@
 			</a>
 		<div>
 			<a href="deconnection">
-			<img src="public/Images/deconnection.png" alt="Deconnection"></a>
+			<img src="public/Images/deconnection.png" alt="Déconnection"></a>
 		</div>
 	 	<?php }else{?>
 			<a href="sign_in">
