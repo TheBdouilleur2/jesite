@@ -1,0 +1,4 @@
+.theia/*
+.github/*
+.gitpod.Dockerfile
+.gitpod.yml
