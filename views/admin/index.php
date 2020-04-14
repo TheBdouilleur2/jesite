@@ -9,7 +9,7 @@
       <th scope="col">Pseudo</th>
       <th scope="col">Message</th>
       <th scope='col'>Permissions</th>
-      <th scope='col'>Suprimer</th>
+      <th scope='col'>Supprimer</th>
     </tr>
   </thead>
   <tbody>
@@ -26,7 +26,7 @@
                 <td>
                   <?=($user['ID']===$_SESSION['ID'])?
                   'Vous':
-                  "<a type='button' class='btn btn-danger supr' href='".$user['ID']."'>Suprimer</a>"?>
+                  "<a type='button' class='btn btn-danger supr' href='".$user['ID']."'>Supprimer</a>"?>
                   </td>
             </tr>
       <?php } ?>
