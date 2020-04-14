@@ -15,7 +15,7 @@
                 <?php } ?>
 				<?php if (isset($_SESSION['state']) && $_SESSION['state']=="admin") {?>
 					<a href="index.php?url=edit_project/<?=$project['ID']?>" class='button'>Modifier le projet.</a>
-                    <a href="index?url=delete_project/<?=$project['ID']?>" class='button'>Suprimer le projet.</a>
+                    <a href="index?url=delete_project/<?=$project['ID']?>" class='button'>Supprimer le projet.</a>
                 <?php } ?>
 <?php }?>
 
