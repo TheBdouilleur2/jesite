@@ -15,7 +15,7 @@ if (!empty($_POST['msg'])) {
 	
 	// TODO: ajouter le traitement des liens
 
-	$msg = $Parsedown->text($msg);
+	$msg = $Parsedown->line($msg);
 
 	if($_POST['category'] === 'user'){
 		$chatManager->postUserMessage($msg, $_SESSION['ID']);
