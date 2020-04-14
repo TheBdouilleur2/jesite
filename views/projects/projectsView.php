@@ -1,23 +1,29 @@
-<?php $title = 'Projets'?>
-
 <?php ob_start(); ?>
-
 <!-- La page d'affichage des projets -->
-<?php foreach($projects as $project) { 
-    $tags = explode($project['tags'], "/");
-    ?>
-    <a href='index.php?url=project/<?=$project['ID'] ?>' class='unlink'>
-			<div class="project">
-				<p><strong><?=$project['title']?></strong>  publié le <?=$project['date_fr']?> par <strong>@<?=$project['creator']?></strong></p>
-				<p><?=nl2br($project['summary'])?></p>
-                <?php foreach ($tags as  $tag) { ?>
-                    <span class="badge"><?=$tag?></span>
-                <?php } ?>
-				<?php if (isset($_SESSION['state']) && $_SESSION['state']=="admin") {?>
-					<a href="index.php?url=edit_project/<?=$project['ID']?>" class='button'>Modifier le projet.</a>
-                    <a href="index?url=delete_project/<?=$project['ID']?>" class='button'>Supprimer le projet.</a>
-                <?php } ?>
+
+<?php while($project = $projects->fetch()){ 
+    $tags = explode("/", $project['tags']);    ?>
+    <a href='project/<?=$project['ID'] ?>' class="unlike">
+		<div class="project">
+            <p><strong><?=$project['title']?></strong>  publié le <?=$project['date_fr']?> par <strong>@<?=$project['creator']?></strong>
+            <?php foreach($tags as $tag) { ?>
+                <span class="badge badge-secondary"><?=$tag?></span>
+            <?php } ?>
+            </p>
+			<p><?=nl2br($Parsedown->line($project['summary']))?></p>
+	    	<?php if(isset($_SESSION['state']) && $_SESSION['state']=="admin"){?>
+		    	<a href="edit_project/<?=$project['ID']?>" role='button' class='btn btn-sm btn-success' >Modifier le projet.</a>
+                <a href="delete_project/<?=$project['ID']?>" role='button' class='btn btn-sm btn-danger' >Suprimer le projet.</a>
+            <?php } ?>
+        </div>
+    </a>
+<?php }?>
+
+<?php
+if(isset($_SESSION['ID']) && $_SESSION['state'] === 'admin'){ ?>
+    <a href="new_project" role="button" class='btn btn-sm btn-primary'>Nouveau Projet</a>
+
 <?php }?>
 
 <?php $content = ob_get_clean();?>
-<?php require($_SERVER['DOCUMENT_ROOT'] . 'views/templates/template.php');?>
+<?php require_once($_SERVER['DOCUMENT_ROOT'] . '/views/templates/template.php');?>
