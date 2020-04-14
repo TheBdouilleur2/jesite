@@ -17,7 +17,7 @@ function getTheDate(){
 	Donne l'age d'une date par rapport avec la date actuelle.
 	params: $msgDate: date de l'objet à dater
 
-	reurn: un string
+	return: un string
 */
 function getOld ($msgDate){
 	$msgDate = date_create($msgDate);
