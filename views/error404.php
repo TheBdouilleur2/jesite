@@ -184,10 +184,10 @@
 	<p>La page que vous recherchez n'est pas disponible pour le moment. </p>
 	<div id="suggestions">
 	<a href="mailto:bdouilleur@gmail.com">Nous contacter</a> —
-	<a href="index.php">Retour à la page d'accueil</a>
+	<a href="/index.php">Retour à la page d'accueil</a>
 	</div>
-	<a href="index.php" class="logo logo-img-1x">
-	<img width="32" height="32" title="" alt="" src="public/Images/logo2.png">
+	<a href="/index.php" class="logo logo-img-1x">
+	<img width="32" height="32" title="" alt="" src="/public/Images/logo2.png">
 	</a>
 </div>
 <?php $content = ob_get_clean();?>
