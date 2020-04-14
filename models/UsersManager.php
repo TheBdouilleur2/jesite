@@ -1,4 +1,6 @@
 <?php
+//TODO : Suprimer le champ message dans la table user.
+
 require($_SERVER['DOCUMENT_ROOT'] . '/models/Manager.php');
 /**
  * Model to manage users.
