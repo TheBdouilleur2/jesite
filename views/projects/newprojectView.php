@@ -4,7 +4,7 @@
 
 <!-- La page de création d'un projet -->
 
-<p>Les champs marqué d'une * sont à renseigner obligatoirement.</p>
+<p>Les champs marqués d'une * sont à renseigner obligatoirement.</p>
 <form action='' method="POST" id="creation_project">
     <table>
         <tr>
