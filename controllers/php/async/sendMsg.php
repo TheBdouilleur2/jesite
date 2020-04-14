@@ -29,7 +29,7 @@ if (!empty($_POST['msg'])) {
 	
 
 } else {
-	$msg = "Veuillez renseigner tous le champ de message";
+	$msg = "Veuillez renseigner tous les champs du message";
 }
 echo json_encode(compact("success", "msg", "post")); 
 // La fonction compact() crée un tableau contenant le nom des variables et leur valeurs
