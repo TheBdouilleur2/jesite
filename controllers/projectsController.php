@@ -40,7 +40,7 @@ function editProject(int $id){
     global $projectsManager;
 
     $project = $projectsManager->getProject($id);
-    // TODO: Changer les <br /> en retour à la ligne
+    // TODO:Changer les <br /> en retour à la ligne
 
     $title = "Edition du projet";
     include_once(ROOT . "/views/projects/editProject.php");

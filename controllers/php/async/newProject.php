@@ -20,7 +20,7 @@ if (!empty($project_title) && !empty($project_content) && !empty($summary)) {
         if(strlen($project_content) > strlen($summary)){
             $project_exist = $ProjectManager->titleTest($project_title);
             if (!$project_exist) {
-                //TODO: Ne permettre que certains tags, avec une liste en bdd et une barre de recherche;
+                //TODO:Ne permettre que certains tags, avec une liste en bdd et une barre de recherche;
                 $ProjectManager->createProject($project_title, $_SESSION['ID'], $project_content, $summary, $tags);
                 $_SESSION['msg'] = 'Votre project <strong>'.$project_title.'</strong> a bien été créé';
                 $success = 1;
