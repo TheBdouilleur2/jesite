@@ -13,7 +13,7 @@ function displayUsersMessages(){
 		foreach($messages[2] as $sending_date){
 			$sending_dates[] = getOld($sending_date);
 		}
-		$title = 'Discussion';
+		$title = 'Discussion·JE';
 		$chat_category = 'user';
 		require_once("views/chat/chatView.php");
 	}else {
@@ -29,7 +29,7 @@ function displayAdminMessages(){
 		foreach($messages[2] as $sending_date){
 			$sending_dates[] = getOld($sending_date);
 		}
-		$title = 'Discussion admin';
+		$title = 'Discussion admin·JE';
 		$chat_category = 'admin';
 		require_once("views/chat/chatView.php");
 	}else {

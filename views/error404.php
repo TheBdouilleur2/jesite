@@ -1,4 +1,4 @@
-<?php $title = 'Oh no · JE, Inc.'?>
+<?php $title = 'Oh no·JE'?>
 
 <?php ob_start(); ?>
 	<style type="text/css" media="screen">

@@ -13,7 +13,7 @@ if (!isset($_SESSION['id']) && empty($_SESSION['id'])) {
 	}
 
 	function profile(){
-		$title = "Profil";
+		$title = "Profil·JE";
 
 		require_once($_SERVER['DOCUMENT_ROOT'] . '/views/users/profile.php');
 	}
