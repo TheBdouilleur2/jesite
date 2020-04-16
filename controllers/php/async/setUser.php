@@ -7,12 +7,12 @@ $msg = "Une erreur est survenue (script.php)";
 require_once($_SERVER['DOCUMENT_ROOT'] . "/models/UsersManager.php");
 $UserManager = new UsersManager();
 
-$newUsername = htmlspecialchars(strip_tags($_POST['new_username']));
-$newMail = htmlspecialchars(strip_tags($_POST['new_mail']));
-$newPasswd = htmlspecialchars(strip_tags($_POST['new_passwd']));
-$newPasswd2 = htmlspecialchars(strip_tags($_POST['new_passwd2']));
+$user = $UserManager->getUserByID($_SESSION['ID']);
 
-if(isset($newUsername) && $newUsername !== $_SESSION['username']){
+extract($_POST);
+
+if(isset($new_username) && $new_username !== $_SESSION['username']){
+    $newUsername = htmlspecialchars(strip_tags($new_username));
     if (strlen($newUsername) < 21) {
         $is_username_exist = $UserManager->userTest($newUsername);
         if(!$is_username_exist){
@@ -27,7 +27,8 @@ if(isset($newUsername) && $newUsername !== $_SESSION['username']){
     }
 }
 
-if(isset($newMail) && $newMail !== $_SESSION['mail']){
+if(isset($new_mail) && $new_mail !== $_SESSION['mail']){
+    $newMail = htmlspecialchars(strip_tags($new_mail));
     if(filter_var($newMail, FILTER_VALIDATE_EMAIL)){
         $UserManager->setMail($_SESSION['ID'], $newMail);
         $_SESSION['mail'] = $newMail;
@@ -35,8 +36,10 @@ if(isset($newMail) && $newMail !== $_SESSION['mail']){
     }
 }
 
-if(isset($newPasswd)){
-    if(isset($newPasswd2)){
+if(!empty($new_passwd)){
+    if(!empty($new_passwd2)){
+        $newPasswd = htmlspecialchars(strip_tags($new_passwd));
+        $newPasswd2 = htmlspecialchars(strip_tags($new_passwd2));
         if($newPasswd == $newPasswd2){
             $user = $UserManager->getUser($_SESSION['username']);
             if(!password_verify($newPasswd, $user['passwd'])){
