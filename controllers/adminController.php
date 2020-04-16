@@ -7,7 +7,7 @@ if (!isset($_SESSION['id']) && empty($_SESSION['id']) && $_SESSION['state'] === 
     
     function index(){
         global $UserManager;
-        $title = 'Admin space';
+        $title = 'Espace Admin·JE';
         $users = $UserManager->getUsers(0);
         require_once($_SERVER['DOCUMENT_ROOT'] . '/views/admin/index.php');
     }

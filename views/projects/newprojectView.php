@@ -1,4 +1,4 @@
-<?php $title = 'Créer un projet'?>
+<?php $title = 'Créer un projet·JE'?>
 
 <?php ob_start(); ?>
 

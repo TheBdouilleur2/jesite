@@ -1,4 +1,4 @@
-<?php $title = "Créer un compte"; ?>
+<?php $title = "Créer un compte·JE"; ?>
 <?php ob_start(); ?>
    <p>Veuillez créer un compte.</p>
    	<p>Les champs marqués d'une * sont à renseigner obligatoirement.</p>

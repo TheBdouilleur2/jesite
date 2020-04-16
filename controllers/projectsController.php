@@ -10,7 +10,7 @@ function displayProjects(){
     global $projectsManager, $Parsedown;
     $projects = $projectsManager->getProjects();
 
-    $title = "Projets";
+    $title = "Projets·JE";
 
     include_once("views/projects/projectsView.php");
 } 
@@ -31,7 +31,7 @@ function displayProject( $project_id){
 function newProject(){
     global $projectsManager;
 
-    $title = 'Créer un projet';
+    $title = 'Créer un projet·JE';
     include_once(ROOT . "/views/projects/newprojectView.php");
 }
 
@@ -42,7 +42,7 @@ function editProject(int $id){
     $project = $projectsManager->getProject($id);
     // TODO:Changer les <br /> en retour à la ligne
 
-    $title = "Edition du projet";
+    $title = "Edition du projet·JE";
     include_once(ROOT . "/views/projects/editProject.php");
 }
 

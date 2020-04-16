@@ -1,4 +1,4 @@
-<?php $title = 'Jeune-Expert acceuil'?>
+<?php $title = 'Accueil·Jeunes Experts'?>
 
 <?php ob_start(); ?>
 

@@ -1,4 +1,4 @@
-<?php $title = "Se connecter"; ?>
+<?php $title = "Se connecter·JE"; ?>
 <?php ob_start(); ?>
    <p>Veuillez vous connecter.</p>
    	<form method="POST" id="sign-in">
