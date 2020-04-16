@@ -72,8 +72,9 @@ class UsersManager extends Manager
           - change value */
   public function setUsername(int $user_id, $new_value){
     $db = $this->dbConnect();
-    $set_user = $db->prepare("UPDATE users SET `username`=? WHERE ID=?");
-    $set_user->execute(array($new_value, $user_id));
+    $user_info = $this->getUserByID($user_id);
+    $set_user = $db->prepare("UPDATE users SET `username`=?, passwd=? , login_date=? WHERE ID=?");
+    $set_user->execute(array($new_value, $user_info['passwd'], $user_info['login_date'], $user_id));
     $set_user->closeCursor();
   }
 
@@ -83,8 +84,9 @@ class UsersManager extends Manager
           - change value */
   public function setMail(int $user_id, $new_value){
     $db = $this->dbConnect();
-    $set_user = $db->prepare("UPDATE users SET `mail`=? WHERE ID=?");
-    $set_user->execute(array($new_value, $user_id));
+    $user_info = $this->getUserByID($user_id);
+    $set_user = $db->prepare("UPDATE users SET `mail`=?, `passwd`=? , `login_date`=? WHERE ID=?");
+    $set_user->execute(array($new_value, $user_info['passwd'], $user_info['login_date'], $user_id));
     $set_user->closeCursor();
   }
 
@@ -95,8 +97,9 @@ class UsersManager extends Manager
   public function setPasswd(int $user_id, $new_passwd){
     $db = $this->dbConnect();
     $passwd = password_hash($new_passwd, PASSWORD_DEFAULT, ["cost" => 12]);
-    $set_user = $db->prepare("UPDATE users SET `passwd`=? WHERE ID=?");
-    $set_user->execute(array($passwd, $user_id));
+    $user_info = $this->getUserByID($user_id);
+    $set_user = $db->prepare("UPDATE users SET `username`=?, login_date=? WHERE ID=?");
+    $set_user->execute(array($new_passwd, $user_info['login_date'], $user_id));
     $set_user->closeCursor();
   }
 
@@ -107,8 +110,9 @@ class UsersManager extends Manager
     public function setState(int $user_id, $new_value){
         if($new_value === 'admin' || $new_value === 'user'){
             $db = $this->dbConnect();
-            $set_user = $db->prepare("UPDATE users SET `state`=? WHERE ID=?");
-            $set_user->execute(array($new_value, $user_id));
+            $user_info = $this->getUserByID($user_id);
+            $set_user = $db->prepare("UPDATE users SET `state`=?, passwd=? , login_date=? WHERE ID=?");
+            $set_user->execute(array($new_value, $user_info['passwd'], $user_info['login_date'], $user_id));
             $set_user->closeCursor();
         }
         return False;
