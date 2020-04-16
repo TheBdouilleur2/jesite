@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<title><?= $title ?></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="google-site-verification" content="53PRpFv6Bf7gUyxEM2VlAJKjl5nhnvz2-LSt15Vw8qk" />
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link rel="stylesheet" href="public/style/style.css">
 	<link rel='shortcut icon' href="public/Images/Pythonsign.ico">
