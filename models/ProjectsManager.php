@@ -1,10 +1,13 @@
 <?php
-require($_SERVER['DOCUMENT_ROOT'] . '/models/Manager.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/models/Manager.php');
 /**
  * Model to manage projects.
  */
 class ProjectsManager extends Manager
 {
+    /**
+     * Renvoie les differents projets.
+     */
     public function getProjects(){
         $db = $this->dbConnect();
         $req_projects = $db->query('SELECT p.ID ID, u.username creator, p.title title, p.summary summary, DATE_FORMAT(publication_date, \'%d/%m/%Y à %Hh%imin\') AS date_fr, tags FROM projects p INNER JOIN users u ON u.ID = p.creator_id');
