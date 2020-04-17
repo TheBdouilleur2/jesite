@@ -29,4 +29,4 @@
 <script src="public/js/newProject.js"></script>
 
 <?php $content = ob_get_clean();?>
-<?php require(ROOT . '/views/templates/template.php');?>
+<?php require_once(ROOT . '/views/templates/template.php');?>

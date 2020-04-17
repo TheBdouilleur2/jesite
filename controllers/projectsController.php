@@ -1,6 +1,6 @@
 <?php
 
-require($_SERVER['DOCUMENT_ROOT'] . '/models/ProjectsManager.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/models/ProjectsManager.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . "/controllers/php/Parsedown.php");
 
 $projectsManager = new ProjectsManager();
@@ -25,7 +25,7 @@ function displayProject( $project_id){
     $tags = explode("/", $project['tags']);
 
     $title = $project['title'];
-    include("views/projects/projectView.php");
+    include_once("views/projects/projectView.php");
 } 
 
 function newProject(){

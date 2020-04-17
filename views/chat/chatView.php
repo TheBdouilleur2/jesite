@@ -5,7 +5,7 @@
 		<textarea autofocus class="form-control" id="msg" name='msg'></textarea>
 		<input type="text" hidden value='<?=$chat_category?>' name='category' id='category'>
 	</div>
-	<input type='submit' name='send_msg' value="Poster" />
+	<input type='submit' class="btn btn-outline-dark" name='send_msg' value="Poster" />
 </form>
 
 <hr>
@@ -29,4 +29,4 @@
 </script>
 
 <?php $content = ob_get_clean();?>
-<?php require('views/templates/template.php');?>
+<?php require_once('views/templates/template.php');?>

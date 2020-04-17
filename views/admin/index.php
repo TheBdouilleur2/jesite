@@ -63,4 +63,4 @@
 <script src="public/js/admin.js"></script>
 
 <?php $content = ob_get_clean();?>
-<?php require('views/templates/adminTemplate.php');?>
+<?php require_once('views/templates/adminTemplate.php');?>

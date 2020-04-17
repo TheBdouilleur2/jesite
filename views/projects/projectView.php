@@ -17,4 +17,4 @@
 <hr>
 <!-- Affichage des commmentaires -->
 <?php $content = ob_get_clean();?>
-<?php require($_SERVER['DOCUMENT_ROOT'] . '/views/templates/template.php');?>
+<?php require_once($_SERVER['DOCUMENT_ROOT'] . '/views/templates/template.php');?>

@@ -1,5 +1,5 @@
 <?php
-require ($_SERVER['DOCUMENT_ROOT'] . '/models/UsersManager.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/models/UsersManager.php');
 
 $userManager = new UsersManager();
 $userManager->connectUser();
@@ -9,5 +9,5 @@ if (isset($_SESSION['ID'])) {
 	$msg = 'Bienvenue sur le page d\'accueil, tu peux trouver ici plein de choses super.';
 }
 
-require('views/indexView.php');
+require_once('views/indexView.php');
 ?>

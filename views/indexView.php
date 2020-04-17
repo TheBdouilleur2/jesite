@@ -1,5 +1,4 @@
 <?php $title = 'Accueil·Jeunes Experts'?>
-
 <?php ob_start(); ?>
 
 <!-- La page d'accueil -->
@@ -7,4 +6,4 @@
 <p><?php if(isset($_SESSION['msg'])){ echo htmlspecialchars($_SESSION['msg']);} ?></p>
 
 <?php $content = ob_get_clean();?>
-<?php require('views/templates/template.php');?>
+<?php require_oncer('views/templates/template.php');?>

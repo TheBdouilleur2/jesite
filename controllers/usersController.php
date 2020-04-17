@@ -1,15 +1,15 @@
 <?php
 if (!isset($_SESSION['id']) && empty($_SESSION['id'])) {
 
-	require($_SERVER['DOCUMENT_ROOT'] . '/models/UsersManager.php');
+	require_once($_SERVER['DOCUMENT_ROOT'] . '/models/UsersManager.php');
 
 	$UserManager = new UsersManager();
 
 	function sign_up(){
-		require('views/users/sign_upView.php');
+		require_once('views/users/sign_upView.php');
 	}
 	function sign_in(){
-		require('views/users/sign_inView.php');
+		require_once('views/users/sign_inView.php');
 	}
 
 	function profile(){
