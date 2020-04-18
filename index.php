@@ -27,7 +27,12 @@ try {
 	//	Projets:
 	elseif($url[0]==='projects'){
 		require_once('controllers/projectsController.php');
-		displayProjects();
+		if(isset($url[1])){
+			$page = (int)$url[1];
+		}else{
+			$page = 1;
+		}
+		displayProjects($page);
 	}elseif($url[0]==='project' && isset($url[1])){
         $project_id = (int)$url[1];
 		require_once('controllers/projectsController.php');

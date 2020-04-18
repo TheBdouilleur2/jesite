@@ -3,12 +3,18 @@
 require_once($_SERVER['DOCUMENT_ROOT'] . '/models/ProjectsManager.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . "/controllers/php/Parsedown.php");
 
-$projectsManager = new ProjectsManager();
+$ProjectsManager = new ProjectsManager();
 $Parsedown = new Parsedown();
 
-function displayProjects(){
-    global $projectsManager, $Parsedown;
-    $projects = $projectsManager->getProjects();
+function displayProjects($page = 1){
+    global $ProjectsManager, $Parsedown;
+    $perPage = 4;
+    $nbProjects = $ProjectsManager->getProjectsNumber();
+    $nbPage = ceil($nbProjects/$perPage);
+
+    $page = !($page>0 && $page<=$nbPage) ? 1 : $page;
+
+    $projects = $ProjectsManager->getProjects($page, $perPage);
 
     $title = "Projets·JE";
 
@@ -16,9 +22,9 @@ function displayProjects(){
 } 
 
 function displayProject( $project_id){
-    global $projectsManager, $Parsedown;
+    global $ProjectsManager, $Parsedown;
     $project_id = (int)$project_id;
-    $project = $projectsManager->getProject($project_id);
+    $project = $ProjectsManager->getProject($project_id);
 
     $content = $Parsedown->text($project['content']);
 
@@ -29,7 +35,6 @@ function displayProject( $project_id){
 } 
 
 function newProject(){
-    global $projectsManager;
 
     $title = 'Créer un projet·JE';
     include_once(ROOT . "/views/projects/newprojectView.php");
@@ -37,9 +42,9 @@ function newProject(){
 
 
 function editProject(int $id){
-    global $projectsManager;
+    global $ProjectsManager;
 
-    $project = $projectsManager->getProject($id);
+    $project = $ProjectsManager->getProject($id);
     // TODO:Changer les <br /> en retour à la ligne
 
     $title = "Edition du projet·JE";
@@ -47,9 +52,9 @@ function editProject(int $id){
 }
 
 function deleteProject(int $id){
-    global $projectsManager;
+    global $ProjectsManager;
 
-    $projectsManager->deleteProject($id);
+    $ProjectsManager->deleteProject($id);
     if(isset($_SERVER['HTTP_REFERER'])){
         header("Location: ".$_SERVER['HTTP_REFERER']);
     }else{
