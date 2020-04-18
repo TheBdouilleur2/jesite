@@ -9,7 +9,7 @@ $("#edit_profile").submit(function(e) {
 			var res = this.response;
 			if (res.success) {
 				console.log("Modification effectuée !");
-				document.location.href = "http://jesite.fr/profile"; /* Redirection vers la page d'acceuil *///Mauvaise adresse
+				document.location.href = "http://" + document.location.hostname + "/profile"
 			} else {
 				alert(res.msg);
 			}
