@@ -13,7 +13,8 @@ if (!isset($_SESSION['id']) && empty($_SESSION['id']) && $_SESSION['state'] === 
         global $UsersManager, $ProjectsManager, $Parsedown;
         $title = 'Espace Admin·JE';
         $users = $UsersManager->getUsers(0);
-        $projects = $ProjectsManager->getProjects();
+        $nbProjects = $ProjectsManager->getProjectsNumber();
+        $projects = $ProjectsManager->getProjects(1, $nbProjects);
 
         require_once($_SERVER['DOCUMENT_ROOT'] . '/views/admin/index.php');
     }
