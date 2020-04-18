@@ -6,4 +6,4 @@
 <p><?php if(isset($_SESSION['msg'])){ echo htmlspecialchars($_SESSION['msg']);} ?></p>
 
 <?php $content = ob_get_clean();?>
-<?php require_oncer('views/templates/template.php');?>
+<?php require_once('views/templates/template.php');?>

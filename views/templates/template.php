@@ -50,20 +50,20 @@
 			</div>
 			<div>
 			<?php if(isset($_SESSION['ID'])){ ?>
-				<a class='navbar-brand nav-link' href="profile">
+				<a class='navbar-brand nav-link' href="/profile">
 					<?=$_SESSION['username']?>
 				</a>
 			<div>
-				<a href="deconnection">
+				<a href="/deconnection">
 				<img src="/public/Images/deconnection.png" alt="Deconnection"></a>
 			</div>
 			<?php }else{?>
-				<a href="sign_in">
+				<a href="/sign_in">
 				<div class="sign">
 					<img src="/public/Images/sign-in.png" alt="Sign-in">
 				</div>
 			</a>
-			<a href="sign_up">
+			<a href="/sign_up">
 				<div class="sign">
 					<img src="/public/Images/sign-up.png" alt="Sign-up">
 				</div>
