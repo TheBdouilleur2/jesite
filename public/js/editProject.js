@@ -1,4 +1,4 @@
-$("#project_edition").submit(function(e){
+document.getElementById("project_edition").addEventListener("submit",function(e){
     e.preventDefault()
 
     var data = new FormData(this);
@@ -10,7 +10,7 @@ $("#project_edition").submit(function(e){
             if (res.success) {
                 console.log("Le projet a bien été modifié !!");
                 alert("Votre projet à bien été modifié");
-                document.location.href('https://jesite.fr');
+                document.location.href = "http://" + document.location.hostname + "/projects"
             } else {
                 alert(res.msg);
             }

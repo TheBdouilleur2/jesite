@@ -1,4 +1,4 @@
-$("#creation_project").submit(function(e) {
+document.getElementById("creation_project").addEventListener("submit",function(e) {
 	e.preventDefault();
 	var data = new FormData(this);
 	var xhr = new XMLHttpRequest();
@@ -9,7 +9,7 @@ $("#creation_project").submit(function(e) {
 			if (res.success) {
                 console.log("Projet créé !!");
                 alert('Votre projet a été créé!!')
-                document.location.href('jesite.fr');
+                document.location.href = "http://" + document.location.hostname + "/projects";
 			} else {
 				alert(res.msg);
 			}

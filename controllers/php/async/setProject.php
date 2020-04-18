@@ -9,7 +9,7 @@ extract($_POST);
 
 $project_info = $ProjectManager->getProject($id);
 
-if(isset($newtitle) && !empty($newtitle) && $newtitle != $project_info['titre']){
+if(isset($newtitle) && !empty($newtitle) && $newtitle != $project_info['title']){
   $titre_exist = $ProjectManager->titleTest($newtitle);
   if (!$titre_exist) {
     $ProjectManager->setTitle((int)$id, $newtitle);
@@ -19,12 +19,12 @@ if(isset($newtitle) && !empty($newtitle) && $newtitle != $project_info['titre'])
   }
 }
 
-if(isset($newcontent) && !empty($newcontent) && $newcontent != $project_info['contenu']){
+if(isset($newcontent) && !empty($newcontent) && $newcontent != $project_info['content']){
     $ProjectManager->setContent($id, $newcontent);
     $success = 1;
 }
   
-if(isset($newsummary) && !empty($newsummary) && $newsummary != $project_info['resume']){
+if(isset($newsummary) && !empty($newsummary) && $newsummary != $project_info['summary']){
     if (strlen($newsummary) < 500) {
         $ProjectManager->setSummary($id, $newsummary);
         $success = 1;
@@ -33,7 +33,7 @@ if(isset($newsummary) && !empty($newsummary) && $newsummary != $project_info['re
     }
 }
 
-if(isset($newtags) && !empty($newtags) && $newtags != $project_info['contenu']){
+if(isset($newtags) && !empty($newtags) && $newtags != $project_info['tags']){
     $ProjectManager->setTags($id, $newtags);
     $success = 1;
 }
