@@ -72,7 +72,7 @@
 	
 	</header>
 
-<section>
+<section class="container">
 <?= $content ?>
 </section>
 
