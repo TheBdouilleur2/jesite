@@ -38,7 +38,7 @@
 </div>
 </div>
 
-<nav aria-label="Page navigation example">
+<nav aria-label="Page navigation projets">
     <ul class="pagination">
         <?php if(($page-1) >0){ ?>
             <li class="page-item"><a class="page-link" href="/projects/<?=$page-1?>" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>

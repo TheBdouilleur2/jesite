@@ -10,7 +10,7 @@
 
 <hr>
 
-<div id="msgs_user">
+<div id="msgs_admin">
 	<?php
 	for ($i = 0; $i< count($messages[0]) ; $i++) {?>
 		<div class="msg">
@@ -22,21 +22,21 @@
 <!-- <nav aria-label="Page navigation messages">
     <ul class="pagination">
         <?php if(($page-1) >0){ ?>
-            <li class="page-item"><a class="page-link" href="/chat/<?=$page-1?>" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+            <li class="page-item"><a class="page-link" href="/chat_admin/<?=$page-1?>" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
         <?php } else{ ?>
             <li class="page-item disabled"><a class="page-link" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
         <?php }
         
         for ($i=1; $i <= $nbPage; $i++) {
             if($page === $i){ ?>
-                <li class="page-item active"><a class="page-link" href="/chat/<?=$i?>"><?=$i?></a></li>
+                <li class="page-item active"><a class="page-link" href="/chat_admin/<?=$i?>"><?=$i?></a></li>
             <?php }else{ ?>
-                <li class="page-item"><a class="page-link" href="/chat/<?=$i?>"><?=$i?></a></li>
+                <li class="page-item"><a class="page-link" href="/chat_admin/<?=$i?>"><?=$i?></a></li>
             <?php }
         }?>
 
         <?php if(($page+1) <=$nbPage){ ?>
-            <li class="page-item"><a class="page-link" href="/chat/<?=$page+1?>" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+            <li class="page-item"><a class="page-link" href="/chat_admin/<?=$page+1?>" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
         <?php } else{ ?>
             <li class="page-item disabled"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
         <?php }?>
@@ -47,9 +47,9 @@
 <script>
 	setInterval( 'loadMessages()' , 2000);
 	function loadMessages(){
-		$('#msgs_user').load('../controllers/php/loadMessages.php');
+		$('#msgs_admin').load('../controllers/php/loadAdminMessages.php');
 	}
 </script>
 
 <?php $content = ob_get_clean();?>
-<?php require_once('views/templates/template.php');?>
+<?php require_once('views/templates/adminTemplate.php');?>

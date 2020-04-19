@@ -52,10 +52,20 @@ try {
 	//	Chat:
 	elseif($url[0]==='chat'){
 		require_once('controllers/chatController.php');
-		displayUsersMessages();
+		if(isset($url[1])){
+			$page = (int)$url[1];
+		}else{
+			$page = 1;
+		}
+		displayUsersMessages($page);
 	}elseif ($url[0] === 'chat_admin') {
 		require_once("controllers/chatController.php");
-		displayAdminMessages();
+		if(isset($url[1])){
+			$page = (int)$url[1];
+		}else{
+			$page = 1;
+		}
+		displayAdminMessages($page);
 	}
 	//	Admin:
 	elseif($url[0] === 'admin_space'){
