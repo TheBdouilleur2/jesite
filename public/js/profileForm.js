@@ -1,4 +1,4 @@
-$("#edit_profile").submit(function(e) {
+document.getElementById("edit_profile").addEventListener("submit",function(e) {
 	e.preventDefault();
 	var data = new FormData(this);
 	var xhr = new XMLHttpRequest();

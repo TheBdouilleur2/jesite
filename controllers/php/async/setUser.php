@@ -56,4 +56,11 @@ if(!empty($new_passwd)){
     }
 }
 
+if(isset($bio) && $bio !== $_SESSION['bio']){
+    $bio = htmlspecialchars(strip_tags($bio));
+    $UserManager->setBio($_SESSION['ID'], $bio);
+    $_SESSION['bio'] = $bio;
+    $success = 1;
+}
+
 echo json_encode(compact('success', 'msg'));

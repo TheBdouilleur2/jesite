@@ -47,9 +47,8 @@ class UsersManager extends Manager
   public function createUser($username, $mail, $passwd){
     $db = $this->dbConnect();
     $passwd = password_hash($passwd, PASSWORD_DEFAULT, ["cost" => 12]);
-    $msg = 'Votre compte a bien été créé!';
-    $insert_user = $db->prepare("INSERT INTO users (username, mail, passwd, state,  msg) VALUES(?, ?, ?, ?, ?)");
-    $insert_user->execute(array($username, $mail, $passwd, 'user', $msg));
+    $insert_user = $db->prepare("INSERT INTO users (username, mail, passwd, state) VALUES(?, ?, ?, ?, ?)");
+    $insert_user->execute(array($username, $mail, $passwd, 'user'));
     $insert_user->closeCursor();
   }
 
@@ -116,6 +115,18 @@ class UsersManager extends Manager
             $set_user->closeCursor();
         }
         return False;
+    }
+
+    /**
+     * Set the user's bio
+     * @param int $user_id The ID oh user
+     */
+    public function setBio(int $user_id, $new_value){
+      $db = $this->dbConnect();
+      $user_info = $this->getUserByID($user_id);
+      $set_user = $db->prepare("UPDATE users SET `bio`=?, passwd=? , login_date=? WHERE ID=?");
+      $set_user->execute(array($new_value, $user_info['passwd'], $user_info['login_date'], $user_id));
+      $set_user->closeCursor();
     }
 
 

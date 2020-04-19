@@ -9,7 +9,11 @@
     <div class="form-group">
         <label for="new_mail">Adresse mail :</label>
         <input type="email" placeholder="Votre mot de passe" id="new_mail" name="new_mail" value="<?php if(isset($_SESSION['mail'])) { echo $_SESSION['mail']; } ?>" />
-    </div>  
+    </div>
+    <div class="form-group">
+      <label for="bio">Bio:</label>
+      <textarea class="form-control" name="bio" id="bio" placeholder="Parler nous un peu de vous (Markdown suporté)"><?php if(isset($_SESSION['bio'])) { echo $_SESSION['bio']; } ?></textarea>
+    </div>
     <div class="form-group">
         <label for="new_passwd">Nouveau mot de passe :</label>
         <input type="password" placeholder="Votre mot de passe" id="new_passwd" name="new_passwd" />
