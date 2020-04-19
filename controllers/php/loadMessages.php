@@ -4,7 +4,8 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/controllers/php/functions.php');
 
 $chatManager = new ChatManager();
 
-$messages = $chatManager->getUsersMessages();
+
+$messages = $chatManager->getUsersMessages(1, 20);
 $sending_dates = array();
 foreach($messages[2] as $sending_date){
     $sending_dates[] = getOld($sending_date);

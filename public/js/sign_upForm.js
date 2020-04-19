@@ -12,7 +12,7 @@ document.getElementById("sign-up").addEventListener("submit", function(e) {
 				console.log(res.data);
 				alert("Votre compte à été créé avec succes!");
 
-				document.location.href = "http://jesite.fr/index.php"; //Mauvaise adresse
+				document.location.href = "http://" + document.location.hostname
 			} else {
 				alert(res.msg);
 			}

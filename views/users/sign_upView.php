@@ -56,5 +56,5 @@
 
 <script type="text/javascript" src="public/js/sign_upForm.js"></script>
 <?php $content=ob_get_clean();
-require("views/templates/template.php");
+require_once("views/templates/template.php");
 ?>

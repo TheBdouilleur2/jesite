@@ -1,14 +1,21 @@
 <?php
 if (!isset($_SESSION['id']) && empty($_SESSION['id']) && $_SESSION['state'] === 'admin') {
 
-	require($_SERVER['DOCUMENT_ROOT'] . '/models/UsersManager.php');
+    require_once($_SERVER['DOCUMENT_ROOT'] . '/models/UsersManager.php');
+    require_once($_SERVER['DOCUMENT_ROOT'] . '/models/ProjectsManager.php');
+    require_once($_SERVER['DOCUMENT_ROOT'] . '/controllers/php/Parsedown.php');
 
-    $UserManager = new UsersManager();
+    $UsersManager = new UsersManager();
+    $ProjectsManager = new ProjectsManager();
+    $Parsedown = new Parsedown();
     
     function index(){
-        global $UserManager;
+        global $UsersManager, $ProjectsManager, $Parsedown;
         $title = 'Espace Admin·JE';
-        $users = $UserManager->getUsers(0);
+        $users = $UsersManager->getUsers(0);
+        $nbProjects = $ProjectsManager->getProjectsNumber();
+        $projects = $ProjectsManager->getProjects(1, $nbProjects);
+
         require_once($_SERVER['DOCUMENT_ROOT'] . '/views/admin/index.php');
     }
 

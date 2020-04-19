@@ -23,5 +23,5 @@
    
 <script type="text/javascript" src="public/js/profileForm.js"></script>
 <?php $content=ob_get_clean();
-require("views/templates/template.php");
+require_once("views/templates/template.php");
 ?>

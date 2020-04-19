@@ -1,6 +1,6 @@
 <?php
 session_start();
-require($_SERVER['DOCUMENT_ROOT'] . '/models/UsersManager.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/models/UsersManager.php');
 
 $UserManager = new UsersManager();
 $users = $UserManager->getUsers(0);

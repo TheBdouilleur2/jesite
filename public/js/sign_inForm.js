@@ -11,7 +11,7 @@ document.getElementById("sign-in").addEventListener("submit", function(e) {
 				console.log("Utilisateur connecté !");
 				console.log(res.data);
 
-				document.location.href = "http://jesite.fr/index.php"; /* Redirection vers la page d'acceuil *///Mauvaise adresse
+				document.location.href = "http://" + document.location.hostname
 			} else {
 				alert(res.msg);
 			}
