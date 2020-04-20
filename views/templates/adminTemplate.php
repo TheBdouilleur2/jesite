@@ -53,7 +53,7 @@
 					<span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="userMenu"><?=$_SESSION['username']?></span>
 					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="userMenu">
 						<a href="/account" class="dropdown-item">Mon compte</a>
-						<a href="/deconnection" class="dropdown-item">Deconnection</a>
+						<a href="/deconnection" class="dropdown-item">Déconnexion</a>
 					</div>
 				</div>
 			<?php }else{?>
