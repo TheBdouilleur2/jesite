@@ -10,4 +10,4 @@
 
 section {margin-top: 4%;}
 
-.project{margin-top: 1%; padding: 0.5%; border: solid 1px #c2c2c2; border-radius: 10px;}
+.project, .bord{margin-top: 1%; padding: 0.5%; border: solid 1px #c2c2c2; border-radius: 10px;}

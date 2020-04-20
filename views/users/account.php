@@ -1,22 +1,32 @@
 <?php ob_start(); ?>
+
+<nav class="nav nav-pills nav-fill">
+  <a class="nav-item nav-link" href="/profile/<?=$_SESSION['ID']?>">Mon profil</a>
+  <a class="nav-item nav-link active" href="#">Mes informations</a>
+</nav>
+
 <h1>Mon compte</h1>
 <br>
 <form method="POST" id="edit_profile">
     <div class="form-group">
         <label for="new_username">Pseudo :</label>
-        <input type="text" placeholder="Votre pseudo" id="new_username" name="new_username" maxlenght='20' value="<?php if(isset($_SESSION['username'])) { echo $_SESSION['username']; } ?>" />
+        <input class="form-control" type="text" placeholder="Votre pseudo" id="new_username" name="new_username" maxlenght='20' value="<?php if(isset($_SESSION['username'])) { echo $_SESSION['username']; } ?>" />
     </div>
     <div class="form-group">
         <label for="new_mail">Adresse mail :</label>
-        <input type="email" placeholder="Votre mot de passe" id="new_mail" name="new_mail" value="<?php if(isset($_SESSION['mail'])) { echo $_SESSION['mail']; } ?>" />
+        <input class="form-control" type="email" placeholder="Votre mot de passe" id="new_mail" name="new_mail" value="<?php if(isset($_SESSION['mail'])) { echo $_SESSION['mail']; } ?>" />
     </div>
     <div class="form-group">
       <label for="bio">Bio:</label>
       <textarea class="form-control" name="bio" id="bio" placeholder="Parler nous un peu de vous (Markdown suporté)"><?php if(isset($_SESSION['bio'])) { echo $_SESSION['bio']; } ?></textarea>
     </div>
     <div class="form-group">
+        <label for="skills">Compétences (séparées par des /):</label>
+        <input class="form-control" type="text" placeholder="Quels languages connaissez vous?" id="skills" name="skills" value="<?php if(isset($_SESSION['skills'])) { echo $_SESSION['skills']; } ?>"/>
+    </div>
+    <div class="form-group">
         <label for="new_passwd">Nouveau mot de passe :</label>
-        <input type="password" placeholder="Votre mot de passe" id="new_passwd" name="new_passwd" />
+        <input class="form-control" type="password" placeholder="Votre mot de passe" id="new_passwd" name="new_passwd" />
     </div>
     <div class="form-group">
         <label for="new_passwd2">Confirmation du mot de passe :</label>

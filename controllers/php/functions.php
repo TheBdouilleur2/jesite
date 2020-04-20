@@ -13,11 +13,11 @@ function getTheDate(){
 	return $date;
 }
 
-/* getOld:
-	Donne l'age d'une date par rapport avec la date actuelle.
-	params: $msgDate: date de l'objet à dater
-
-	return: un string
+/**
+*	Donne l'age d'une date par rapport avec la date actuelle.
+*	@param $msgDate date de l'objet à dater
+*
+*	@return un string
 */
 function getOld ($msgDate){
 	$msgDate = date_create($msgDate);
@@ -44,5 +44,6 @@ function getOld ($msgDate){
 	}if ($max_element === 'ans' && $max_element_value === '1') {
 		$max_element = 'an';
 	}
+	//TODO Ajouter une valeur dans certains cas.
 	return 'il y a ' . $max_element_value . ' ' . $max_element;
 }

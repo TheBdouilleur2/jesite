@@ -119,12 +119,24 @@ class UsersManager extends Manager
 
     /**
      * Set the user's bio
-     * @param int $user_id The ID oh user
+     * @param int $user_id The ID of user
      */
     public function setBio(int $user_id, $new_value){
       $db = $this->dbConnect();
       $user_info = $this->getUserByID($user_id);
       $set_user = $db->prepare("UPDATE users SET `bio`=?, passwd=? , login_date=? WHERE ID=?");
+      $set_user->execute(array($new_value, $user_info['passwd'], $user_info['login_date'], $user_id));
+      $set_user->closeCursor();
+    }
+
+    /**
+     * Set the user's skills
+     * @param int $user_id The ID of user
+     */
+    public function setSkills(int $user_id, $new_value){
+      $db = $this->dbConnect();
+      $user_info = $this->getUserByID($user_id);
+      $set_user = $db->prepare("UPDATE users SET `skills`=?, passwd=? , login_date=? WHERE ID=?");
       $set_user->execute(array($new_value, $user_info['passwd'], $user_info['login_date'], $user_id));
       $set_user->closeCursor();
     }

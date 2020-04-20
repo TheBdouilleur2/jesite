@@ -63,4 +63,12 @@ if(isset($bio) && $bio !== $_SESSION['bio']){
     $success = 1;
 }
 
+if(isset($skills) && $skills !== $_SESSION['skills']){
+    $skills = htmlspecialchars(strip_tags($skills));
+    $UserManager->setSkills($_SESSION['ID'], $skills);
+    $_SESSION['skills'] = $skills;
+    $success = 1;
+}
+
+
 echo json_encode(compact('success', 'msg'));

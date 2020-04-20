@@ -3,6 +3,8 @@ session_start();
 
 require_once('conf.php');
 
+
+
 $url = '';
 try {
 	if (isset($_GET['url'])) {
@@ -18,9 +20,12 @@ try {
 	}elseif($url[0]==='sign_in'){
 		require_once('controllers/usersController.php');
 		sign_in();
-	}elseif($url[0] === 'profile'){
+	}elseif($url[0] === 'account'){
 		require_once("controllers/usersController.php");
-		profile();
+		account();
+	}elseif($url[0] === 'profile' && isset($url[1])){
+		require_once("controllers/usersController.php");
+		profile((int)$url[1]);
 	}elseif($url[0]==='deconnection'){
 		require_once('controllers/php/deconnection.php');
 	}

@@ -5,7 +5,7 @@
 abstract class Manager
 {
   protected function dbConnect(){
-    $db = new PDO('mysql:host=localhost;dbname=jesite;charset=utf8', 'username', 'password');
+    $db = new PDO('mysql:host=localhost;dbname=jesite;charset=utf8', 'pp', 'pp');
     return $db;
   }
 }

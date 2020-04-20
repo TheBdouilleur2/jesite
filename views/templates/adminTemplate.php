@@ -51,7 +51,7 @@
 				<div class='navbar-brand nav-link dropdown' href="/profile">
 					<span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="userMenu"><?=$_SESSION['username']?></span>
 					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="userMenu">
-						<a href="/profile" class="dropdown-item">Mon compte</a>
+						<a href="/account" class="dropdown-item">Mon compte</a>
 						<a href="/deconnection" class="dropdown-item">Deconnection</a>
 					</div>
 				</div>

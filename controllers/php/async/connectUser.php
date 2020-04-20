@@ -19,7 +19,8 @@ if (!empty($username_connect) && !empty($passwd_connect)) {
             $_SESSION['username'] = $user_info['username'];
             $_SESSION['mail'] = $user_info['mail'];
             $_SESSION['state'] = $user_info['state'];
-            $_SESSION['msg'] = $user_info['msg'];
+            $_SESSION['bio'] = $user_info['bio'];
+            $_SESSION['skills'] = $user_info['skills'];
             $success = 1;
             if(isset($_POST['rememberme'])){
                 setcookie('username', $username_connect, time()+365*24*60*60);

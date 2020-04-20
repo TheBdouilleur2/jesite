@@ -9,7 +9,7 @@ document.getElementById("edit_profile").addEventListener("submit",function(e) {
 			var res = this.response;
 			if (res.success) {
 				console.log("Modification effectuée !");
-				document.location.href = "http://" + document.location.hostname + "/profile"
+				document.location.href = "http://" + document.location.hostname + "/account"
 			} else {
 				alert(res.msg);
 			}
