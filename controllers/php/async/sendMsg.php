@@ -1,28 +1,43 @@
 <?php
 session_start();
 require_once($_SERVER['DOCUMENT_ROOT'] . "/models/ChatManager.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/models/UsersManager.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/controllers/php/Parsedown.php");
 
 $Parsedown = new Parsedown();
 $Parsedown->setSafeMode(true);
 
-$chatManager = new ChatManager();
+$ChatManager = new ChatManager();
+$UsersManager = new UsersManager();
+
 $success = 0;
 $msg = "Une erreur est survenue (script.php)";
+
+function userMention($matches){
+	global $UsersManager;
+	if($UsersManager->userTest($matches[1])){
+		$user_info = $UsersManager->getUser($matches[1]);
+		$mention = '[**'.$matches[0].'**](/profile/'. $user_info['ID'] .')';
+	}else{
+		$mention = '**'.$matches[0].'**';
+	}
+	return $mention;
+}
 
 if (!empty($_POST['msg'])) {
 	$msg = htmlspecialchars(strip_tags($_POST['msg']));
 	
-	// TODO: ajouter le traitement des liens
+	$msg = preg_replace_callback('#@([A-Za-z]+)#', "userMention", $msg);
+	
 
 	$msg = $Parsedown->line($msg);
 
 	if($_POST['category'] === 'user'){
-		$chatManager->postUserMessage($msg, $_SESSION['ID']);
+		$ChatManager->postUserMessage($msg, $_SESSION['ID']);
 		$success = 1;
 		$msg = "";
 	}elseif ($_POST['category'] === 'admin') {
-		$chatManager->postAdminMessage($msg, $_SESSION['ID']);
+		$ChatManager->postAdminMessage($msg, $_SESSION['ID']);
 		$success = 1;
 		$msg = "";
 	}
