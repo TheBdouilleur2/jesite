@@ -15,7 +15,7 @@
     <p>Bio:</p>
     <p><?=$user_info['bio']?></p>
 </div>
-<?php }if(!empty($user_info['skills'])){?>
+<?php }if(!empty($user_info['skills'][0])){?>
 <div class="bord">
     <p>Compétences:</p>
     <p>
@@ -28,13 +28,14 @@
 <div class="bord">
     <p>Ses projets:</p>
     <?php while($project = $user_info['projects']->fetch()){ ?>
-        <a href='project/<?=$project['ID'] ?>' class="unlike">
+        <a href='/project/<?=$project['ID'] ?>' class="unlike">
             <div class="project">
                 <div class="row">
-                    <p class="col"><strong><?=$project['title']?></strong>  publié le <?=$project['date_fr']?> par <strong>@<?=$project['creator']?></strong>
-                    <?php foreach($tags as $tag) { ?>
-                        <span class="badge badge-secondary"><?=$tag?></span>
-                    <?php } ?>
+                    <p class="col"><strong><?=$project['title']?></strong>  publié le <?=$project['date_fr']?>
+                    <?php if(count($tags)){
+                            foreach($tags as $tag) { ?>
+                                <span class="badge badge-secondary"><?=$tag?></span>
+                    <?php }} ?>
                     </p>
                 </div>
             <p><?=nl2br($Parsedown->line($project['summary']))?></p>
