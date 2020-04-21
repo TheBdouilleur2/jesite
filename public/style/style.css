@@ -1,13 +1,7 @@
-.unlike{
-    text-decoration: none;
-    color: black;
-}
+.unlike{text-decoration: none;  color: black;}
 
-.unlike:hover{
-    text-decoration: none;
-    color: black;
-}
+.unlike:hover{text-decoration: none; color: black;}
 
 section {margin-top: 4%;}
 
-.project, .bord{margin-top: 1%; padding: 0.5%; border: solid 1px #c2c2c2; border-radius: 10px;}
+.project, .bord{margin-top: 1%; padding: 0.5%; border: solid 1px #c2c2c2; border-radius: 10px; background-color: #e6e6e6;}
