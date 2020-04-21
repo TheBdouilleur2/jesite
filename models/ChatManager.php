@@ -10,34 +10,18 @@ class ChatManager extends Manager
 	public function getUsersMessages($page, $perPage){
 		$db = $this->dbConnect();
     $begin = ($page-1)*4;
-    $req_messages = $db->query("SELECT m.ID ID, u.username sender, m.msg msg, sending_date FROM usersChat m INNER JOIN users u ON u.ID = m.sender_id ORDER BY m.ID DESC LIMIT $begin,$perPage");
-    $senders = array();
-    $msgs = array();
-    $sending_dates = array();
-    while ($message = $req_messages->fetch()) {
-      $senders[] = $message['sender'];
-      $msgs[] = $message['msg'];
-      $sending_dates[] = $message['sending_date'];
-    }
+    $req_messages = $db->query("SELECT m.ID ID, sender_ID, u.username sender, m.msg msg, sending_date FROM usersChat m INNER JOIN users u ON u.ID = m.sender_id ORDER BY m.ID DESC LIMIT $begin,$perPage");
+    $messages = $req_messages->fetchAll();
     $req_messages->closeCursor();
-    $messages = array($senders, $msgs, $sending_dates);
     return $messages;
   }
 
   public function getAdminMessages($page, $perPage){
 		$db = $this->dbConnect();
     $begin = ($page-1)*4;
-    $req_messages = $db->query("SELECT m.ID ID, u.username sender, m.msg msg, sending_date FROM adminChat m INNER JOIN users u ON u.ID = m.sender_id ORDER BY m.ID DESC LIMIT $begin,$perPage");
-    $senders = array();
-    $msgs = array();
-    $sending_dates = array();
-    while ($message = $req_messages->fetch()) {
-      $senders[] = $message['sender'];
-      $msgs[] = $message['msg'];
-      $sending_dates[] = $message['sending_date'];
-    }
+    $req_messages = $db->query("SELECT m.ID ID, sender_ID, u.username sender, m.msg msg, sending_date FROM adminChat m INNER JOIN users u ON u.ID = m.sender_id ORDER BY m.ID DESC LIMIT $begin,$perPage");
+    $messages = $req_messages->fetchAll();
     $req_messages->closeCursor();
-    $messages = array($senders, $msgs, $sending_dates);
     return $messages;
 	}
   
