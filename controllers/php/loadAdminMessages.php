@@ -5,12 +5,11 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/controllers/php/functions.php');
 $ChatManager = new ChatManager();
 
 $messages = $ChatManager->getAdminMessages(1, 20);
-$sending_dates = array();
-foreach($messages[2] as $sending_date){
-    $sending_dates[] = getOld($sending_date);
+for($i = 0; $i< count($messages); $i++){
+	$messages[$i]['age'] = getOld($messages[$i]['sending_date']);
 }
-for ($i = 0; $i< count($messages[0]) ; $i++) {?>
+foreach($messages as $message) {?>
 	<div class="msg">
-		<p><strong>@<?php echo htmlspecialchars($messages[0][$i]); ?></strong>[<?= $sending_dates[$i]?>]: <?php echo $messages[1][$i]; ?></p>
+		<p><a href="/profile/<?=$message['sender_ID']?>" class="unlike"><strong>@<?php echo htmlspecialchars($message['sender']); ?></strong></a>[<?= $message['age']?>]: <?php echo $message['msg']; ?></p>
 	</div>
 <?php } ?>

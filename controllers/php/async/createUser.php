@@ -21,10 +21,10 @@ if (!empty($_POST['username']) AND !empty($_POST['passwd']) AND !empty($_POST['p
 	        	}else{
 	        		$mail = '';
 	        	}
-	            $UserManager->createUser($username, $mail, $passwd);
+				$UserManager->createUser($username, $mail, $passwd);
 		        if(isset($_POST['rememberme'])){
-		            setcookie('username', $username, time()+365*24*60*60, null, null, false, true);
-		            setcookie('passwd', $passwd, time()+365*24*60*60, null, null, false, true);
+					$user_info = $UserManager->getUser($username);
+		            setcookie('auth', $user_info['ID']."--".sha1($user_info['username'].$user_info['passwd']), time()+365*24*60*60, "/", null, false, true);
 	            }
 	            $user_info = $UserManager->getUser($username);
 	            $_SESSION['ID'] = $user_info['ID'];

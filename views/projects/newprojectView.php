@@ -11,16 +11,16 @@
       <input class="form-control" type="text" placeholder="Votre titre" id="project_title" name="project_title" />
    </div>
    <div class="form-group">
-      <label for="project_content">Corps du projet*:</label>
-      <textarea class="form-control" placeholder="Votre contenu" id="project_content" name="project_content"></textarea>
+      <label for='tags'>Entrer ici les tags séparés par des / :</label>
+      <input class="form-control" type="text" placeholder="tag1/tag2/..." id="tags" name="tags" value="<?php if(isset($tags)) { echo $tags; } ?>" />
    </div>
    <div class="form-group">
       <label for="summary">Resumé*:</label>
       <textarea class="form-control" placeholder="Votre resumé" id="summary" name="summary"></textarea>
    </div>
    <div class="form-group">
-      <label for='tags'>Entrer ici les tags séparés par des / :</label>
-      <input class="form-control" type="text" placeholder="tag1/tag2/..." id="tags" name="tags" value="<?php if(isset($tags)) { echo $tags; } ?>" />
+      <label for="project_content">Corps du projet*:</label>
+      <textarea class="form-control" placeholder="Votre contenu" id="project_content" name="project_content"></textarea>
    </div>
    <input type="submit" name="creationform" value="Création du projet" />
 </form>

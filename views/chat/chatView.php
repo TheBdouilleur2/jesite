@@ -3,7 +3,7 @@
 	<div class="form-group">
 		<label for="msg" ><?php echo $_SESSION['username']; ?>:</label>
 		<textarea autofocus class="form-control" id="msg" name='msg'></textarea>
-		<input type="text" hidden value='<?=$chat_category?>' name='category' id='category'>
+		<input type="text" hidden value='user' name='category' id='category'>
 	</div>
 	<input type='submit' class="btn btn-outline-dark" name='send_msg' value="Poster" />
 </form>
@@ -11,10 +11,10 @@
 <hr>
 
 <div id="msgs_user">
-	<?php
-	for ($i = 0; $i< count($messages[0]) ; $i++) {?>
+    <?php
+    foreach($messages as $message) {?>
 		<div class="msg">
-			<p><strong>@<?php echo htmlspecialchars($messages[0][$i]); ?></strong>[<?= $sending_dates[$i]?>]: <?php echo $messages[1][$i]; ?></p>
+			<p><a href="/profile/<?=$message['sender_ID']?>" class="unlike"><strong>@<?php echo htmlspecialchars($message['sender']); ?></strong></a>[<?= $message['age']?>]: <?php echo $message['msg']; ?></p>
 		</div>
 	<?php } ?>
 </div>

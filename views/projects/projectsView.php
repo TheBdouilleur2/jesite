@@ -2,7 +2,7 @@
 <!-- La page d'affichage des projets -->
 <div class="row">
 <div class="col-10">
-    <?php while($project = $projects->fetch()){ 
+    <?php foreach($projects as $project){ 
         $tags = explode("/", $project['tags']);    ?>
         <a href='project/<?=$project['ID'] ?>' class="unlike">
             <div class="project">

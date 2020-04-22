@@ -23,8 +23,7 @@ if (!empty($username_connect) && !empty($passwd_connect)) {
             $_SESSION['skills'] = $user_info['skills'];
             $success = 1;
             if(isset($_POST['rememberme'])){
-                setcookie('username', $username_connect, time()+365*24*60*60);
-                setcookie('passwd', $passwd_connect, time()+365*24*60*60);
+                setcookie('auth', $user_info['ID']."--".sha1($user_info['username'].$user_info['passwd']), time()+365*24*60*60, "/", null, false, true);
             }
         }else{
             $msg = "Mot de passe incorrect";

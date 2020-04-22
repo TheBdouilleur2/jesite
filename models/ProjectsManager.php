@@ -14,26 +14,32 @@ class ProjectsManager extends Manager
         $db = $this->dbConnect();
         $begin = ($page-1)*4;
         $req_projects = $db->query("SELECT p.ID ID, u.username creator, p.title title, p.summary summary, DATE_FORMAT(publication_date, '%d/%m/%Y à %Hh%imin') AS date_fr, tags FROM projects p INNER JOIN users u ON u.ID = p.creator_id ORDER BY publication_date DESC LIMIT $begin,$perPage");
-        return $req_projects; 
+        $projects = $req_projects->fetchAll();
+        $req_projects->closeCursor();
+        return $projects; 
     }
 
     /**
      * Renvoie les differents projets d'un utilisateur.
      * @param int $id ID de l'utilisateur
+     * @return array $projects Projets de l'utilisateur
      */
     public function getProjectsByUser(int $id){
         $db = $this->dbConnect();
-        $req_projects = $db->prepare("SELECT p.ID ID, u.username creator, p.title title, p.summary summary, DATE_FORMAT(publication_date, '%d/%m/%Y à %Hh%imin') AS date_fr, tags FROM projects p INNER JOIN users u ON u.ID = p.creator_id WHERE p.creator_id=? ORDER BY publication_date DESC");
+        $req_projects = $db->prepare("SELECT p.ID ID, p.creator_id, u.username creator, p.title title, p.summary summary, DATE_FORMAT(publication_date, '%d/%m/%Y à %Hh%imin') AS date_fr, tags FROM projects p INNER JOIN users u ON u.ID = p.creator_id WHERE p.creator_id=? ORDER BY publication_date DESC");
         $req_projects->execute(array($id));
-        return $req_projects;
+        $projects = $req_projects->fetchAll();
+        $req_projects->closeCursor();
+        return $projects;
     }
 
     public function getProject($project_id){
         $project_id = (int)$project_id;
         $db = $this->dbConnect();
-        $req_project = $db->prepare('SELECT p.ID ID, u.username creator, p.title title, p.content content, p.summary summary,  publication_date, DATE_FORMAT(publication_date, \'%d/%m/%Y à %Hh%imin\') AS date_fr,  tags FROM projects p INNER JOIN users u ON u.ID = p.creator_id WHERE p.ID=? ');
+        $req_project = $db->prepare('SELECT p.ID ID, p.creator_id, u.username creator, p.title title, p.content content, p.summary summary,  publication_date, DATE_FORMAT(publication_date, \'%d/%m/%Y à %Hh%imin\') AS date_fr,  tags FROM projects p INNER JOIN users u ON u.ID = p.creator_id WHERE p.ID=? ');
         $req_project->execute(array($project_id));
         $project =$req_project->fetch();
+        $req_project->closeCursor();
         return $project; 
     }
 

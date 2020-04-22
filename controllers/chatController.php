@@ -15,12 +15,10 @@ function displayUsersMessages($page = 1){
     	$page = !($page>0 && $page<=$nbPage) ? 1 : $page;
 
 		$messages = $ChatManager->getUsersMessages($page, $perPage);
-		$sending_dates = array();
-		foreach($messages[2] as $sending_date){
-			$sending_dates[] = getOld($sending_date);
+		for($i = 0; $i< count($messages); $i++){
+			$messages[$i]['age'] = getOld($messages[$i]['sending_date']);
 		}
 		$title = 'Discussion·JE';
-		$chat_category = 'user';
 		require_once("views/chat/chatView.php");
 	}else {
 		header("Location: index.php");
@@ -36,12 +34,10 @@ function displayAdminMessages($page = 1){
 
     	$page = !($page>0 && $page<=$nbPage) ? 1 : $page;
 		$messages = $ChatManager->getAdminMessages($page, $perPage);
-		$sending_dates = array();
-		foreach($messages[2] as $sending_date){
-			$sending_dates[] = getOld($sending_date);
+		for($i = 0; $i< count($messages); $i++){
+			$messages[$i]['age'] = getOld($messages[$i]['sending_date']);
 		}
 		$title = 'Discussion admin·JE';
-		$chat_category = 'admin';
 		require_once("views/chat/chatAdmin.php");
 	}else {
 		header('Location: index.php');
