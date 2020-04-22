@@ -3,7 +3,7 @@
 <!-- La page d'affichage d'un projet' -->
 <h1><?=$project['title']?></h1>
 <div class="row">
-    <p class="col">Publié le <?=$project['date_fr']?> par <a href="/profile/<?=$project['creator__id']?>"><strong>@<?=$project['creator']?></strong></a> 
+    <p class="col">Publié le <?=$project['date_fr']?> par <a href="/profile/<?=$project['creator_id']?>"><strong>@<?=$project['creator']?></strong></a> 
     <?php 
         foreach($tags as $k => $tag) {?>
             <span class="badge badge-secondary"><?= $tag ?></span>
