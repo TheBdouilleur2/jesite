@@ -50,7 +50,7 @@
         </tr>
       </thead>
       <tbody>
-          <?php while($project = $projects->fetch()){ ?>
+          <?php foreach($projects as $project){ ?>
                 <tr class="bg-light">
                     <th scope="row"><?=$project['ID']?></th>
                     <td><a href="/project/<?=$project['ID']?>"><?=$project['title']?></a></td>
