@@ -24,10 +24,10 @@
         <?php }?>
     </p>
 </div>
-<?php } if(!empty($user_info['projects']->rowCount())){?>
+<?php } if(!empty($user_info['projects'])){?>
 <div class="bord">
     <p>Ses projets:</p>
-    <?php while($project = $user_info['projects']->fetch()){ ?>
+    <?php foreach($user_info['projects'] as $project){ ?>
         <a href='/project/<?=$project['ID'] ?>' class="unlike">
             <div class="project">
                 <div class="row">

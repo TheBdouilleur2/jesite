@@ -38,11 +38,12 @@ class UsersManager extends Manager
     $user = $db->prepare('SELECT * FROM users WHERE ID=?');
     $user->execute(array($id));
     $user_info = $user->fetch();
+    $user->closeCursor();
     return $user_info;
   }
 
   /* createUser: 
-  params: username, mail and password
+  @param username, mail and password
   insert the user into the database users. */
   public function createUser($username, $mail, $passwd){
     $db = $this->dbConnect();
