@@ -7,7 +7,7 @@
 <br />
 <h2>Voici nos derniers projets</h2>
 
-<?php while($project = $lastProjects->fetch()){ ?>
+<?php foreach($lastProjects as $project){ ?>
     <a href='project/<?=$project['ID'] ?>' class="unlike">
         <div class="project">
             <div class="row">
