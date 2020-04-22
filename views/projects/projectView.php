@@ -23,5 +23,22 @@
 <br>
 <hr>
 <!-- Affichage des commmentaires -->
+<?php if(isset($_SESSION['ID'])){ ?>
+    <form id='send_comment' >
+        <div class="form-group">
+            <label for="msg" ><?php echo $_SESSION['username']; ?>:</label>
+            <textarea autofocus class="form-control" id="msg" name='msg'></textarea>
+            <input type="text" hidden value='user' name='category' id='category'>
+        </div>
+        <input type='submit' class="btn btn-outline-dark" name='send_comment' value="Poster" />
+    </form>
+<?php } ?>
+
+<?php foreach($project["comments"] as $comment){ ?>
+    <div class="comment bord">
+			<p><a href="/profile/<?=$comment['sender_id']?>" class="unlike"><strong>@<?php echo htmlspecialchars($comment['sender']); ?></strong></a>[<?= $comment['age']?>]: <?php echo $comment['msg']; ?></p>
+	</div>
+<?php } ?>
+
 <?php $content = ob_get_clean();?>
 <?php require_once($_SERVER['DOCUMENT_ROOT'] . '/views/templates/template.php');?>

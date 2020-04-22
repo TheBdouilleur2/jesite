@@ -1,13 +1,12 @@
 <?php 
 session_start();
 
-require_once('conf.php');
-require_once(ROOT.DS.'models'.DS."UsersManager.php");
+define("WEBROOT", dirname(__FILE__));
+define("ROOT", WEBROOT);
+define("Base_URL", dirname(dirname($_SERVER['SCRIPT_NAME'])));
+define("DS", DIRECTORY_SEPARATOR);
+define("CORE", ROOT.DS."core");
 
-if(!isset($_SESSION['ID'])){
-	$UsersManager = new UsersManager;
-	$UsersManager->connectUser();
-}
 
 
 $url = '';

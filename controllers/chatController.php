@@ -1,20 +1,20 @@
 <?php
 
-require_once($_SERVER['DOCUMENT_ROOT'] . "/models/ChatManager.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/models/ChatsManager.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/controllers/php/functions.php");
 
-$ChatManager = new ChatManager();
+$ChatsManager = new ChatsManager();
 
 function displayUsersMessages($page = 1){
 	if (isset($_SESSION['ID'])) {
-		global $ChatManager;
+		global $ChatsManager;
 		$perPage = 20;
-    	$nbMessages = $ChatManager->getNumberUsersMessages();
+    	$nbMessages = $ChatsManager->getNumberUsersMessages();
     	$nbPage = ceil($nbMessages/$perPage);
 
     	$page = !($page>0 && $page<=$nbPage) ? 1 : $page;
 
-		$messages = $ChatManager->getUsersMessages($page, $perPage);
+		$messages = $ChatsManager->getUsersMessages($page, $perPage);
 		for($i = 0; $i< count($messages); $i++){
 			$messages[$i]['age'] = getOld($messages[$i]['sending_date']);
 		}
@@ -27,13 +27,13 @@ function displayUsersMessages($page = 1){
 
 function displayAdminMessages($page = 1){
 	if(isset($_SESSION['ID']) && $_SESSION['state'] === 'admin'){
-		global $ChatManager;
+		global $ChatsManager;
 		$perPage = 20;
-    	$nbMessages = $ChatManager->getNumberAdminMessages();
+    	$nbMessages = $ChatsManager->getNumberAdminMessages();
     	$nbPage = ceil($nbMessages/$perPage);
 
     	$page = !($page>0 && $page<=$nbPage) ? 1 : $page;
-		$messages = $ChatManager->getAdminMessages($page, $perPage);
+		$messages = $ChatsManager->getAdminMessages($page, $perPage);
 		for($i = 0; $i< count($messages); $i++){
 			$messages[$i]['age'] = getOld($messages[$i]['sending_date']);
 		}
