@@ -27,7 +27,7 @@ function userMention($matches){
 if (!empty($_POST['msg'])) {
 	$msg = htmlspecialchars(strip_tags($_POST['msg']));
 	
-	$msg = preg_replace_callback('#@([A-Za-z]+)#', "userMention", $msg);
+	$msg = preg_replace_callback('#@([A-Za-z0-9]+)#', "userMention", $msg);
 	
 
 	$msg = $Parsedown->line($msg);
