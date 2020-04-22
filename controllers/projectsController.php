@@ -5,6 +5,7 @@ require_once($_SERVER['DOCUMENT_ROOT'] . "/controllers/php/Parsedown.php");
 
 $ProjectsManager = new ProjectsManager();
 $Parsedown = new Parsedown();
+$Parsedown->setSafeMode(true);
 
 function displayProjects($page = 1){
     global $ProjectsManager, $Parsedown;
@@ -21,7 +22,7 @@ function displayProjects($page = 1){
     include_once("views/projects/projectsView.php");
 } 
 
-function displayProject( $project_id){
+function displayProject($project_id){
     global $ProjectsManager, $Parsedown;
     $project_id = (int)$project_id;
     $project = $ProjectsManager->getProject($project_id);
@@ -29,6 +30,10 @@ function displayProject( $project_id){
     $content = $Parsedown->text($project['content']);
 
     $tags = explode("/", $project['tags']);
+
+    for($i =0 ; $i<count($project['comments']); $i++){
+        $project['comments'][$i]['msg'] = $Parsedown->line($project['comments'][$i]['msg']);
+    }
 
     $title = $project['title'];
     include_once("views/projects/projectView.php");

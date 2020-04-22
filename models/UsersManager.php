@@ -5,7 +5,7 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/models/Manager.php');
 /**
  * Model to manage users.
  */
-class UsersManager extends Manager
+class UsersManager extends Model
 {
   /*
     $limit: number max of users which select.

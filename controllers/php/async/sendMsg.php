@@ -1,13 +1,13 @@
 <?php
 session_start();
-require_once($_SERVER['DOCUMENT_ROOT'] . "/models/ChatManager.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/models/ChatsManager.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/models/UsersManager.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/controllers/php/Parsedown.php");
 
 $Parsedown = new Parsedown();
 $Parsedown->setSafeMode(true);
 
-$ChatManager = new ChatManager();
+$ChatsManager = new ChatsManager();
 $UsersManager = new UsersManager();
 
 $success = 0;
@@ -33,11 +33,11 @@ if (!empty($_POST['msg'])) {
 	$msg = $Parsedown->line($msg);
 
 	if($_POST['category'] === 'user'){
-		$ChatManager->postUserMessage($msg, $_SESSION['ID']);
+		$ChatsManager->postUserMessage($msg, $_SESSION['ID']);
 		$success = 1;
 		$msg = "";
 	}elseif ($_POST['category'] === 'admin') {
-		$ChatManager->postAdminMessage($msg, $_SESSION['ID']);
+		$ChatsManager->postAdminMessage($msg, $_SESSION['ID']);
 		$success = 1;
 		$msg = "";
 	}

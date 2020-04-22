@@ -5,7 +5,7 @@ require_once($_SERVER['DOCUMENT_ROOT'] . "/models/Manager.php");
 /**
  * 
  */
-class ChatManager extends Manager
+class ChatsManager extends Model
 {
 	public function getUsersMessages($page, $perPage){
 		$db = $this->dbConnect();

@@ -1,10 +1,10 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'] . '/models/ChatManager.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/models/ChatsManager.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/controllers/php/functions.php');
 
-$ChatManager = new ChatManager();
+$ChatsManager = new ChatsManager();
 
-$messages = $ChatManager->getAdminMessages(1, 20);
+$messages = $ChatsManager->getAdminMessages(1, 20);
 for($i = 0; $i< count($messages); $i++){
 	$messages[$i]['age'] = getOld($messages[$i]['sending_date']);
 }
