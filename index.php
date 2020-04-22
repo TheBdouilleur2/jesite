@@ -2,7 +2,12 @@
 session_start();
 
 require_once('conf.php');
+require_once(ROOT.DS.'models'.DS."UsersManager.php");
 
+if(!isset($_SESSION['ID'])){
+	$UsersManager = new UsersManager;
+	$UsersManager->connectUser();
+}
 
 
 $url = '';

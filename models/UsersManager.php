@@ -142,21 +142,26 @@ class UsersManager extends Manager
     }
 
 
-  /* connectUser:
-  If there are cookies, the user is connected. */
+  /**connectUser:
+  *If there is cookie auth, the user is connected. 
+  */
   public function connectUser(){
-    if(isset($_COOKIE['username']) AND isset($_COOKIE['passwd']) && !empty($_COOKIE['username']) && !empty($_COOKIE['passwd'])){
+    if(isset($_COOKIE['auth'])){
+      $auth = $_COOKIE['auth'];
+      $auth = explode("--", $auth);
       $db = $this->dbConnect();
-      $req_user = $db->prepare("SELECT * FROM users WHERE username=? AND passwd=?");
-      $req_user->execute(array($_COOKIE['username'], $_COOKIE['passwd']));
+      $req_user = $db->prepare("SELECT * FROM users WHERE ID=?");
+      $req_user->execute(array((int)$auth[0]));
+      $user_info = $req_user->fetchAll();
       $is_user_exist = $req_user->rowCount();
       if ($is_user_exist == 1) {
-        $user_info = $req_user->fetch();
-        $_SESSION['ID'] = $user_info['ID'];
-        $_SESSION['username'] = $user_info['username'];
-        $_SESSION['mail'] = $user_info['mail'];
-        $_SESSION['state'] = $user_info['state'];
-        $_SESSION['msg'] = $user_info['msg'];
+        $key = sha1($user_info['username'].$user_info['passwd']);
+        if($key == $auth[1]){
+          setcookie('auth', $user_info['ID']."--".sha1($key), time()+365*24*60*60, "/", null, false, true);
+          $_SESSION = (array)$user_info;
+        }else{
+          setcookie('auth','', time()-3600);
+        }
       }
       $req_user->closeCursor();
     }
