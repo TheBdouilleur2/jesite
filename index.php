@@ -24,6 +24,12 @@ try {
 	}elseif($url[0]==='sign_in'){
 		require_once('controllers/usersController.php');
 		sign_in();
+	}elseif($url[0]==='create_user'){
+		require_once('controllers/usersController.php');
+		create_user();
+	}elseif($url[0]==='connect_user'){
+		require_once('controllers/usersController.php');
+		connect_user();
 	}elseif($url[0] === 'account'){
 		require_once("controllers/usersController.php");
 		account();

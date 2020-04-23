@@ -1,7 +1,13 @@
 <?php $title = "Se connecter·JE"; ?>
 <?php ob_start(); ?>
+   <?php if(isset($_SESSION['error']) && !empty($_SESSION['error'])){?>
+      <div class="alert alert-danger" role="alert">
+      <?=$_SESSION['error']?>
+      </div>
+   <?php }?>
+
    <p>Veuillez vous connecter.</p>
-   	<form method="POST" id="sign-in">
+   	<form action="/connect_user" method="POST" id="sign-in">
        <table>
             <tr>
                <td align="right">
@@ -37,7 +43,6 @@
          </table>
    	</form>
    
-<script type="text/javascript" src="public/js/sign_inForm.js"></script>
 <?php $content=ob_get_clean();
 require_once("views/templates/template.php");
 ?>

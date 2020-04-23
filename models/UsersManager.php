@@ -5,27 +5,24 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/models/Manager.php');
 /**
  * Model to manage users.
  */
-class UsersManager extends Model
-{
+class UsersManager extends Model{
   /*
     $limit: number max of users which select.
   */
   public function getUsers(int $limit){
-    $db = $this->dbConnect();
-    $users = $db->prepare('SELECT * FROM users ORDER BY id DESC LIMIT ?,?');
+    $users = $this->db->prepare('SELECT * FROM users ORDER BY id DESC LIMIT ?,?');
     if($limit == 10){
       $users->execute(array(0, $limit));
     }elseif($limit > 10){
       $users->execute(array($limit-10, $limit));
     }else{
-      $users = $db->query('SELECT * FROM users ORDER BY id DESC');
+      $users = $this->db->query('SELECT * FROM users ORDER BY id DESC');
     }
     return $users;
   }
 
   public function getUser($username){
-    $db = $this->dbConnect();
-    $user = $db->prepare('SELECT * FROM users WHERE username=?');
+    $user = $this->db->prepare('SELECT * FROM users WHERE username=?');
     $user->execute(array($username));
     $user_info = $user->fetch();
     return $user_info;
@@ -34,8 +31,7 @@ class UsersManager extends Model
   /* getUserByID:
   get all field of an user by his ID. */
   public function getUserByID(int $id){
-    $db = $this->dbConnect();
-    $user = $db->prepare('SELECT * FROM users WHERE ID=?');
+    $user = $this->db->prepare('SELECT * FROM users WHERE ID=?');
     $user->execute(array($id));
     $user_info = $user->fetch();
     $user->closeCursor();
@@ -45,10 +41,9 @@ class UsersManager extends Model
   /* createUser: 
   @param username, mail and password
   insert the user into the database users. */
-  public function createUser($username, $mail, $passwd){
-    $db = $this->dbConnect();
+  public function createUser(string $username, string $mail, string $passwd){
     $passwd = password_hash($passwd, PASSWORD_DEFAULT, ["cost" => 12]);
-    $insert_user = $db->prepare("INSERT INTO users (username, mail, passwd, state) VALUES(?, ?, ?, ?, ?)");
+    $insert_user = $this->db->prepare("INSERT INTO users (username, mail, passwd, state) VALUES(?, ?, ?, ?)");
     $insert_user->execute(array($username, $mail, $passwd, 'user'));
     $insert_user->closeCursor();
   }
@@ -60,8 +55,7 @@ class UsersManager extends Model
           - change value 
           not functional*/
   public function setUser(int $user_id, string $field_name, $new_value){
-    $db = $this->dbConnect();
-    $set_user = $db->prepare("UPDATE users SET ?=? WHERE ID=?");
+    $set_user = $this->db->prepare("UPDATE users SET ?=? WHERE ID=?");
     $set_user->execute(array($field_name, $new_value, $user_id));
     $set_user->closeCursor();
   }
@@ -71,9 +65,8 @@ class UsersManager extends Model
   params: - ID of the user 
           - change value */
   public function setUsername(int $user_id, $new_value){
-    $db = $this->dbConnect();
     $user_info = $this->getUserByID($user_id);
-    $set_user = $db->prepare("UPDATE users SET `username`=?, passwd=? , login_date=? WHERE ID=?");
+    $set_user = $this->db->prepare("UPDATE users SET `username`=?, passwd=? , login_date=? WHERE ID=?");
     $set_user->execute(array($new_value, $user_info['passwd'], $user_info['login_date'], $user_id));
     $set_user->closeCursor();
   }
@@ -83,9 +76,8 @@ class UsersManager extends Model
   params: - ID of the user 
           - change value */
   public function setMail(int $user_id, $new_value){
-    $db = $this->dbConnect();
     $user_info = $this->getUserByID($user_id);
-    $set_user = $db->prepare("UPDATE users SET `mail`=?, `passwd`=? , `login_date`=? WHERE ID=?");
+    $set_user = $this->db->prepare("UPDATE users SET `mail`=?, `passwd`=? , `login_date`=? WHERE ID=?");
     $set_user->execute(array($new_value, $user_info['passwd'], $user_info['login_date'], $user_id));
     $set_user->closeCursor();
   }
@@ -95,10 +87,9 @@ class UsersManager extends Model
   params: - ID of the user 
           - change value */
   public function setPasswd(int $user_id, $new_passwd){
-    $db = $this->dbConnect();
     $passwd = password_hash($new_passwd, PASSWORD_DEFAULT, ["cost" => 12]);
     $user_info = $this->getUserByID($user_id);
-    $set_user = $db->prepare("UPDATE users SET `username`=?, login_date=? WHERE ID=?");
+    $set_user = $this->db->prepare("UPDATE users SET `username`=?, login_date=? WHERE ID=?");
     $set_user->execute(array($new_passwd, $user_info['login_date'], $user_id));
     $set_user->closeCursor();
   }
@@ -109,9 +100,9 @@ class UsersManager extends Model
           - change value */
     public function setState(int $user_id, $new_value){
         if($new_value === 'admin' || $new_value === 'user'){
-            $db = $this->dbConnect();
+      
             $user_info = $this->getUserByID($user_id);
-            $set_user = $db->prepare("UPDATE users SET `state`=?, passwd=? , login_date=? WHERE ID=?");
+            $set_user = $this->db->prepare("UPDATE users SET `state`=?, passwd=? , login_date=? WHERE ID=?");
             $set_user->execute(array($new_value, $user_info['passwd'], $user_info['login_date'], $user_id));
             $set_user->closeCursor();
         }
@@ -123,9 +114,9 @@ class UsersManager extends Model
      * @param int $user_id The ID of user
      */
     public function setBio(int $user_id, $new_value){
-      $db = $this->dbConnect();
+
       $user_info = $this->getUserByID($user_id);
-      $set_user = $db->prepare("UPDATE users SET `bio`=?, passwd=? , login_date=? WHERE ID=?");
+      $set_user = $this->db->prepare("UPDATE users SET `bio`=?, passwd=? , login_date=? WHERE ID=?");
       $set_user->execute(array($new_value, $user_info['passwd'], $user_info['login_date'], $user_id));
       $set_user->closeCursor();
     }
@@ -135,9 +126,9 @@ class UsersManager extends Model
      * @param int $user_id The ID of user
      */
     public function setSkills(int $user_id, $new_value){
-      $db = $this->dbConnect();
+
       $user_info = $this->getUserByID($user_id);
-      $set_user = $db->prepare("UPDATE users SET `skills`=?, passwd=? , login_date=? WHERE ID=?");
+      $set_user = $this->db->prepare("UPDATE users SET `skills`=?, passwd=? , login_date=? WHERE ID=?");
       $set_user->execute(array($new_value, $user_info['passwd'], $user_info['login_date'], $user_id));
       $set_user->closeCursor();
     }
@@ -150,8 +141,8 @@ class UsersManager extends Model
     if(isset($_COOKIE['auth'])){
       $auth = $_COOKIE['auth'];
       $auth = explode("--", $auth);
-      $db = $this->dbConnect();
-      $req_user = $db->prepare("SELECT * FROM users WHERE ID=?");
+
+      $req_user = $this->db->prepare("SELECT * FROM users WHERE ID=?");
       $req_user->execute(array((int)$auth[0]));
       $user_info = $req_user->fetchAll();
       $is_user_exist = $req_user->rowCount();
@@ -173,9 +164,8 @@ class UsersManager extends Model
   return: True -> if the username is used
           False -> if the username is not used. */
   public function userTest($user){
-    $db = $this->dbConnect();
     $username = htmlspecialchars($user);
-    $reqUserTest = $db->prepare('SELECT * FROM users WHERE username=?');
+    $reqUserTest = $this->db->prepare('SELECT * FROM users WHERE username=?');
     $reqUserTest->execute(array($username));
     $is_user_exist = $reqUserTest->rowCount();
     if ($is_user_exist === 0) {
@@ -188,9 +178,8 @@ class UsersManager extends Model
   }
 
   public function deleteUser(int $id){
-    $db = $this->dbConnect();
     if($this->getUserByID($id)){
-      $req_delete = $db->prepare("DELETE FROM users WHERE ID=?");
+      $req_delete = $this->db->prepare("DELETE FROM users WHERE ID=?");
       $req_delete->execute(array($id));
       return True;
     }else{
