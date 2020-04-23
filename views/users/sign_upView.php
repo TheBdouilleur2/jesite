@@ -1,8 +1,14 @@
 <?php $title = "Créer un compte·JE"; ?>
 <?php ob_start(); ?>
+   <?php if(isset($_SESSION['error']) && !empty($_SESSION['error'])){?>
+      <div class="alert alert-danger" role="alert">
+      <?=$_SESSION['error']?>
+      </div>
+   <?php }?>
+
    <p>Veuillez créer un compte.</p>
    	<p>Les champs marqués d'une * sont à renseigner obligatoirement.</p>
-   	<form id="sign-up">
+      <form action="/create_user" method="POST" id="sign-up">
        <table>
             <tr>
                <td align="right">
@@ -54,7 +60,6 @@
          </table>
    	</form>
 
-<script type="text/javascript" src="public/js/sign_upForm.js"></script>
 <?php $content=ob_get_clean();
 require_once("views/templates/template.php");
 ?>
