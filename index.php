@@ -55,6 +55,9 @@ try {
 	}elseif($url[0]==='new_project'){
 		require_once('controllers/projectsController.php');
 		newProject();
+	}elseif($url[0]==='create_project'){
+		require_once('controllers/projectsController.php');
+		createProject();
 	}elseif ($url[0] === 'delete_project' && isset($url[1])) {
 		require_once("controllers/projectsController.php");
 		$id = (int)$url[1];
@@ -63,6 +66,9 @@ try {
 		require_once("controllers/projectsController.php");
 		$id = (int)$url[1];
 		editProject($id);
+	}elseif($url[0]==='set_project'){
+		require_once('controllers/projectsController.php');
+		setProject();
 	}
 	//	Chat:
 	elseif($url[0]==='chat'){
