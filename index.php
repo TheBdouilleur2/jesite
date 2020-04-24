@@ -7,6 +7,12 @@ define("Base_URL", dirname(dirname($_SERVER['SCRIPT_NAME'])));
 define("DS", DIRECTORY_SEPARATOR);
 define("CORE", ROOT.DS."core");
 
+if(!isset($_SESSION['ID'])){
+	require_once(ROOT.DS."models".DS."UsersManager.php");
+	$UsersManager = new UsersManager;
+	$UsersManager->connectUser();
+}
+
 
 
 $url = '';
