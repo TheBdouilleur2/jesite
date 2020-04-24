@@ -143,12 +143,12 @@ class UsersManager extends Model{
 
       $req_user = $this->db->prepare("SELECT * FROM users WHERE ID=?");
       $req_user->execute(array((int)$auth[0]));
-      $user_info = $req_user->fetchAll();
+      $user_info = $req_user->fetch();
       $is_user_exist = $req_user->rowCount();
       if ($is_user_exist == 1) {
         $key = sha1($user_info['username'].$user_info['passwd']);
         if($key == $auth[1]){
-          setcookie('auth', $user_info['ID']."--".sha1($key), time()+365*24*60*60, "/", null, false, true);
+          setcookie('auth', $user_info['ID']."--".$key, time()+365*24*60*60, "/", null, false, true);
           $_SESSION = (array)$user_info;
         }else{
           setcookie('auth','', time()-3600);
