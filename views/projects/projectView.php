@@ -20,8 +20,8 @@
 </div>
 <br>
 <p><?=$content?></p>
-<br>
-<hr>
+
+<br><hr><br>
 <!-- Affichage des commmentaires -->
 <?php if(isset($_SESSION['ID'])){ ?>
     <form id='send_comment' >
@@ -36,9 +36,20 @@
 
 <?php foreach($project["comments"] as $comment){ ?>
     <div class="comment bord">
-			<p><a href="/profile/<?=$comment['sender_id']?>" class="unlike"><strong>@<?php echo htmlspecialchars($comment['sender']); ?></strong></a>[<?= $comment['age']?>]: <?php echo $comment['msg']; ?></p>
+			<p><a href="/profile/<?=$comment['sender_id']?>" class="unlike"><strong>@<?php echo htmlspecialchars($comment['sender']); ?></strong></a>[<?php echo $comment['age'];?>]: <?=$comment['msg']?></p>
 	</div>
 <?php } ?>
+
+<!-- TODO correction erreur affichage markdown -->
+
+<script src='/public/js/comments.js'></script>
+
+<script>
+setInterval( 'loadMessages()' , 5000);
+    
+function loadMessages(){
+    $('#send_commen').load('../controllers/php/loadComment.php');
+}</script>
 
 <?php $content = ob_get_clean();?>
 <?php require_once($_SERVER['DOCUMENT_ROOT'] . '/views/templates/template.php');?>
