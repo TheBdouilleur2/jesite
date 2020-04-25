@@ -145,3 +145,4 @@ function deleteProject(int $project_id){
         header('Location: /index.php');
     }
 }
+//TODO vider sessionproject info
