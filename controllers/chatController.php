@@ -15,9 +15,6 @@ function displayUsersMessages($page = 1){
     	$page = !($page>0 && $page<=$nbPage) ? 1 : $page;
 
 		$messages = $ChatsManager->getUsersMessages($page, $perPage);
-		for($i = 0; $i< count($messages); $i++){
-			$messages[$i]['age'] = getOld($messages[$i]['sending_date']);
-		}
 		$title = 'Discussion·JE';
 		require_once("views/chat/chatView.php");
 	}else {
@@ -34,9 +31,6 @@ function displayAdminMessages($page = 1){
 
     	$page = !($page>0 && $page<=$nbPage) ? 1 : $page;
 		$messages = $ChatsManager->getAdminMessages($page, $perPage);
-		for($i = 0; $i< count($messages); $i++){
-			$messages[$i]['age'] = getOld($messages[$i]['sending_date']);
-		}
 		$title = 'Discussion admin·JE';
 		require_once("views/chat/chatAdmin.php");
 	}else {

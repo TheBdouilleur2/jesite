@@ -1,6 +1,7 @@
 <?php
 
 require_once($_SERVER['DOCUMENT_ROOT'] . "/models/Manager.php");
+require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."controllers".DIRECTORY_SEPARATOR."php".DIRECTORY_SEPARATOR."functions.php");
 
 /**
  * 
@@ -11,6 +12,9 @@ class ChatsManager extends Model
     $begin = ($page-1)*4;
     $req_messages = $this->db->query("SELECT m.ID ID, sender_ID, u.username sender, m.msg msg, sending_date FROM usersChat m INNER JOIN users u ON u.ID = m.sender_id ORDER BY m.ID DESC LIMIT $begin,$perPage");
     $messages = $req_messages->fetchAll();
+    for($i = 0; $i< count($messages); $i++){
+      $messages[$i]['age'] = getOld($messages[$i]['sending_date']);
+    }
     $req_messages->closeCursor();
     return $messages;
   }
@@ -19,6 +23,9 @@ class ChatsManager extends Model
     $begin = ($page-1)*4;
     $req_messages = $this->db->query("SELECT m.ID ID, sender_ID, u.username sender, m.msg msg, sending_date FROM adminChat m INNER JOIN users u ON u.ID = m.sender_id ORDER BY m.ID DESC LIMIT $begin,$perPage");
     $messages = $req_messages->fetchAll();
+    for($i = 0; $i< count($messages); $i++){
+      $messages[$i]['age'] = getOld($messages[$i]['sending_date']);
+    }
     $req_messages->closeCursor();
     return $messages;
 	}
