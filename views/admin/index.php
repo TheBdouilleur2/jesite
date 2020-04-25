@@ -13,7 +13,7 @@
         </tr>
       </thead>
       <tbody>
-          <?php while($user = $users->fetch()){ ?>
+          <?php foreach($users as $user){ ?>
                 <tr class="bg-<?= ($user['state']=='admin')?'dark text-light':'light' ?>">
                     <th scope="row"><?=$user['ID']?></th>
                     <td><?=$user['username']?></td>
