@@ -83,10 +83,10 @@ function createProject(){
 }
 
 
-function editProject(int $id){
+function editProject(int $project_id){
     global $ProjectsManager;
 
-    $project = $ProjectsManager->getProject($id);
+    $project = $ProjectsManager->getProject($project_id);
     // TODO:Changer les <br /> en retour à la ligne
 
     $title = "Edition du projet·JE";
@@ -134,10 +134,10 @@ function setProject(){
     }
 }
 
-function deleteProject(int $id){
+function deleteProject(int $project_id){
     global $ProjectsManager;
 
-    $ProjectsManager->deleteProject($id);
+    $ProjectsManager->deleteProject($project_id);
     if(isset($_SERVER['HTTP_REFERER'])){
         header("Location: ".$_SERVER['HTTP_REFERER']);
     }else{

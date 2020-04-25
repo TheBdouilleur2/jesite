@@ -14,9 +14,9 @@ class CommentsManager extends Model {
      * @param int $id L'ID du projet
      * @return array
      */
-    public function getCommentsByProject(int $id){
+    public function getCommentsByProject(int $project_id){
         $comments = $this->find(array(
-            "conditions"=>"project_id = ".$id, 
+            "conditions"=>"project_id = ".$project_id, 
             "selection"=>"c.ID ID, u.username sender, c.sender_id sender_id, c.msg msg, c.publication_date publication_date FROM ".$this->table." c INNER JOIN users u ON u.ID = c.sender_id",
             "order"=>"publication_date DESC"));
         for ($i=0; $i < count($comments); $i++) { 

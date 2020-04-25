@@ -3,9 +3,9 @@ document.getElementById("send_comment").addEventListener("submit", function(e) {
 	var data = new FormData(this);
     var xhr = new XMLHttpRequest();
     
-    path = document.location.pathname
+    let path = document.location.pathname;
 
-	data.append("path", path)
+	data.append("path", path);
 
 	xhr.onreadystatechange = function() {
 		if(this.readyState === 4 && this.status === 200) {
@@ -13,8 +13,8 @@ document.getElementById("send_comment").addEventListener("submit", function(e) {
 			var res = this.response;
 			if (res.success) {
 				console.log("Commentaire posté !!");
-				document.getElementById("msg").value = ''
-				document.location.reload()
+				document.getElementById("msg").value = '';
+				document.location.reload();
 			} else {
 				alert(res.msg);
 			}

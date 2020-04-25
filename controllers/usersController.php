@@ -27,17 +27,17 @@ if (!isset($_SESSION['id']) && empty($_SESSION['id'])) {
 	 * Affiche la page de profil d'un utilisateur
 	 * @param int $id ID de l'utilisateur dont on veut afficher le profil
 	 */
-	function profile(int $id){
+	function profile(int $user_id){
 		global $UserManager, $Parsedown, $ProjectsManager;
-		$user_info = $UserManager->getUserByID((int)$id);
+		$user_info = $UserManager->getUserByID((int)$user_id);
 		$user_info['age'] = getOld($user_info['login_date']);
 		$user_info['bio'] = $Parsedown->line($user_info['bio']);
-		$user_info['projects'] = $ProjectsManager->getProjectsByUser($id); 
+		$user_info['projects'] = $ProjectsManager->getProjectsByUser($user_id); 
 		$user_info['skills'] = explode("/", $user_info['skills']);
 
 		$title = "Profil·JE de " . $user_info['username'];
 
-		require_once($_SERVER['DOCUMENT_ROOT'] . '/views/users/showProfile.php');
+		require_once(ROOT.DS."views".DS."users".DS."showProfile.php");
 	}
 
 	function create_user(){
@@ -46,15 +46,13 @@ if (!isset($_SESSION['id']) && empty($_SESSION['id'])) {
 			$username = htmlspecialchars(strip_tags($_POST['username']));
 			$passwd = $_POST['passwd'];
 			$passwd2 = $_POST['passwd2'];
-			$usernamelength = strlen($username);
-			if($usernamelength <= 20) {
-				$is_username_exist = $UserManager->userTest($username);
-				if(!$is_username_exist){
+			if(strlen($username) <= 20) {
+				$isUsernameExist = $UserManager->userTest($username);
+				if(!$isUsernameExist){
 					if($passwd == $passwd2) {
+						$mail = "";
 						if(!empty($_POST['mail'])){
 							$mail = htmlspecialchars(strip_tags($_POST['mail']));
-						}else{
-							$mail = '';
 						}
 						$UserManager->createUser($username, $mail, $passwd);
 						$user_info = $UserManager->getUser($username);
@@ -75,12 +73,12 @@ if (!isset($_SESSION['id']) && empty($_SESSION['id'])) {
 		} else {
 			$msg = "Tous les champs doivent être complétés !";
 		}
+		$location = "index.php";
 		if(!empty($msg)){
 			$_SESSION['error'] = $msg;
-			header("Location: sign_up");
-		}else{
-			header("Location: index.php");
+			$location = "sign_up";
 		}
+		header("Location: $location");
 	}
 
 	function connect_user(){

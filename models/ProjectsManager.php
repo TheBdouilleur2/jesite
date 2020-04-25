@@ -26,9 +26,9 @@ class ProjectsManager extends Model
      * @param int $id ID de l'utilisateur
      * @return array $projects Projets de l'utilisateur
      */
-    public function getProjectsByUser(int $id){
+    public function getProjectsByUser(int $userId){
         $req_projects = $this->db->prepare("SELECT p.ID ID, p.creator_id, u.username creator, p.title title, p.summary summary, DATE_FORMAT(publication_date, '%d/%m/%Y à %Hh%imin') AS date_fr, tags FROM projects p INNER JOIN users u ON u.ID = p.creator_id WHERE p.creator_id=? ORDER BY publication_date DESC");
-        $req_projects->execute(array($id));
+        $req_projects->execute(array($userId));
         $projects = $req_projects->fetchAll();
         $req_projects->closeCursor();
         return $projects;
@@ -61,9 +61,9 @@ class ProjectsManager extends Model
         $req_project->closeCursor();
     }
 
-    function deleteProject(int $id){
+    function deleteProject(int $projectId){
         $req_delete = $this->db->prepare("DELETE FROM projects WHERE ID=?");
-        $req_delete->execute(array($id));
+        $req_delete->execute(array($projectId));
         $req_delete->closeCursor();
     }
 
