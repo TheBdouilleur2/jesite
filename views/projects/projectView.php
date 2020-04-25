@@ -40,8 +40,6 @@
 	</div>
 <?php } ?>
 
-<!-- TODO correction erreur affichage markdown -->
-
 <script src='/public/js/comments.js'></script>
 
 <script>

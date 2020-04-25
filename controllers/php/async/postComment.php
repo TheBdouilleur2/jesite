@@ -22,8 +22,6 @@ if (!empty($_POST['msg'])) {
 	$msg = preg_replace_callback('#@([A-Za-z0-9]+)#', "userMention", $msg);
 
 	$project_id = explode("/", $_POST['path'])[2];
-
-	$msg = $Parsedown->line($msg);
     
 	$CommentsManager->postComment($project_id, $_SESSION['ID'], $msg);
 	$success = 1;
