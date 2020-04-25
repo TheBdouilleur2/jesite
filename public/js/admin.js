@@ -31,6 +31,8 @@ $(".perm").click(function(e){
     return false;
 });
 
+/* TODO résoudre problème avec jquery */
+
 $(".supr").click(function(e){
     e.preventDefault();
     let hrefArray = this.href.split("/");

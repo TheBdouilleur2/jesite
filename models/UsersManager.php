@@ -177,7 +177,7 @@ class UsersManager extends Model{
     }
   }
 
-  public function deleteUser(int $id){
+  public function deleteUser(int $userId){
     if($this->getUserByID($id)){
       $req_delete = $this->db->prepare("DELETE FROM users WHERE ID=?");
       $req_delete->execute(array($id));
