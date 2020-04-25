@@ -95,6 +95,7 @@ function editProject(int $project_id){
 
 function setProject(){
     global $ProjectsManager;
+    $_SESSION["error"] = "";
     extract($_POST);
 
     $project_info = $ProjectsManager->getProject($id);
@@ -141,6 +142,6 @@ function deleteProject(int $project_id){
     if(isset($_SERVER['HTTP_REFERER'])){
         header("Location: ".$_SERVER['HTTP_REFERER']);
     }else{
-        header('Location: ../index.php');
+        header('Location: /index.php');
     }
 }

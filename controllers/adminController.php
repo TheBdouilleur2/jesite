@@ -12,7 +12,7 @@ if (!isset($_SESSION['id']) && empty($_SESSION['id']) && $_SESSION['state'] === 
     function index(){
         global $UsersManager, $ProjectsManager, $Parsedown;
         $title = 'Espace Admin·JE';
-        $users = $UsersManager->getUsers(0);
+        $users = $UsersManager->getUsers();
         $nbProjects = $ProjectsManager->getProjectsNumber();
         $projects = $ProjectsManager->getProjects(1, $nbProjects);
 
