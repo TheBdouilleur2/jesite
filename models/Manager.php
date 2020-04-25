@@ -32,20 +32,25 @@ class Model {
 
     public function find($req){
         $sql = "SELECT ";
-        if(isset($req['selection'])){
-            $sql .= $req['selection'];
+        if(isset($req["selection"])){
+            $sql .= $req["selection"];
         }else{
             $sql .= "* FROM ".$this->table;
         }
-        if(isset($req['conditions'])){
-            $sql .= " WHERE ".$req['conditions'];
-        }if(isset($req['order'])){
-            $order = $req['order'];
+        if(isset($req["conditions"])){
+            $sql .= " WHERE ".$req["conditions"];
+        }if(isset($req["order"])){
+            $order = $req["order"];
             $sql .= " ORDER BY $order";
+        }if(isset($req["limit"])){
+            $limit = $req["limit"];
+            $sql .= " LIMIT $limit";
         }
         $pre = $this->db->prepare($sql);
         $pre->execute();
-        return $pre->fetchAll();
+        $fetch = $pre->fetchAll();
+        $pre->closeCursor();
+        return $fetch;
     }
 
     public function findFirst($req){
@@ -88,5 +93,22 @@ class Model {
         
         $pre = $this->db->prepare($sql);
         $pre->execute();
+        $pre->closeCursor();
+    }
+
+    public function delete($cond){
+        $sql = "DELETE FROM ".$this->table." WHERE ";
+        if(is_numeric($cond)){
+            $ID = (int)$cond;
+            $sql .= "ID=$ID";
+        }else{
+            foreach($cond as $k=>$v){
+                $sql .= "`$k`=$v AND ";
+            }
+            $sql = substr($sql, 0, -4);
+        }
+        $pre = $this->db->prepare($sql);
+        $pre->execute();
+        $pre->closeCursor();
     }
 }
