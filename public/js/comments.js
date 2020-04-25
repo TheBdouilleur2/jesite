@@ -13,7 +13,8 @@ document.getElementById("send_comment").addEventListener("submit", function(e) {
 			var res = this.response;
 			if (res.success) {
 				console.log("Commentaire posté !!");
-				document.getElementById('msg').value = '';
+				document.getElementById('msg').value = ''
+				document.location.reload()
 			} else {
 				alert(res.msg);
 			}
