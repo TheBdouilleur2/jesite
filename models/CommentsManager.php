@@ -29,4 +29,8 @@ class CommentsManager extends Model {
         $this->save(array("project_id"=>$project_id, "sender_id"=>$user_id, "msg"=>$msg));
     }
 
+    public function deleteCommentsByProject(int $projectId){
+        $this->delete(array("project_id"=>$projectId));
+    }
+
 }

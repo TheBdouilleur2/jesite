@@ -6,35 +6,26 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/models/Manager.php');
  * Model to manage users.
  */
 class UsersManager extends Model{
-  /*
-    $limit: number max of users which select.
-  */
-  public function getUsers(int $limit){
-    $users = $this->db->prepare('SELECT * FROM users ORDER BY id DESC LIMIT ?,?');
-    if($limit == 10){
-      $users->execute(array(0, $limit));
-    }elseif($limit > 10){
-      $users->execute(array($limit-10, $limit));
-    }else{
-      $users = $this->db->query('SELECT * FROM users ORDER BY id DESC');
-    }
+
+  public $table = "users";
+
+  
+  public function getUsers(){
+    $users = $this->find(array("order"=>"id DESC"));
     return $users;
   }
 
   public function getUser($username){
-    $user = $this->db->prepare('SELECT * FROM users WHERE username=?');
-    $user->execute(array($username));
-    $user_info = $user->fetch();
-    return $user_info;
+    $user = $this->findFirst(array("conditions"=>"username=$username"));
+    return $user;
   }
 
   /* getUserByID:
   get all field of an user by his ID. */
-  public function getUserByID(int $id){
-    $user = $this->db->prepare('SELECT * FROM users WHERE ID=?');
-    $user->execute(array($id));
-    $user_info = $user->fetch();
-    return $user_info;
+  public function getUserByID(int $userId){
+    $userId = (int)$userId;
+    $user = $this->findFirst(array("conditions"=>"ID=$userId"));
+    return $user;
   }
 
   /* createUser: 
@@ -42,9 +33,7 @@ class UsersManager extends Model{
   insert the user into the database users. */
   public function createUser(string $username, string $mail, string $passwd){
     $passwd = password_hash($passwd, PASSWORD_DEFAULT, ["cost" => 12]);
-    $insert_user = $this->db->prepare("INSERT INTO users (username, mail, passwd, state) VALUES(?, ?, ?, ?)");
-    $insert_user->execute(array($username, $mail, $passwd, 'user'));
-    $insert_user->closeCursor();
+    $insert_user = $this->save(array("username"=>$username, "mail"=>$mail, "passwd"=>$passwd));
   }
 
   /* setUser:
@@ -54,9 +43,8 @@ class UsersManager extends Model{
           - change value 
           not functional*/
   public function setUser(int $user_id, string $field_name, $new_value){
-    $set_user = $this->db->prepare("UPDATE users SET ?=? WHERE ID=?");
-    $set_user->execute(array($field_name, $new_value, $user_id));
-    $set_user->closeCursor();
+    $user_info = $this->getUserByID($user_id);
+    $this->save(array("ID"=>(int)$user_id, "$field_name"=>$new_value, "passwd"=>$user_info['passwd'], "login_date"=>$user_info["login_date"]));
   }
 
     /* setUsername:
@@ -141,11 +129,8 @@ class UsersManager extends Model{
       $auth = $_COOKIE['auth'];
       $auth = explode("--", $auth);
 
-      $req_user = $this->db->prepare("SELECT * FROM users WHERE ID=?");
-      $req_user->execute(array((int)$auth[0]));
-      $user_info = $req_user->fetch();
-      $is_user_exist = $req_user->rowCount();
-      if ($is_user_exist == 1) {
+      $user_info = $this->findFirst(array("conditions"=>"ID=$auth[0]"));
+      if ($user_info){
         $key = sha1($user_info['username'].$user_info['passwd']);
         if($key == $auth[1]){
           setcookie('auth', $user_info['ID']."--".$key, time()+365*24*60*60, "/", null, false, true);
@@ -154,7 +139,6 @@ class UsersManager extends Model{
           setcookie('auth','', time()-3600);
         }
       }
-      $req_user->closeCursor();
     }
   }
 
@@ -164,22 +148,17 @@ class UsersManager extends Model{
           False -> if the username is not used. */
   public function userTest($user){
     $username = htmlspecialchars($user);
-    $reqUserTest = $this->db->prepare('SELECT * FROM users WHERE username=?');
-    $reqUserTest->execute(array($username));
-    $is_user_exist = $reqUserTest->rowCount();
-    if ($is_user_exist === 0) {
-        $reqUserTest->closeCursor();
+    $reqUserTest = $this->findFirst(array("conditions"=>"username='$username'"));
+    if (!$reqUserTest) {
         return false;
     }else{
-        $reqUserTest->closeCursor();
         return true;
     }
   }
 
   public function deleteUser(int $userId){
-    if($this->getUserByID($id)){
-      $req_delete = $this->db->prepare("DELETE FROM users WHERE ID=?");
-      $req_delete->execute(array($id));
+    if($this->getUserByID($userId)){
+      $this->delete((int)$userId);
       return True;
     }else{
       return False;
