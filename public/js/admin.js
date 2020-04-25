@@ -1,20 +1,20 @@
 $(".perm").click(function(e){
     e.preventDefault();
-    let href_array = this.href.split('/')
-	let id = href_array[3];
+    let hrefArray = this.href.split("/");
+	let id = hrefArray[3];
 	
-	let data = new FormData()
-	data.append('id', id)
+	let data = new FormData();
+	data.append("id", id);
 
     /* Requète asynchrone. */
 	var xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function() {
-		if(this.readyState == 4 && this.status == 200) {
+		if(this.readyState === 4 && this.status === 200) {
 			console.log(this.response);
 			var res = this.response;
 			if (res.success) {
 				console.log("Permission changée");
-				$('.users').load('../controllers/php/loadUsers.php');
+				$(".users").load('../controllers/php/loadUsers.php');
 			} else {
 				alert(res.msg);
 			}
@@ -28,38 +28,38 @@ $(".perm").click(function(e){
 	xhr.responseType = "json";
     xhr.send(data);
     
-    return false
+    return false;
 });
 
 $(".supr").click(function(e){
     e.preventDefault();
-    let href_array = this.href.split('/')
-	let id = href_array[3];
+    let hrefArray = this.href.split("/");
+	let id = hrefArray[3];
 	
-	let data = new FormData()
-	data.append('id', id)
+	let data = new FormData();
+	data.append("id", id);
 
     /* Requète asynchrone. */
 	var xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function() {
-		if(this.readyState == 4 && this.status == 200) {
+		if(this.readyState === 4 && this.status === 200) {
 			console.log(this.response);
 			var res = this.response;
 			if (res.success) {
 				console.log("Utilisateur supprimé");
-				$('.users').load('../controllers/php/loadUsers.php');
+				$(".users").load('../controllers/php/loadUsers.php');
 			} else {
 				alert(res.msg);
 			}
-		} else if (this.readyState == 4) {
+		} else if (this.readyState === 4) {
 			alert("Une erreur est survenue...");
 		}
 	};
 
-    alert('Êtes vous bien sûr de vouloir supprimer cet utilisateur?');
+    alert("Êtes vous bien sûr de vouloir supprimer cet utilisateur?");
 	xhr.open("POST", "controllers/php/async/deleteUser.php", true);
 	xhr.responseType = "json";
     xhr.send(data);
     
-    return false
+    return false;
 });
