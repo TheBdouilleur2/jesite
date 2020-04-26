@@ -2,11 +2,8 @@
 session_start();
 require_once($_SERVER['DOCUMENT_ROOT'] . "/models/CommentsManager.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/models/UsersManager.php");
-require_once($_SERVER['DOCUMENT_ROOT'] . "/controllers/php/Parsedown.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/controllers/php/functions.php");
 
-$Parsedown = new Parsedown();
-$Parsedown->setSafeMode(true);
 
 $CommentsManager = new CommentsManager();
 $UsersManager = new UsersManager();

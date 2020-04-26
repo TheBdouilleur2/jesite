@@ -21,6 +21,7 @@ class CommentsManager extends Model {
             "order"=>"publication_date DESC"));
         for ($i=0; $i < count($comments); $i++) { 
             $comments[$i]['age'] = getOld($comments[$i]["publication_date"]);
+            $comments[$i]["msg"] = $this->Parsedown->line($comments[$i]["msg"]);
         }
         return $comments;
     }

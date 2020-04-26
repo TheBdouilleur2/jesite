@@ -2,11 +2,8 @@
 session_start();
 require_once($_SERVER['DOCUMENT_ROOT'] . "/models/ChatsManager.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/models/UsersManager.php");
-require_once($_SERVER['DOCUMENT_ROOT'] . "/controllers/php/Parsedown.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/controllers/php/functions.php");
 
-$Parsedown = new Parsedown();
-$Parsedown->setSafeMode(true);
 
 $ChatsManager = new ChatsManager();
 $UsersManager = new UsersManager();
@@ -19,9 +16,6 @@ if (!empty($_POST['msg'])) {
 	$msg = htmlspecialchars(strip_tags($_POST['msg']));
 	
 	$msg = preg_replace_callback('#@([A-Za-z0-9]+)#', "userMention", $msg);
-	
-
-	$msg = $Parsedown->line($msg);
 
 	if($_POST['category'] === 'user'){
 		$ChatsManager->postUserMessage($msg, $_SESSION['ID']);
