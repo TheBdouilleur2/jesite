@@ -32,13 +32,13 @@
             <div class="project">
                 <div class="row">
                     <p class="col"><strong><?=$project['title']?></strong>  publié le <?=$project['date_fr']?>
-                    <?php if(count($tags)){
+                    <?php if($tags){
                             foreach($tags as $tag) { ?>
                                 <span class="badge badge-secondary"><?=$tag?></span>
                     <?php }} ?>
                     </p>
                 </div>
-            <p><?=nl2br($Parsedown->line($project['summary']))?></p>
+            <p><?=nl2br($project['summary'])?></p>
             </div>
         </a>
     <?php } ?>

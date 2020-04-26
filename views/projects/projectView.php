@@ -20,7 +20,7 @@
 </div>
 <br>
 
-<p><?=$content?></p>
+<p><?=$project["content"]?></p>
 
 <br><hr><br>
 <!-- Affichage des commmentaires -->

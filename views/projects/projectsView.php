@@ -23,7 +23,7 @@
                     <?php } ?>
                     </div>
                 </div>
-                <p><?=nl2br($Parsedown->line($project['summary']))?></p>
+                <p><?=nl2br($project['summary'])?></p>
             </div>
         </a>
     <?php }?>

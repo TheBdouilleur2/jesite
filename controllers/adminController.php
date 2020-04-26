@@ -3,14 +3,12 @@ if (!isset($_SESSION['id']) && empty($_SESSION['id']) && $_SESSION['state'] === 
 
     require_once($_SERVER['DOCUMENT_ROOT'] . '/models/UsersManager.php');
     require_once($_SERVER['DOCUMENT_ROOT'] . '/models/ProjectsManager.php');
-    require_once($_SERVER['DOCUMENT_ROOT'] . '/controllers/php/Parsedown.php');
 
     $UsersManager = new UsersManager();
     $ProjectsManager = new ProjectsManager();
-    $Parsedown = new Parsedown();
     
     function index(){
-        global $UsersManager, $Parsedown;
+        global $UsersManager;
         $title = 'Espace Admin·JE';
         $users = $UsersManager->getUsers();
         
@@ -19,7 +17,7 @@ if (!isset($_SESSION['id']) && empty($_SESSION['id']) && $_SESSION['state'] === 
     }
 
     function projects(){
-        global $ProjectsManager, $Parsedown;
+        global $ProjectsManager;
         $title = 'Espace Admin Projets·JE';
 
         $nbProjects = $ProjectsManager->getProjectsNumber();

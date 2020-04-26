@@ -1,7 +1,7 @@
 <?php
-//TODO: Suprimer le champ message dans la table user.
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/models/Manager.php');
+require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."controllers".DIRECTORY_SEPARATOR."php".DIRECTORY_SEPARATOR."functions.php");
 /**
  * Model to manage users.
  */
@@ -16,7 +16,10 @@ class UsersManager extends Model{
   }
 
   public function getUser($username){
-    $user = $this->findFirst(array("conditions"=>"username=$username"));
+    $user = $this->findFirst(array("conditions"=>"`username`='$username'"));
+    $user['age'] = getOld($user['login_date']);
+		$user['bio'] = $this->Parsedown->line($user['bio']);
+		$user['skills'] = explode("/", $user['skills']);
     return $user;
   }
 
@@ -25,6 +28,9 @@ class UsersManager extends Model{
   public function getUserByID(int $userId){
     $userId = (int)$userId;
     $user = $this->findFirst(array("conditions"=>"ID=$userId"));
+    $user['age'] = getOld($user['login_date']);
+		$user['bio'] = $this->Parsedown->line($user['bio']);
+		$user['skills'] = explode("/", $user['skills']);
     return $user;
   }
 
@@ -148,7 +154,7 @@ class UsersManager extends Model{
           False -> if the username is not used. */
   public function userTest($user){
     $username = htmlspecialchars($user);
-    $reqUserTest = $this->findFirst(array("conditions"=>"username='$username'"));
+    $reqUserTest = $this->findFirst(array("conditions"=>"`username`='$username'"));
     if (!$reqUserTest) {
         return false;
     }else{
