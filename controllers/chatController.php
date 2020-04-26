@@ -32,7 +32,7 @@ function displayAdminMessages($page = 1){
     	$page = !($page>0 && $page<=$nbPage) ? 1 : $page;
 		$messages = $ChatsManager->getAdminMessages($page, $perPage);
 		$title = 'Discussion admin·JE';
-		require_once("views/chat/chatAdmin.php");
+		require_once("views/admin/chat.php");
 	}
 	header('Location: index.php');
 }

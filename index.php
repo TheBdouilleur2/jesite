@@ -85,19 +85,26 @@ try {
 			$page = 1;
 		}
 		displayUsersMessages($page);
-	}elseif ($url[0] === 'chat_admin') {
-		require_once("controllers/chatController.php");
-		if(isset($url[1])){
-			$page = (int)$url[1];
-		}else{
-			$page = 1;
-		}
-		displayAdminMessages($page);
 	}
 	//	Admin:
-	elseif($url[0] === 'admin_space'){
-		require_once("controllers/adminController.php");
-		index();
+	elseif($url[0] === 'admin'){
+		if(isset($url[1])){
+			if($url[1]==="chat"){
+				require_once("controllers/chatController.php");
+				if(isset($url[2])){
+					$page = (int)$url[2];
+				}else{
+					$page = 1;
+				}
+				displayAdminMessages($page);
+			}elseif($url[1]==="projects"){
+				require_once("controllers/adminController.php");
+				projects();
+			}
+		}else{
+			require_once("controllers/adminController.php");
+			index();
+		}
 	}
 	else{
 		require_once('views/error404.php');
