@@ -10,13 +10,22 @@ if (!isset($_SESSION['id']) && empty($_SESSION['id']) && $_SESSION['state'] === 
     $Parsedown = new Parsedown();
     
     function index(){
-        global $UsersManager, $ProjectsManager, $Parsedown;
+        global $UsersManager, $Parsedown;
         $title = 'Espace Admin·JE';
         $users = $UsersManager->getUsers();
+        
+
+        require_once(ROOT.DS."views".DS."admin".DS."index.php");
+    }
+
+    function projects(){
+        global $ProjectsManager, $Parsedown;
+        $title = 'Espace Admin Projets·JE';
+
         $nbProjects = $ProjectsManager->getProjectsNumber();
         $projects = $ProjectsManager->getProjects(1, $nbProjects);
 
-        require_once($_SERVER['DOCUMENT_ROOT'] . '/views/admin/index.php');
+        require_once(ROOT.DS."views".DS."admin".DS."projects.php");
     }
 
 }else{

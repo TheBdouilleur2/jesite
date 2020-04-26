@@ -20,7 +20,7 @@
 			<li class='nav_item'><a class="nav-link" href="/index.php">Accueil</a></li>
 			<?php
 			if(isset($_SESSION['ID'], $_SESSION['state']) AND $_SESSION['state']=='admin'){?>
-				<li class='nav-item'><a class="nav-link" href="/admin_space">Espace admin</a></li>
+				<li class='nav-item'><a class="nav-link" href="/admin">Espace admin</a></li>
 			<?php } ?>
 			<!-- <li>Articles</li> -->
 			<li class='nav-item'><a class="nav-link" href="/projects" class="nav-link">Projets</a></li>
@@ -31,7 +31,7 @@
         				</a>
         				<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           					<a class="dropdown-item" href="/chat">Discussion utilisateur</a>
-						<a class="dropdown-item" href="/chat_admin">Discussion admin</a>
+						<a class="dropdown-item" href="/admin/chat">Discussion admin</a>
         				</div>
       				</li>
 			<?php } else if(isset($_SESSION['ID'])){ ?>

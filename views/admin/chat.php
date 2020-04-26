@@ -1,4 +1,21 @@
 <?php ob_start(); ?>
+
+<!-- Navigation entre les onglets -->
+<nav>
+  <ul class="nav nav-pills">
+    <li class="nav-item">
+      <a class="nav-link" href="/admin">Utilisateurs</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/admin/projects">Projets</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link active" href="#">Chat</a>
+    </li>
+  </ul>
+</nav>
+<br>
+
 <form id='send_msg' >
 	<div class="form-group">
 		<label for="msg" ><?php echo $_SESSION['username']; ?>:</label>
