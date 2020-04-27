@@ -14,7 +14,7 @@ $(".perm").click(function(e){
 			var res = this.response;
 			if (res.success) {
 				console.log("Permission changée");
-				$(".users").load('../controllers/php/loadUsers.php');
+				document.location.reload();
 			} else {
 				alert(res.msg);
 			}
@@ -31,7 +31,6 @@ $(".perm").click(function(e){
     return false;
 });
 
-/* TODO résoudre problème avec jquery */
 
 $(".supr").click(function(e){
     e.preventDefault();
@@ -49,7 +48,7 @@ $(".supr").click(function(e){
 			var res = this.response;
 			if (res.success) {
 				console.log("Utilisateur supprimé");
-				$(".users").load('../controllers/php/loadUsers.php');
+				document.location.reload();
 			} else {
 				alert(res.msg);
 			}
