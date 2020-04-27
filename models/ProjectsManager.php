@@ -39,12 +39,14 @@ class ProjectsManager extends Model
         return $projects;
     }
 
-    public function getProject($project_id){
+    public function getProject(int $project_id, bool $parsedown=true){
         global $CommentsManager;
         $project_id = (int)$project_id;
         $project = $this->findFirst(array("selection"=>"p.ID ID, u.username creator, p.creator_id creator_id, p.title title, p.content content, p.summary summary,  publication_date, DATE_FORMAT(publication_date, '%d/%m/%Y à %Hh%imin') AS date_fr,  tags FROM projects p INNER JOIN users u ON u.ID = p.creator_id", "conditions"=>"p.ID=$project_id"));
-        $project['comments'] =  $CommentsManager->getCommentsByProject($project_id); 
-        $project['content'] = $this->Parsedown->text($project['content']);
+        if($parsedown){
+            $project['comments'] =  $CommentsManager->getCommentsByProject($project_id); 
+            $project['content'] = $this->Parsedown->line($project['content']);
+        }
         return $project; 
     }
 
@@ -80,53 +82,12 @@ class ProjectsManager extends Model
         }
     }
 
-    /** setTitle:
-    *Change a value of an paroject's title.
-    *@params: int $project_id ID of the project 
-    *         $new_value change value 
-    */
-    public function setTitle(int $project_id, $new_value){
-        $new_value = htmlspecialchars(strip_tags($new_value));
-        $project_info = $this->getProject($project_id);
-        $set_project = $this->save(array("ID"=>$project_id, "title"=>$new_value, "publication_date"=>$project_info['publication_date']));
-        //TODO utiliser une seule fonction.
+    public function setProject(int $projectId, string $fieldName, $newValue){
+        $newValue = htmlspecialchars(strip_tags($newValue));
+        $projectId = (int)$projectId;
+        $projectInfo = $this->getProject($projectId);
+        $this->save(array("ID"=>$projectId, $fieldName=>$newValue, "publication_date"=>$projectInfo['publication_date']));
     }
-
-    /** setContent:
-    *Change a value of an project's content.
-    *params: - ID of the project 
-    *        - change value 
-    */
-    public function setContent(int $project_id, $new_value){
-        $new_value = htmlspecialchars(strip_tags($new_value));
-        $set_project = $this->db->prepare("UPDATE projects SET `content`=? WHERE ID=?");
-        $set_project->execute(array($new_value, $project_id));
-        $set_project->closeCursor();
-    }
-
-    /** setSummary:
-    *Change a value of an project's summary.
-    *params: - ID of the project 
-    *        - change value */
-    public function setSummary(int $project_id, $new_value){
-        $new_value = htmlspecialchars(strip_tags($new_value));
-        $set_project = $this->db->prepare("UPDATE projects SET `summary`=? WHERE ID=?");
-        $set_project->execute(array($new_value, $project_id));
-        $set_project->closeCursor();
-    }
-
-    /** setTags:
-    *Change a value of an project's tags.
-    *params: - ID of the project 
-    *       - change value */
-    public function setTags(int $project_id, $new_value){
-        $new_value = htmlspecialchars(strip_tags($new_value));
-        $set_project = $this->db->prepare("UPDATE projects SET `tags`=? WHERE ID=?");
-        $set_project->execute(array($new_value, $project_id));
-        $set_project->closeCursor();
-    }
-
 
 }
-//TODO ne pas changer la date de publication des projets
 ?>

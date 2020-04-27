@@ -78,7 +78,7 @@ function createProject(){
 function editProject(int $project_id){
     global $ProjectsManager;
 
-    $project = $ProjectsManager->getProject($project_id);
+    $project = $ProjectsManager->getProject($project_id, false);
     // TODO:Changer les <br /> en retour à la ligne
 
     $title = "Edition du projet·JE";
@@ -95,26 +95,26 @@ function setProject(){
     if(isset($newtitle) && !empty($newtitle) && $newtitle != $project_info['title']){
     $titre_exist = $ProjectsManager->titleTest($newtitle);
     if (!$titre_exist) {
-        $ProjectsManager->setTitle((int)$id, $newtitle);
+        $ProjectsManager->setProject((int)$id, "title", $newtitle);
     }else{
         $msg = 'Ce titre est déjà utilisé';
     }
     }
 
     if(isset($newcontent) && !empty($newcontent) && $newcontent != $project_info['content']){
-        $ProjectsManager->setContent($id, $newcontent);
+        $ProjectsManager->setProject($id, "content", $newcontent);
     }
     
     if(isset($newsummary) && !empty($newsummary) && $newsummary != $project_info['summary']){
         if (strlen($newsummary) < 500) {
-            $ProjectsManager->setSummary($id, $newsummary);
+            $ProjectsManager->setProject($id, "summary", $newsummary);
         }else{
         $msg = 'Le résumé est trop long.';
         }
     }
 
     if(isset($newtags) && !empty($newtags) && $newtags != $project_info['tags']){
-        $ProjectsManager->setTags($id, $newtags);
+        $ProjectsManager->setProject($id, "tags", $newtags);
     }
 
     if(!empty($msg)){
