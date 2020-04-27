@@ -29,3 +29,9 @@ document.getElementById("send_comment").addEventListener("submit", function(e) {
 
 	return false;
 });
+
+setInterval( 'loadComments()' , 5000);
+    
+function loadComments(){
+    $('.comments').load('../controllers/php/loadComments.php');
+}

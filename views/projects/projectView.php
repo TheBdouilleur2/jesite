@@ -37,7 +37,7 @@
 
 <div class="comments">
 <?php foreach($project["comments"] as $comment){ ?>
-    <div class="comment bord">
+    <div class="comment">
 			<p><a href="/profile/<?=$comment['sender_id']?>" class="unlike"><strong>@<?php echo htmlspecialchars($comment['sender']); ?></strong></a>[<?php echo $comment['age'];?>]: <?=$comment['msg']?></p>
 	</div>
 <?php } ?>
@@ -45,12 +45,6 @@
 
 <script src='/public/js/comments.js'></script>
 
-<!-- <script>
-setInterval( 'loadMessages()' , 5000);
-    
-function loadMessages(){
-    $('#comments').load('../controllers/php/loadComment.php');
-}</script> -->
 
 <?php $content = ob_get_clean();?>
 <?php require_once($_SERVER['DOCUMENT_ROOT'] . '/views/templates/template.php');?>

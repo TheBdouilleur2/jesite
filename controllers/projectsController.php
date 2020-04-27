@@ -19,13 +19,15 @@ function displayProjects($page = 1){
     include_once("views/projects/projectsView.php");
 } 
 
-function displayProject($project_id){
+function project(int $project_id){
     global $ProjectsManager;
     $project_id = (int)$project_id;
     $project = $ProjectsManager->getProject($project_id);
 
 
     $tags = explode("/", $project['tags']);
+
+    $_SESSION['loadCommentsProjectId'] = $project_id;
 
     $title = $project['title'];
     include_once("views/projects/projectView.php");
