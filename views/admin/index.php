@@ -30,7 +30,7 @@
         <?php foreach($users as $user){ ?>
               <tr class="bg-<?= ($user['state']=='admin')?'dark text-light':'light' ?>">
                   <th scope="row"><?=$user['ID']?></th>
-                  <td><?=$user['username']?></td>
+                  <td><a href="/profile/<?=$user['ID']?>"><?=$user['username']?></a></td>
                   <td>
                   <?=($user['ID']===$_SESSION['ID'])?
                   "<button type='button' class='btn btn-warning'>".$user['state']."</button>" : 
