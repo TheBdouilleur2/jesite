@@ -24,5 +24,5 @@
     </a>
 <?php } ?>
 
-<?php $content = ob_get_clean();?>
-<?php require_once('views/templates/template.php');?>
+<?php $contentForTemplate = ob_get_clean();?>
+<?php require_once('views/templates/default.php');?>

@@ -6,11 +6,11 @@ class Controller{
     public $vars = array();
 
     public function loadModel($name){
-        $ControllerName = $name."Manager";
-        $file = ROOT.DS.'models'.DS.$ControllerName.'.php';
+        $ModelName = $name."Manager";
+        $file = ROOT.DS.'models'.DS.$ModelName.'.php';
         require_once($file);
         if(!isset($this->$name)){
-            $this->$name = new $ControllerName;
+            $this->$name = new $ModelName;
         }
 
     }
@@ -24,7 +24,11 @@ class Controller{
     }
 
     public function render(string $reposName, string $viewName){
-        $view = ROOT.DS."views".DS.$reposName.DS.$viewName.".php";
+        if($reposName){
+            $view = ROOT.DS."views".DS.$reposName.DS.$viewName.".php";
+        }else{
+            $view = ROOT.DS."views".DS.$viewName.".php";
+        }
         extract($this->vars);
         ob_start();
         require_once($view);
