@@ -1,10 +1,9 @@
-<?php $title = "Créer un compte·JE"; ?>
-<?php ob_start(); ?>
-   <?php if(isset($_SESSION['error']) && !empty($_SESSION['error'])){?>
-      <div class="alert alert-danger" role="alert">
-      <?=$_SESSION['error']?>
-      </div>
-   <?php }?>
+
+<?php if(isset($_SESSION['error']) && !empty($_SESSION['error'])){?>
+   <div class="alert alert-danger" role="alert">
+   <?=$_SESSION['error']?>
+   </div>
+<?php }?>
 
    <p>Veuillez créer un compte.</p>
    	<p>Les champs marqués d'une * sont à renseigner obligatoirement.</p>
@@ -48,18 +47,15 @@
                </td>
                <td>
                   <label for="rememberme">Se souvenir de moi</label>
-               </td>
-            </tr>
-            <tr>
-               <td></td>
-               <td align="center">
-                  <br />
-                  <input type="submit" name="formregistration" value="Je m'inscris" />
-               </td>
-            </tr>
-         </table>
-   	</form>
+         </td>
+      </tr>
+         <tr>
+         <td></td>
+         <td align="center">
+            <br />
+            <input type="submit" name="formregistration" value="Je m'inscris" />
+         </td>
+      </tr>
+   </table>
+</form>
 
-<?php $content=ob_get_clean();
-require_once("views/templates/template.php");
-?>

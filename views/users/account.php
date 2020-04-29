@@ -1,4 +1,3 @@
-<?php ob_start(); ?>
 
 <nav class="nav nav-pills nav-fill">
   <a class="nav-item nav-link" href="/profile/<?=$_SESSION['ID']?>">Mon profil</a>
@@ -36,6 +35,3 @@
 </form>
    
 <script type="text/javascript" src="public/js/profileForm.js"></script>
-<?php $content=ob_get_clean();
-require_once("views/templates/template.php");
-?>

@@ -1,56 +1,60 @@
 <?php
-if (!isset($_SESSION['id']) && empty($_SESSION['id'])) {
 
-	require_once($_SERVER['DOCUMENT_ROOT'] . '/models/UsersManager.php');
-	require_once($_SERVER['DOCUMENT_ROOT'] . '/models/ProjectsManager.php');
-	require_once($_SERVER['DOCUMENT_ROOT'] . '/controllers/php/functions.php');
+require_once("Controller.php");
 
-	$UserManager = new UsersManager();
-	$ProjectsManager = new ProjectsManager();
+class UsersController extends Controller{
 
-	function sign_up(){
-		require_once('views/users/sign_upView.php');
-	}
-	function sign_in(){
-		require_once('views/users/sign_inView.php');
+	public function __construct(){
+		$this->loadModel("Users");
+		$this->loadModel("Projects");
 	}
 
-	function account(){
-		$title = "Profil·JE";
+	public function sign_up(){
+		$this->setVariables("title", "Créer un compte·JE");
+		$this->render("users", "sign_up");
+	}
 
-		require_once($_SERVER['DOCUMENT_ROOT'] . '/views/users/account.php');
+	public function sign_in(){
+		$this->setVariables("title", "Se connecter·JE");
+		$this->render("users", "sign_in");
+	}
+
+	public function account(){
+		$this->setVariables("title", "Profil·JE");
+		$this->render("users", "account");
 	}
 
 	/**
 	 * Affiche la page de profil d'un utilisateur
 	 * @param int $id ID de l'utilisateur dont on veut afficher le profil
 	 */
-	function profile(int $user_id){
-		global $UserManager, $ProjectsManager;
-		$user_info = $UserManager->getUserByID((int)$user_id);
-		$user_info['projects'] = $ProjectsManager->getProjectsByUser($user_id); 
+	public function profile(int $user_id){
+		$user_info = $this->Users->getUserByID((int)$user_id);
+		$user_info['projects'] = $this->Projects->getProjectsByUser($user_id); 
 
-		$title = "Profil·JE de " . $user_info['username'];
+		$this->setVariables(array(
+			"title"=>"Profil·JE de " . $user_info['username'],
+			"user_info"=>$user_info
+		));
 
-		require_once(ROOT.DS."views".DS."users".DS."showProfile.php");
+		$this->render("users", "showProfile");
 	}
 
-	function create_user(){
-		global $UserManager;
+	public function create_user(){
 		if (!empty($_POST['username']) AND !empty($_POST['passwd']) AND !empty($_POST['passwd2'])) {
 			$username = htmlspecialchars(strip_tags($_POST['username']));
 			$passwd = $_POST['passwd'];
 			$passwd2 = $_POST['passwd2'];
 			if(strlen($username) <= 20) {
-				$isUsernameExist = $UserManager->userTest($username);
+				$isUsernameExist = $this->Users->userTest($username);
 				if(!$isUsernameExist){
 					if($passwd == $passwd2) {
 						$mail = "";
 						if(!empty($_POST['mail'])){
 							$mail = htmlspecialchars(strip_tags($_POST['mail']));
 						}
-						$UserManager->createUser($username, $mail, $passwd);
-						$user_info = $UserManager->getUser($username);
+						$this->Users->createUser($username, $mail, $passwd);
+						$user_info = $this->Users->getUser($username);
 						if(isset($_POST['rememberme'])){
 							setcookie('auth', $user_info['ID']."--".sha1($user_info['username'].$user_info['passwd']), time()+365*24*60*60, "/", null, false, true);
 						}
@@ -76,15 +80,14 @@ if (!isset($_SESSION['id']) && empty($_SESSION['id'])) {
 		header("Location: $location");
 	}
 
-	function connect_user(){
-		global $UserManager;
+	public function connect_user(){
 		$username_connect = htmlspecialchars(strip_tags($_POST['username_connect']));
 		$passwd_connect = $_POST['passwd_connect'];
 
 		if (!empty($username_connect) && !empty($passwd_connect)) {
-			$is_user_exist = $UserManager->userTest($username_connect);
+			$is_user_exist = $this->Users->userTest($username_connect);
 			if ($is_user_exist) {
-				$user_info = $UserManager->getUser($username_connect);
+				$user_info = $this->Users->getUser($username_connect);
 				if(password_verify($passwd_connect, $user_info['passwd'])){
 					$_SESSION = $user_info;
 					$success = 1;
@@ -109,11 +112,5 @@ if (!isset($_SESSION['id']) && empty($_SESSION['id'])) {
 		}
 	}
 
-}else{
-	if(isset($_SERVER['HTTP_REFERER'])){
-		header('Location: '.$_SERVER['HTTP_REFERER']);
-	}else{
-		header('Location: index.php');
-	}
 }
 //TODO vider sesion error
