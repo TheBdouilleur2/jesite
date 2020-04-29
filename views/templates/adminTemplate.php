@@ -15,7 +15,7 @@
 		<?php require_once('controllers/php/functions.php') ?>
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<a class="navbar-brand" href="/index.php">
-		    <img src="/public/Images/logo2.png" alt="Logo des JE">
+		    <img src="/public/Images/logo.png" alt="Logo des JE">
  		</a>
 		<ul class="navbar-nav mr-auto">
 			<li class='nav_item'><a class="nav-link" href="/index.php">Accueil</a></li>
