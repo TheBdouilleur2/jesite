@@ -28,7 +28,7 @@
     <form id='send_comment' >
         <div class="form-group">
             <label for="msg" ><?php echo $_SESSION['username']; ?>:</label>
-            <textarea autofocus class="form-control" id="msg" name='msg'></textarea>
+            <textarea class="form-control" id="msg" name='msg'></textarea>
             <input type="text" hidden value='user' name='category' id='category'>
         </div>
         <input type='submit' class="btn btn-outline-dark" name='send_comment' value="Poster" />
