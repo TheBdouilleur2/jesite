@@ -14,7 +14,6 @@ if(!isset($_SESSION['ID'])){
 }
 
 
-
 $url = '';
 try {
 	if (isset($_GET['url'])) {
@@ -26,22 +25,28 @@ try {
 	// Users:
 	elseif($url[0]==='sign_up'){
 		require_once('controllers/usersController.php');
-		sign_up();
+		$UsersControllers = new UsersController;
+		$UsersControllers->sign_up();
 	}elseif($url[0]==='sign_in'){
 		require_once('controllers/usersController.php');
-		sign_in();
+		$UsersControllers = new UsersController;
+		$UsersControllers->sign_in();
 	}elseif($url[0]==='create_user'){
 		require_once('controllers/usersController.php');
-		create_user();
+		$UsersControllers = new UsersController;
+		$UsersControllers->create_user();
 	}elseif($url[0]==='connect_user'){
 		require_once('controllers/usersController.php');
-		connect_user();
+		$UsersControllers = new UsersController;
+		$UsersControllers->connect_user();
 	}elseif($url[0] === 'account'){
-		require_once("controllers/usersController.php");
-		account();
+		require_once('controllers/usersController.php');
+		$UsersControllers = new UsersController;
+		$UsersControllers->account();
 	}elseif($url[0] === 'profile' && isset($url[1])){
-		require_once("controllers/usersController.php");
-		profile((int)$url[1]);
+		require_once('controllers/usersController.php');
+		$UsersControllers = new UsersController;
+		$UsersControllers->profile((int)$url[1]);
 	}elseif($url[0]==='deconnection'){
 		require_once('controllers/php/deconnection.php');
 	}

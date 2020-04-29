@@ -1,5 +1,3 @@
-<?php ob_start(); ?>
-
 <?php if($_SESSION['ID'] === $user_info['ID']){ ?>
     <nav class="nav nav-pills nav-fill">
         <a class="nav-item nav-link active" href="#">Mon profil</a>
@@ -44,7 +42,3 @@
     <?php } ?>
 </div>
 <?php }?>
-
-<?php $content=ob_get_clean();
-require_once("views/templates/template.php");
-?>

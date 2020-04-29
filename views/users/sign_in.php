@@ -1,10 +1,9 @@
-<?php $title = "Se connecter·JE"; ?>
-<?php ob_start(); ?>
-   <?php if(isset($_SESSION['error']) && !empty($_SESSION['error'])){?>
-      <div class="alert alert-danger" role="alert">
-      <?=$_SESSION['error']?>
-      </div>
-   <?php }?>
+
+<?php if(isset($_SESSION['error']) && !empty($_SESSION['error'])){?>
+   <div class="alert alert-danger" role="alert">
+   <?=$_SESSION['error']?>
+   </div>
+<?php }?>
 
    <p>Veuillez vous connecter.</p>
    	<form action="/connect_user" method="POST" id="sign-in">
@@ -42,7 +41,3 @@
             </tr>
          </table>
    	</form>
-   
-<?php $content=ob_get_clean();
-require_once("views/templates/template.php");
-?>
