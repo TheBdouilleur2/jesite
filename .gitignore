@@ -4,3 +4,4 @@
 .gitpod.yml
 *.sql
 sitemap.xml
+public/Images/*
