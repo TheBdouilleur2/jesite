@@ -57,7 +57,7 @@ try {
 	}elseif($url[0]==='project' && isset($url[1])){
         $project_id = (int)$url[1];
 		require_once('controllers/projectsController.php');
-		displayProject($project_id);
+		project($project_id);
 	}elseif($url[0]==='new_project'){
 		require_once('controllers/projectsController.php');
 		newProject();
