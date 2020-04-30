@@ -1,4 +1,3 @@
-<?php ob_start(); ?>
 <form id='send_msg' >
 	<div class="form-group">
 		<label for="msg" ><?php echo $_SESSION['username']; ?>:</label>
@@ -50,6 +49,3 @@
 		$('#msgs_user').load('../controllers/php/loadMessages.php');
 	}
 </script>
-
-<?php $content = ob_get_clean();?>
-<?php require_once('views/templates/template.php');?>

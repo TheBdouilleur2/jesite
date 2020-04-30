@@ -1,5 +1,3 @@
-<?php ob_start(); ?>
-
 <!-- Navigation entre les onglets -->
 <nav>
   <ul class="nav nav-pills">
@@ -67,6 +65,3 @@
 		$('#msgs_admin').load('../controllers/php/loadAdminMessages.php');
 	}
 </script>
-
-<?php $content = ob_get_clean();?>
-<?php require_once('views/templates/adminTemplate.php');?>

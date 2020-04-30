@@ -1,38 +1,56 @@
 <?php
+require_once("Controller.php");
 
-require_once($_SERVER['DOCUMENT_ROOT'] . "/models/ChatsManager.php");
-require_once($_SERVER['DOCUMENT_ROOT'] . "/controllers/php/functions.php");
+class ChatController extends Controller{
 
-$ChatsManager = new ChatsManager();
-
-function displayUsersMessages($page = 1){
-	if (isset($_SESSION['ID'])) {
-		global $ChatsManager;
-		$perPage = 20;
-    	$nbMessages = $ChatsManager->getNumberUsersMessages();
-    	$nbPage = ceil($nbMessages/$perPage);
-
-    	$page = !($page>0 && $page<=$nbPage) ? 1 : $page;
-
-		$messages = $ChatsManager->getUsersMessages($page, $perPage);
-		$title = 'Discussion·JE';
-		require_once("views/chat/chatView.php");
-	}else {
-		header("Location: index.php");
+	public function __construct(){
+		if(isset($_SESSION['ID'])){
+			$this->loadModel("Chats");
+		}else{
+			return false;
+		}
 	}
-}
 
-function displayAdminMessages($page = 1){
-	if(isset($_SESSION['ID']) && $_SESSION['state'] === 'admin'){
-		global $ChatsManager;
-		$perPage = 20;
-    	$nbMessages = $ChatsManager->getNumberAdminMessages();
-    	$nbPage = ceil($nbMessages/$perPage);
+	public function displayUsersMessages($page = 1){
+		if (isset($_SESSION['ID'])) {
+			$perPage = 20;
+			$nbMessages = $this->Chats->getNumberUsersMessages();
+			$nbPage = ceil($nbMessages/$perPage);
+	
+			$page = !($page>0 && $page<=$nbPage) ? 1 : $page;
+	
+			$messages = $this->Chats->getUsersMessages($page, $perPage);
 
-    	$page = !($page>0 && $page<=$nbPage) ? 1 : $page;
-		$messages = $ChatsManager->getAdminMessages($page, $perPage);
-		$title = 'Discussion admin·JE';
-		require_once("views/admin/chat.php");
+			$this->setVariables(array(
+				"title"=>"Discussion·JE",
+				"messages"=>$messages,
+				"page"=>$page, 
+				"nbPage"=>$nbPage
+			));
+			$this->render("chat", "chat");
+		}else {
+			header("Location: index.php");
+		}
 	}
-	header('Location: index.php');
+	
+	function displayAdminMessages($page = 1){
+		if(isset($_SESSION['ID']) && $_SESSION['state'] === 'admin'){
+			$perPage = 20;
+			$nbMessages = $this->Chats->getNumberAdminMessages();
+			$nbPage = ceil($nbMessages/$perPage);
+	
+			$page = !($page>0 && $page<=$nbPage) ? 1 : $page;
+			$messages = $this->Chats->getAdminMessages($page, $perPage);
+
+			$this->setVariables(array(
+				"title"=>"Discussion admin·JE",
+				"messages"=>$messages,
+				"page"=>$page, 
+				"nbPage"=>$nbPage
+			));
+			$this->template = "admin";
+			$this->render("admin", "chat");
+		}
+		header('Location: index.php');
+	}
 }
