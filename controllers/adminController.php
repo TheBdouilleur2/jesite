@@ -1,31 +1,35 @@
 <?php
-if (!isset($_SESSION['id']) && empty($_SESSION['id']) && $_SESSION['state'] === 'admin') {
 
-    require_once($_SERVER['DOCUMENT_ROOT'] . '/models/UsersManager.php');
-    require_once($_SERVER['DOCUMENT_ROOT'] . '/models/ProjectsManager.php');
+require_once("Controller.php");
 
-    $UsersManager = new UsersManager();
-    $ProjectsManager = new ProjectsManager();
-    
-    function index(){
-        global $UsersManager;
+class AdminController extends Controller{
+
+    public function __construct(){
+        if(isset($_SESSION['ID']) && $_SESSION['state'] === 'admin'){
+            $this->loadModel("Users");
+            $this->loadModel("Projects");
+        }else{
+            header("Location: /index.php");
+        }
+    }
+
+    public function index(){
         $title = 'Espace Admin·JE';
-        $users = $UsersManager->getUsers();
+        $users = $this->Users->getUsers();
         
-
-        require_once(ROOT.DS."views".DS."admin".DS."index.php");
+        $this->setVariables(compact("title", "users"));
+        $this->template = "admin";
+        $this->render("admin", "index");
     }
 
-    function projects(){
-        global $ProjectsManager;
+    public function projects(){
         $title = 'Espace Admin Projets·JE';
+        $nbProjects = $this->Projects->getProjectsNumber();
+        $projects = $this->Projects->getProjects(1, $nbProjects);
 
-        $nbProjects = $ProjectsManager->getProjectsNumber();
-        $projects = $ProjectsManager->getProjects(1, $nbProjects);
-
-        require_once(ROOT.DS."views".DS."admin".DS."projects.php");
+        $this->setVariables(compact("title", "projects"));
+        $this->template = "admin";
+        $this->render("admin", "projects");
     }
 
-}else{
-    header("Location: index.php");
 }
