@@ -1,13 +1,13 @@
 <?php
 
-require_once($_SERVER['DOCUMENT_ROOT'] . "/models/Manager.php");
+require_once("Manager.php");
 require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."controllers".DIRECTORY_SEPARATOR."php".DIRECTORY_SEPARATOR."functions.php");
 
-/**
- * 
- */
+
 class ChatsManager extends Model
 {
+
+
 	public function getUsersMessages($page, $perPage){
     $begin = ($page-1)*4;
     $messages = $this->find(array("selection"=>"m.ID ID, sender_ID, u.username sender, m.msg msg, sending_date FROM usersChat m INNER JOIN users u ON u.ID = m.sender_id", "order"=>"m.ID DESC", "limit"=>"$begin,$perPage"));
@@ -36,7 +36,7 @@ class ChatsManager extends Model
     $data = $this->findFirst(array("selection"=>"COUNT(ID) AS nbMessages FROM adminChat"));
     $nbMessages = $data['nbMessages'];
     return $nbMessages;
-}
+  }
 
   public function postUserMessage($msg, $sender_id){
     $msg = $this->Parsedown->line($msg);

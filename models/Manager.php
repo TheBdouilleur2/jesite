@@ -1,23 +1,25 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."config".DIRECTORY_SEPARATOR."conf.php");
 require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."controllers".DIRECTORY_SEPARATOR."php".DIRECTORY_SEPARATOR."Parsedown.php");
-$Parsedown = new Parsedown;
-$Parsedown->setSafeMode(true);
+
+
 /**
  * Model which going to be extended in all managers
  */
 class Model { 
+
     public $Parsedown = false;  
     public $database_name = "default";
     public $db = false;
     public $table = "";
 
     public function __construct(){
-        global $databases, $Parsedown;
+        $Parsedown = new Parsedown;
+        $Parsedown->setSafeMode(true);
 
         $this->Parsedown = $Parsedown;
 
-        $conf = $databases[$this->database_name];
+        $conf = databases[$this->database_name];
         if(!$this->db){
             try {
                 $pdo = new PDO("mysql:host=".$conf['host'].";dbname=".$conf['database'].";charset=utf8", $conf["login"], $conf['password']);
