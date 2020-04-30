@@ -75,7 +75,7 @@
 	</header>
 
 <section class="container">
-<?= $content ?>
+<?= $contentForTemplate ?>
 </section>
 
 
