@@ -1,7 +1,3 @@
-<?php $title = 'Créer un projet·JE'?>
-
-<?php ob_start(); ?>
-
 <!-- La page de création d'un projet -->
 
 <?php if(isset($_SESSION['error']) && !empty($_SESSION['error'])){?>
@@ -30,8 +26,3 @@
    </div>
    <input type="submit" name="creationform" value="Création du projet" />
 </form>
-
-<!-- <script src="public/js/newProject.js"></script> -->
-
-<?php $content = ob_get_clean();?>
-<?php require_once(ROOT . '/views/templates/template.php');?>

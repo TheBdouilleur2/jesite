@@ -1,5 +1,3 @@
-<?php ob_start(); ?>
-
 <!-- La page d'affichage d'un projet' -->
 <h1><?=$project['title']?></h1>
 <div class="row">
@@ -49,7 +47,3 @@
 </div>
 
 <script src='/public/js/comments.js'></script>
-
-
-<?php $content = ob_get_clean();?>
-<?php require_once($_SERVER['DOCUMENT_ROOT'] . '/views/templates/template.php');?>

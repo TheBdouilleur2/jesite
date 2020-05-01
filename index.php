@@ -53,33 +53,40 @@ try {
 	//	Projets:
 	elseif($url[0]==='projects'){
 		require_once('controllers/projectsController.php');
+		$ProjectsController = new ProjectsController;
 		if(isset($url[1])){
 			$page = (int)$url[1];
 		}else{
 			$page = 1;
 		}
-		displayProjects($page);
+		$ProjectsController->projects($page);
 	}elseif($url[0]==='project' && isset($url[1])){
         $project_id = (int)$url[1];
 		require_once('controllers/projectsController.php');
-		project($project_id);
+		$ProjectsController = new ProjectsController;
+		$ProjectsController->project($project_id);
 	}elseif($url[0]==='new_project'){
 		require_once('controllers/projectsController.php');
-		newProject();
+		$ProjectsController = new ProjectsController;
+		$ProjectsController->newProject();
 	}elseif($url[0]==='create_project'){
 		require_once('controllers/projectsController.php');
-		createProject();
+		$ProjectsController = new ProjectsController;
+		$ProjectsController->createProject();
 	}elseif ($url[0] === 'delete_project' && isset($url[1])) {
 		require_once("controllers/projectsController.php");
+		$ProjectsController = new ProjectsController;
 		$id = (int)$url[1];
-		deleteProject($id);
+		$ProjectsController->deleteProject($id);
 	}elseif ($url[0] === 'edit_project' && isset($url[1])) {
 		require_once("controllers/projectsController.php");
+		$ProjectsController = new ProjectsController;
 		$id = (int)$url[1];
-		editProject($id);
+		$ProjectsController->editProject($id);
 	}elseif($url[0]==='set_project'){
 		require_once('controllers/projectsController.php');
-		setProject();
+		$ProjectsController = new ProjectsController;
+		$ProjectsController->setProject();
 	}
 	//	Chat:
 	elseif($url[0]==='chat'){

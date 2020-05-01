@@ -2,7 +2,6 @@
 require_once($_SERVER['DOCUMENT_ROOT'] . '/models/Manager.php');
 require_once('CommentsManager.php');
 
-$CommentsManager = new CommentsManager;
 
 /**
  * Model to manage projects.
@@ -10,6 +9,14 @@ $CommentsManager = new CommentsManager;
 class ProjectsManager extends Model
 {
     public $table = "projects";
+    public $Comments = false;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->Comments = new CommentsManager;
+    }
+
 
     /**
      * Renvoie les differents projets.
@@ -38,11 +45,10 @@ class ProjectsManager extends Model
     }
 
     public function getProject(int $project_id, bool $parsedown=true){
-        global $CommentsManager;
         $project_id = (int)$project_id;
         $project = $this->findFirst(array("selection"=>"p.ID ID, u.username creator, p.creator_id creator_id, p.title title, p.content content, p.summary summary,  publication_date, DATE_FORMAT(publication_date, '%d/%m/%Y à %Hh%imin') AS date_fr,  tags FROM projects p INNER JOIN users u ON u.ID = p.creator_id", "conditions"=>"p.ID=$project_id"));
         if($parsedown){
-            $project['comments'] =  $CommentsManager->getCommentsByProject($project_id); 
+            $project['comments'] =  $this->Comments->getCommentsByProject($project_id); 
             $project['content'] = $this->Parsedown->text($project['content']);
         }
         return $project; 
@@ -61,9 +67,8 @@ class ProjectsManager extends Model
     }
 
     function deleteProject(int $projectId){
-        global $CommentsManager;
         $this->delete((int)$projectId);
-        $CommentsManager->deleteCommentsByProject((int)$projectId);
+        $this->Comments->deleteCommentsByProject((int)$projectId);
     }
 
     /** titleTest:

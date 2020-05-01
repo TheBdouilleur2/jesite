@@ -1,4 +1,3 @@
-<?php ob_start(); ?>
 <!-- La page de modification d'un projet -->
 
 <?php if(isset($_SESSION['error']) && !empty($_SESSION['error'])){?>
@@ -28,7 +27,3 @@
     <input type="text" hidden name='id' id='id' value="<?=$project['ID']?>">
     <input type="submit" name="formedition" value="Sauvegarder les modifications" />  
 </form>
-
-
-<?php $content = ob_get_clean();?>
-<?php require_once(ROOT . '/views/templates/template.php');?>
