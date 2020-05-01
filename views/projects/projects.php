@@ -1,10 +1,9 @@
-<?php ob_start(); ?>
 <!-- La page d'affichage des projets -->
 <div class="row">
 <div class="col-10">
     <?php foreach($projects as $project){ 
         $tags = explode("/", $project['tags']);    ?>
-        <a href='project/<?=$project['ID'] ?>' class="unlike">
+        <a href='/project/<?=$project['ID'] ?>' class="unlike">
             <div class="project">
                 <div class="row">
                     <p class="col"><strong><?=$project['title']?></strong>  publié le <?=$project['date_fr']?> par <strong>@<?=$project['creator']?></strong>
@@ -61,6 +60,3 @@
         <?php }?>
     </ul>
 </nav>
-
-<?php $content = ob_get_clean();?>
-<?php require_once($_SERVER['DOCUMENT_ROOT'] . '/views/templates/template.php');?>
