@@ -26,6 +26,7 @@ class ProjectsManager extends Model
         $projects = $this->find(array("selection"=>"p.ID ID, u.username creator, p.title title, p.summary summary, DATE_FORMAT(publication_date, '%d/%m/%Y à %Hh%imin') AS date_fr, tags FROM projects p INNER JOIN users u ON u.ID = p.creator_id", "order"=>"publication_date DESC", "limit"=>"$begin,$perPage"));
         for ($i=0; $i < count($projects); $i++) { 
             $projects[$i]["summary"] = $this->Parsedown->line($projects[$i]["summary"]);
+            $projects[$i]["tags"] = explode("/", $projects[$i]["tags"]);
         }
         return $projects; 
     }
@@ -40,6 +41,7 @@ class ProjectsManager extends Model
         $projects = $this->find(array("selection"=>"p.ID ID, p.creator_id, u.username creator, p.title title, p.summary summary, DATE_FORMAT(publication_date, '%d/%m/%Y à %Hh%imin') AS date_fr, tags FROM projects p INNER JOIN users u ON u.ID = p.creator_id WHERE p.creator_id=$userId", "order"=>"publication_date DESC"));
         for ($i=0; $i < count($projects); $i++) { 
             $projects[$i]["summary"] = $this->Parsedown->line($projects[$i]["summary"]);
+            $projects[$i]["tags"] = explode("/", $projects[$i]["tags"]);
         }
         return $projects;
     }
@@ -50,6 +52,7 @@ class ProjectsManager extends Model
         if($parsedown){
             $project['comments'] =  $this->Comments->getCommentsByProject($project_id); 
             $project['content'] = $this->Parsedown->text($project['content']);
+            $project["tags"] = explode("/", $project["tags"]);
         }
         return $project; 
     }

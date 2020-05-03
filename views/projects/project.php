@@ -3,7 +3,7 @@
 <div class="row">
     <p class="col">Publié le <?=$project['date_fr']?> par <a href="/profile/<?=$project['creator_id']?>"><strong>@<?=$project['creator']?></strong></a> 
     <?php 
-        foreach($tags as $k => $tag) {?>
+        foreach($project["tags"] as $tag) {?>
             <span class="badge badge-secondary"><?= $tag ?></span>
     <?php } ?></p>
     <div class="col">

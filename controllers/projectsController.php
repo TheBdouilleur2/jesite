@@ -26,7 +26,6 @@ class ProjectsController extends Controller{
         $project_id = (int)$project_id;
         $project = $this->Projects->getProject($project_id);
     
-        $tags = explode("/", $project['tags']);
         $_SESSION['loadCommentsProjectId'] = $project_id;
         $title = $project['title'];
 
