@@ -11,6 +11,13 @@
    <div class="form-group">
       <label for="project_title">Titre*:</label>
       <input class="form-control" type="text" placeholder="Votre titre" id="project_title" name="project_title" value="<?php if(isset($_SESSION['project_info']['project_title'])){echo $_SESSION['project_info']['project_title'];}?>"/>
+      <div class="container d-flex justify-content-end">
+            <div class="row d-flex justify-content-end">
+                <div class="col">
+                <svg xmlns="http://www.w3.org/2000/svg" width="108" height="18" viewBox="0 0 208 128"><rect width="198" height="118" x="5" y="5" ry="10" stroke="#000" stroke-width="10" fill="none"/><path d="M30 98V30h20l20 25 20-25h20v68H90V59L70 84 50 59v39zm125 0l-30-33h20V30h20v35h20z"/></svg>
+                </div>
+            </div>
+        </div>
    </div>
    <div class="form-group">
       <label for='tags'>Entrer ici les tags séparés par des / :</label>
@@ -19,10 +26,24 @@
    <div class="form-group">
       <label for="summary">Resumé*:</label>
       <textarea class="form-control" placeholder="Votre resumé" id="summary" name="summary"><?php if(isset($_SESSION['project_info']['summary'])){echo $_SESSION['project_info']['summary'];}?></textarea>
+      <div class="container d-flex justify-content-end">
+            <div class="row d-flex justify-content-end">
+                <div class="col">
+                <svg xmlns="http://www.w3.org/2000/svg" width="108" height="18" viewBox="0 0 208 128"><rect width="198" height="118" x="5" y="5" ry="10" stroke="#000" stroke-width="10" fill="none"/><path d="M30 98V30h20l20 25 20-25h20v68H90V59L70 84 50 59v39zm125 0l-30-33h20V30h20v35h20z"/></svg>
+                </div>
+            </div>
+        </div>
    </div>
    <div class="form-group">
       <label for="project_content">Corps du projet*:</label>
       <textarea class="form-control" placeholder="Votre contenu" id="project_content" name="project_content"><?php if(isset($_SESSION['project_info']['project_content'])){echo $_SESSION['project_info']['project_content'];}?></textarea>
+      <div class="container d-flex justify-content-end">
+            <div class="row d-flex justify-content-end">
+                <div class="col">
+                <svg xmlns="http://www.w3.org/2000/svg" width="108" height="18" viewBox="0 0 208 128"><rect width="198" height="118" x="5" y="5" ry="10" stroke="#000" stroke-width="10" fill="none"/><path d="M30 98V30h20l20 25 20-25h20v68H90V59L70 84 50 59v39zm125 0l-30-33h20V30h20v35h20z"/></svg>
+                </div>
+            </div>
+        </div>
    </div>
    <input type="submit" name="creationform" value="Création du projet" />
 </form>
