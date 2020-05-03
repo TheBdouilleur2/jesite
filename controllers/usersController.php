@@ -83,14 +83,15 @@ class UsersController extends Controller{
 	public function connect_user(){
 		$username_connect = htmlspecialchars(strip_tags($_POST['username_connect']));
 		$passwd_connect = $_POST['passwd_connect'];
+		$success = 0;
 
 		if (!empty($username_connect) && !empty($passwd_connect)) {
 			$is_user_exist = $this->Users->userTest($username_connect);
 			if ($is_user_exist) {
 				$user_info = $this->Users->getUser($username_connect);
+				$success = 1;
 				if(password_verify($passwd_connect, $user_info['passwd'])){
 					$_SESSION = $user_info;
-					$success = 1;
 					if(isset($_POST['rememberme'])){
 						setcookie('auth', $user_info['ID']."--".sha1($user_info['username'].$user_info['passwd']), time()+365*24*60*60, "/", null, false, true);
 					}
@@ -103,12 +104,12 @@ class UsersController extends Controller{
 		}else{
 			$msg = 'Tout les champs doivent être remplis';
 		}
-		if(!empty($msg)){
-			$_SESSION['error'] = $msg;
-			header("Location: sign_in");
-		}else{
+		if($success === 1){
 			$_SESSION['error'] = "";
 			header("Location: index.php");
+		}else{
+			$_SESSION['error'] = $msg;
+			header("Location: sign_in");
 		}
 	}
 
