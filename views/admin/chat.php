@@ -8,7 +8,7 @@
       <a class="nav-link" href="/admin/projects">Projets</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link active" href="#">Chat</a>
+      <a class="nav-link active">Chat</a>
     </li>
   </ul>
 </nav>
@@ -16,11 +16,11 @@
 
 <form id='send_msg' >
 	<div class="form-group">
-		<label for="msg" ><?php echo $_SESSION['username']; ?>:</label>
+		<label for="msg" ><?= $_SESSION['username']?>:</label>
 		<textarea autofocus class="form-control" id="msg" name='msg'></textarea>
 		<input type="text" hidden value='admin' name='category' id='category'>
 	</div>
-	<input type='submit' class="btn btn-outline-dark" name='send_msg_admin' value="Poster" />
+	<input type='submit' class="btn btn-outline-dark" name='send_msg_admin' id="send_msg_admin" value="Poster" />
 </form>
 
 <hr>
@@ -58,10 +58,10 @@
     </ul>
 </nav> -->
 
-<script src='public/js/chatForm.js'></script>
+<script src='/public/js/chatAdmin.js'></script>
 <script>
 	setInterval( 'loadMessages()' , 2000);
 	function loadMessages(){
-		$('#msgs_admin').load('../controllers/php/loadAdminMessages.php');
+		$('#msgs_admin').load('../../controllers/php/loadAdminMessages.php');
 	}
 </script>

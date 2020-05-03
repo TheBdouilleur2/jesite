@@ -1,5 +1,5 @@
 
-document.getElementById("send_msg").addEventListener("submit", function(e) {
+$("#send_msg").submit(function(e){
 	e.preventDefault();
 	var data = new FormData(this);
 	var xhr = new XMLHttpRequest();
@@ -18,7 +18,7 @@ document.getElementById("send_msg").addEventListener("submit", function(e) {
 		}
 	};
 
-	xhr.open("POST", "controllers/php/async/sendMsg.php", true);
+	xhr.open("POST", "../controllers/php/async/sendMsg.php", true);
 	xhr.responseType = "json";
 	xhr.send(data);
 
