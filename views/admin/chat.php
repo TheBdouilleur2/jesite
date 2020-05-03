@@ -1,11 +1,33 @@
-<?php ob_start(); ?>
+<!-- Navigation entre les onglets -->
+<nav>
+  <ul class="nav nav-pills">
+    <li class="nav-item">
+      <a class="nav-link" href="/admin">Utilisateurs</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/admin/projects">Projets</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link active">Chat</a>
+    </li>
+  </ul>
+</nav>
+<br>
+
 <form id='send_msg' >
 	<div class="form-group">
-		<label for="msg" ><?php echo $_SESSION['username']; ?>:</label>
-		<textarea autofocus class="form-control" id="msg" name='msg'></textarea>
+		<label for="msg" ><?= $_SESSION['username']?>:</label>
+    <textarea autofocus class="form-control" id="msg" name='msg'></textarea>
+    <div class="container d-flex justify-content-end">
+            <div class="row d-flex justify-content-end">
+                <div class="col">
+                <svg xmlns="http://www.w3.org/2000/svg" width="108" height="18" viewBox="0 0 208 128"><rect width="198" height="118" x="5" y="5" ry="10" stroke="#000" stroke-width="10" fill="none"/><path d="M30 98V30h20l20 25 20-25h20v68H90V59L70 84 50 59v39zm125 0l-30-33h20V30h20v35h20z"/></svg>
+                </div>
+            </div>
+        </div>
 		<input type="text" hidden value='admin' name='category' id='category'>
 	</div>
-	<input type='submit' class="btn btn-outline-dark" name='send_msg_admin' value="Poster" />
+	<input type='submit' class="btn btn-outline-dark" name='send_msg_admin' id="send_msg_admin" value="Poster" />
 </form>
 
 <hr>
@@ -43,13 +65,10 @@
     </ul>
 </nav> -->
 
-<script src='public/js/chatForm.js'></script>
+<script src='/public/js/chatAdmin.js'></script>
 <script>
 	setInterval( 'loadMessages()' , 2000);
 	function loadMessages(){
-		$('#msgs_admin').load('../controllers/php/loadAdminMessages.php');
+		$('#msgs_admin').load('../../controllers/php/loadAdminMessages.php');
 	}
 </script>
-
-<?php $content = ob_get_clean();?>
-<?php require_once('views/templates/adminTemplate.php');?>

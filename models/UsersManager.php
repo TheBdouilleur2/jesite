@@ -1,56 +1,45 @@
 <?php
-//TODO: Suprimer le champ message dans la table user.
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/models/Manager.php');
+require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."controllers".DIRECTORY_SEPARATOR."php".DIRECTORY_SEPARATOR."functions.php");
 /**
  * Model to manage users.
  */
-class UsersManager extends Manager
-{
-  /*
-    $limit: number max of users which select.
-  */
-  public function getUsers(int $limit){
-    $db = $this->dbConnect();
-    $users = $db->prepare('SELECT * FROM users ORDER BY id DESC LIMIT ?,?');
-    if($limit == 10){
-      $users->execute(array(0, $limit));
-    }elseif($limit > 10){
-      $users->execute(array($limit-10, $limit));
-    }else{
-      $users = $db->query('SELECT * FROM users ORDER BY id DESC');
-    }
+class UsersManager extends Model{
+
+  public $table = "users";
+
+  
+  public function getUsers(){
+    $users = $this->find(array("order"=>"id DESC"));
     return $users;
   }
 
   public function getUser($username){
-    $db = $this->dbConnect();
-    $user = $db->prepare('SELECT * FROM users WHERE username=?');
-    $user->execute(array($username));
-    $user_info = $user->fetch();
-    return $user_info;
+    $user = $this->findFirst(array("conditions"=>"`username`='$username'"));
+    $user['age'] = getOld($user['login_date']);
+		$user['bio'] = $this->Parsedown->line($user['bio']);
+		$user['skills'] = explode("/", $user['skills']);
+    return $user;
   }
 
   /* getUserByID:
   get all field of an user by his ID. */
-  public function getUserByID(int $id){
-    $db = $this->dbConnect();
-    $user = $db->prepare('SELECT * FROM users WHERE ID=?');
-    $user->execute(array($id));
-    $user_info = $user->fetch();
-    $user->closeCursor();
-    return $user_info;
+  public function getUserByID(int $userId){
+    $userId = (int)$userId;
+    $user = $this->findFirst(array("conditions"=>"ID=$userId"));
+    $user['age'] = getOld($user['login_date']);
+		$user['bio'] = $this->Parsedown->line($user['bio']);
+		$user['skills'] = explode("/", $user['skills']);
+    return $user;
   }
 
   /* createUser: 
   @param username, mail and password
   insert the user into the database users. */
-  public function createUser($username, $mail, $passwd){
-    $db = $this->dbConnect();
+  public function createUser(string $username, string $mail, string $passwd){
     $passwd = password_hash($passwd, PASSWORD_DEFAULT, ["cost" => 12]);
-    $insert_user = $db->prepare("INSERT INTO users (username, mail, passwd, state) VALUES(?, ?, ?, ?, ?)");
-    $insert_user->execute(array($username, $mail, $passwd, 'user'));
-    $insert_user->closeCursor();
+    $insert_user = $this->save(array("username"=>$username, "mail"=>$mail, "passwd"=>$passwd));
   }
 
   /* setUser:
@@ -60,10 +49,8 @@ class UsersManager extends Manager
           - change value 
           not functional*/
   public function setUser(int $user_id, string $field_name, $new_value){
-    $db = $this->dbConnect();
-    $set_user = $db->prepare("UPDATE users SET ?=? WHERE ID=?");
-    $set_user->execute(array($field_name, $new_value, $user_id));
-    $set_user->closeCursor();
+    $user_info = $this->getUserByID($user_id);
+    $this->save(array("ID"=>(int)$user_id, "$field_name"=>$new_value, "passwd"=>$user_info['passwd'], "login_date"=>$user_info["login_date"]));
   }
 
     /* setUsername:
@@ -71,9 +58,8 @@ class UsersManager extends Manager
   params: - ID of the user 
           - change value */
   public function setUsername(int $user_id, $new_value){
-    $db = $this->dbConnect();
     $user_info = $this->getUserByID($user_id);
-    $set_user = $db->prepare("UPDATE users SET `username`=?, passwd=? , login_date=? WHERE ID=?");
+    $set_user = $this->db->prepare("UPDATE users SET `username`=?, passwd=? , login_date=? WHERE ID=?");
     $set_user->execute(array($new_value, $user_info['passwd'], $user_info['login_date'], $user_id));
     $set_user->closeCursor();
   }
@@ -83,9 +69,8 @@ class UsersManager extends Manager
   params: - ID of the user 
           - change value */
   public function setMail(int $user_id, $new_value){
-    $db = $this->dbConnect();
     $user_info = $this->getUserByID($user_id);
-    $set_user = $db->prepare("UPDATE users SET `mail`=?, `passwd`=? , `login_date`=? WHERE ID=?");
+    $set_user = $this->db->prepare("UPDATE users SET `mail`=?, `passwd`=? , `login_date`=? WHERE ID=?");
     $set_user->execute(array($new_value, $user_info['passwd'], $user_info['login_date'], $user_id));
     $set_user->closeCursor();
   }
@@ -95,10 +80,9 @@ class UsersManager extends Manager
   params: - ID of the user 
           - change value */
   public function setPasswd(int $user_id, $new_passwd){
-    $db = $this->dbConnect();
     $passwd = password_hash($new_passwd, PASSWORD_DEFAULT, ["cost" => 12]);
     $user_info = $this->getUserByID($user_id);
-    $set_user = $db->prepare("UPDATE users SET `username`=?, login_date=? WHERE ID=?");
+    $set_user = $this->db->prepare("UPDATE users SET `username`=?, login_date=? WHERE ID=?");
     $set_user->execute(array($new_passwd, $user_info['login_date'], $user_id));
     $set_user->closeCursor();
   }
@@ -109,9 +93,9 @@ class UsersManager extends Manager
           - change value */
     public function setState(int $user_id, $new_value){
         if($new_value === 'admin' || $new_value === 'user'){
-            $db = $this->dbConnect();
+      
             $user_info = $this->getUserByID($user_id);
-            $set_user = $db->prepare("UPDATE users SET `state`=?, passwd=? , login_date=? WHERE ID=?");
+            $set_user = $this->db->prepare("UPDATE users SET `state`=?, passwd=? , login_date=? WHERE ID=?");
             $set_user->execute(array($new_value, $user_info['passwd'], $user_info['login_date'], $user_id));
             $set_user->closeCursor();
         }
@@ -123,9 +107,9 @@ class UsersManager extends Manager
      * @param int $user_id The ID of user
      */
     public function setBio(int $user_id, $new_value){
-      $db = $this->dbConnect();
+
       $user_info = $this->getUserByID($user_id);
-      $set_user = $db->prepare("UPDATE users SET `bio`=?, passwd=? , login_date=? WHERE ID=?");
+      $set_user = $this->db->prepare("UPDATE users SET `bio`=?, passwd=? , login_date=? WHERE ID=?");
       $set_user->execute(array($new_value, $user_info['passwd'], $user_info['login_date'], $user_id));
       $set_user->closeCursor();
     }
@@ -135,9 +119,9 @@ class UsersManager extends Manager
      * @param int $user_id The ID of user
      */
     public function setSkills(int $user_id, $new_value){
-      $db = $this->dbConnect();
+
       $user_info = $this->getUserByID($user_id);
-      $set_user = $db->prepare("UPDATE users SET `skills`=?, passwd=? , login_date=? WHERE ID=?");
+      $set_user = $this->db->prepare("UPDATE users SET `skills`=?, passwd=? , login_date=? WHERE ID=?");
       $set_user->execute(array($new_value, $user_info['passwd'], $user_info['login_date'], $user_id));
       $set_user->closeCursor();
     }
@@ -150,21 +134,17 @@ class UsersManager extends Manager
     if(isset($_COOKIE['auth'])){
       $auth = $_COOKIE['auth'];
       $auth = explode("--", $auth);
-      $db = $this->dbConnect();
-      $req_user = $db->prepare("SELECT * FROM users WHERE ID=?");
-      $req_user->execute(array((int)$auth[0]));
-      $user_info = $req_user->fetchAll();
-      $is_user_exist = $req_user->rowCount();
-      if ($is_user_exist == 1) {
+
+      $user_info = $this->findFirst(array("conditions"=>"ID=$auth[0]"));
+      if ($user_info){
         $key = sha1($user_info['username'].$user_info['passwd']);
         if($key == $auth[1]){
-          setcookie('auth', $user_info['ID']."--".sha1($key), time()+365*24*60*60, "/", null, false, true);
+          setcookie('auth', $user_info['ID']."--".$key, time()+365*24*60*60, "/", null, false, true);
           $_SESSION = (array)$user_info;
         }else{
           setcookie('auth','', time()-3600);
         }
       }
-      $req_user->closeCursor();
     }
   }
 
@@ -173,25 +153,18 @@ class UsersManager extends Manager
   return: True -> if the username is used
           False -> if the username is not used. */
   public function userTest($user){
-    $db = $this->dbConnect();
     $username = htmlspecialchars($user);
-    $reqUserTest = $db->prepare('SELECT * FROM users WHERE username=?');
-    $reqUserTest->execute(array($username));
-    $is_user_exist = $reqUserTest->rowCount();
-    if ($is_user_exist === 0) {
-        $reqUserTest->closeCursor();
+    $reqUserTest = $this->findFirst(array("conditions"=>"`username`='$username'"));
+    if (!$reqUserTest) {
         return false;
     }else{
-        $reqUserTest->closeCursor();
         return true;
     }
   }
 
-  public function deleteUser(int $id){
-    $db = $this->dbConnect();
-    if($this->getUserByID($id)){
-      $req_delete = $db->prepare("DELETE FROM users WHERE ID=?");
-      $req_delete->execute(array($id));
+  public function deleteUser(int $userId){
+    if($this->getUserByID($userId)){
+      $this->delete((int)$userId);
       return True;
     }else{
       return False;

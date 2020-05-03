@@ -1,5 +1,3 @@
-<?php ob_start(); ?>
-
 <?php if($_SESSION['ID'] === $user_info['ID']){ ?>
     <nav class="nav nav-pills nav-fill">
         <a class="nav-item nav-link active" href="#">Mon profil</a>
@@ -32,19 +30,15 @@
             <div class="project">
                 <div class="row">
                     <p class="col"><strong><?=$project['title']?></strong>  publié le <?=$project['date_fr']?>
-                    <?php if(count($tags)){
-                            foreach($tags as $tag) { ?>
+                    <?php if($project['tags']){
+                            foreach($project["tags"] as $tag) { ?>
                                 <span class="badge badge-secondary"><?=$tag?></span>
                     <?php }} ?>
                     </p>
                 </div>
-            <p><?=nl2br($Parsedown->line($project['summary']))?></p>
+            <p><?=nl2br($project['summary'])?></p>
             </div>
         </a>
     <?php } ?>
 </div>
 <?php }?>
-
-<?php $content=ob_get_clean();
-require_once("views/templates/template.php");
-?>

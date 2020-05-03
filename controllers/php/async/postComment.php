@@ -1,15 +1,16 @@
 <?php
 session_start();
-require_once($_SERVER['DOCUMENT_ROOT'] . "/models/ChatsManager.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/models/CommentsManager.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/models/UsersManager.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/controllers/php/functions.php");
 
 
-$ChatsManager = new ChatsManager();
+$CommentsManager = new CommentsManager();
 $UsersManager = new UsersManager();
 
 $success = 0;
 $msg = "Une erreur est survenue (script.php)";
+
 
 
 if (!empty($_POST['msg'])) {
@@ -17,19 +18,12 @@ if (!empty($_POST['msg'])) {
 	
 	$msg = preg_replace_callback('#@([A-Za-z0-9]+)#', "userMention", $msg);
 
-	if($_POST['category'] === 'user'){
-		$ChatsManager->postUserMessage($msg, $_SESSION['ID']);
-		$success = 1;
-		$msg = "";
-	}elseif ($_POST['category'] === 'admin') {
-		$ChatsManager->postAdminMessage($msg, $_SESSION['ID']);
-		$success = 1;
-		$msg = "";
-	}
-	
-
+	$project_id = explode("/", $_POST['path'])[2];
+    
+	$CommentsManager->postComment($project_id, $_SESSION['ID'], $msg);
+	$success = 1;
 } else {
-	$msg = "Veuillez écrire un message à envoyer";
+	$msg = "Veuillez écrire un message";
 }
-echo json_encode(compact("success", "msg", "post")); 
+echo json_encode(compact("success", "msg")); 
 // La fonction compact() crée un tableau contenant le nom des variables et leur valeurs

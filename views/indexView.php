@@ -2,7 +2,7 @@
 <?php ob_start(); ?>
 
 <!-- La page d'accueil -->
-<h1>Bonjour, <?php if(isset($_SESSION['id'])){ echo htmlspecialchars($_SESSION['username']);} ?> bienvenue sur le site des J-E</h1>
+<h1>Bonjour, <?php if(isset($_SESSION['ID'])){ echo htmlspecialchars($_SESSION['username']);} ?> bienvenue sur le site des J-E</h1>
 
 <br />
 <h2>Voici nos derniers projets</h2>
@@ -19,10 +19,10 @@
                 <?php } ?>
                 </p>
             </div>
-        <p><?=nl2br($Parsedown->line($project['summary']))?></p>
+        <p><?=nl2br($project['summary'])?></p>
         </div>
     </a>
 <?php } ?>
 
-<?php $content = ob_get_clean();?>
-<?php require_once('views/templates/template.php');?>
+<?php $contentForTemplate = ob_get_clean();?>
+<?php require_once('views/templates/default.php');?>

@@ -1,10 +1,14 @@
 <?php 
 session_start();
 
-require_once('conf.php');
-require_once(ROOT.DS.'models'.DS."UsersManager.php");
+define("WEBROOT", dirname(__FILE__));
+define("ROOT", WEBROOT);
+define("Base_URL", dirname(dirname($_SERVER['SCRIPT_NAME'])));
+define("DS", DIRECTORY_SEPARATOR);
+define("CORE", ROOT.DS."core");
 
 if(!isset($_SESSION['ID'])){
+	require_once(ROOT.DS."models".DS."UsersManager.php");
 	$UsersManager = new UsersManager;
 	$UsersManager->connectUser();
 }
@@ -21,66 +25,102 @@ try {
 	// Users:
 	elseif($url[0]==='sign_up'){
 		require_once('controllers/usersController.php');
-		sign_up();
+		$UsersControllers = new UsersController;
+		$UsersControllers->sign_up();
 	}elseif($url[0]==='sign_in'){
 		require_once('controllers/usersController.php');
-		sign_in();
+		$UsersControllers = new UsersController;
+		$UsersControllers->sign_in();
+	}elseif($url[0]==='create_user'){
+		require_once('controllers/usersController.php');
+		$UsersControllers = new UsersController;
+		$UsersControllers->create_user();
+	}elseif($url[0]==='connect_user'){
+		require_once('controllers/usersController.php');
+		$UsersControllers = new UsersController;
+		$UsersControllers->connect_user();
 	}elseif($url[0] === 'account'){
-		require_once("controllers/usersController.php");
-		account();
+		require_once('controllers/usersController.php');
+		$UsersControllers = new UsersController;
+		$UsersControllers->account();
 	}elseif($url[0] === 'profile' && isset($url[1])){
-		require_once("controllers/usersController.php");
-		profile((int)$url[1]);
+		require_once('controllers/usersController.php');
+		$UsersControllers = new UsersController;
+		$UsersControllers->profile((int)$url[1]);
 	}elseif($url[0]==='deconnection'){
 		require_once('controllers/php/deconnection.php');
 	}
 	//	Projets:
 	elseif($url[0]==='projects'){
 		require_once('controllers/projectsController.php');
+		$ProjectsController = new ProjectsController;
 		if(isset($url[1])){
 			$page = (int)$url[1];
 		}else{
 			$page = 1;
 		}
-		displayProjects($page);
+		$ProjectsController->projects($page);
 	}elseif($url[0]==='project' && isset($url[1])){
         $project_id = (int)$url[1];
 		require_once('controllers/projectsController.php');
-		displayProject($project_id);
+		$ProjectsController = new ProjectsController;
+		$ProjectsController->project($project_id);
 	}elseif($url[0]==='new_project'){
 		require_once('controllers/projectsController.php');
-		newProject();
+		$ProjectsController = new ProjectsController;
+		$ProjectsController->newProject();
+	}elseif($url[0]==='create_project'){
+		require_once('controllers/projectsController.php');
+		$ProjectsController = new ProjectsController;
+		$ProjectsController->createProject();
 	}elseif ($url[0] === 'delete_project' && isset($url[1])) {
 		require_once("controllers/projectsController.php");
+		$ProjectsController = new ProjectsController;
 		$id = (int)$url[1];
-		deleteProject($id);
+		$ProjectsController->deleteProject($id);
 	}elseif ($url[0] === 'edit_project' && isset($url[1])) {
 		require_once("controllers/projectsController.php");
+		$ProjectsController = new ProjectsController;
 		$id = (int)$url[1];
-		editProject($id);
+		$ProjectsController->editProject($id);
+	}elseif($url[0]==='set_project'){
+		require_once('controllers/projectsController.php');
+		$ProjectsController = new ProjectsController;
+		$ProjectsController->setProject();
 	}
 	//	Chat:
 	elseif($url[0]==='chat'){
 		require_once('controllers/chatController.php');
+		$ChatController = new ChatController;
 		if(isset($url[1])){
 			$page = (int)$url[1];
 		}else{
 			$page = 1;
 		}
-		displayUsersMessages($page);
-	}elseif ($url[0] === 'chat_admin') {
-		require_once("controllers/chatController.php");
-		if(isset($url[1])){
-			$page = (int)$url[1];
-		}else{
-			$page = 1;
-		}
-		displayAdminMessages($page);
+		$ChatController->displayUsersMessages($page);
 	}
 	//	Admin:
-	elseif($url[0] === 'admin_space'){
-		require_once("controllers/adminController.php");
-		index();
+	elseif($url[0] === 'admin'){
+		if(isset($url[1])){
+			if($url[1]==="chat"){
+				require_once("controllers/chatController.php");
+				$ChatController = new ChatController;
+				if(isset($url[2])){
+					$page = (int)$url[2];
+				}else{
+					$page = 1;
+				}
+				$ChatController->displayAdminMessages($page);
+			}elseif($url[1]==="projects"){
+				require_once("controllers/adminController.php");
+				$AdminControler = new AdminController;
+				$AdminControler->projects();
+			}
+		}else{
+			require_once("controllers/adminController.php");
+			$AdminControler = new AdminController;
+			$AdminControler->index();
+		}
 	}
 	else{
 		require_once('views/error404.php');

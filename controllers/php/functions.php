@@ -47,3 +47,14 @@ function getOld ($msgDate){
 	//TODO Ajouter une valeur dans certains cas.
 	return 'il y a ' . $max_element_value . ' ' . $max_element;
 }
+
+function userMention($matches){
+	global $UsersManager;
+	if($UsersManager->userTest($matches[1])){
+		$user_info = $UsersManager->getUser($matches[1]);
+		$matches[0] = '['.$matches[0].'](/profile/'. $user_info['ID'] .')';
+	}
+	$mention = '**'.$matches[0].'**';
+
+	return $mention;
+}

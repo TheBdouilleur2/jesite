@@ -4,4 +4,30 @@
 
 section {margin-top: 4%;}
 
-.project, .bord{margin-top: 1%; padding: 0.5%; border: solid 1px #c2c2c2; border-radius: 10px; background-color: #e6e6e6;}
+.project, .bord{margin-top: 1%; padding: 0.5%; border: solid 1px #c2c2c2; border-radius: 10px; background-color: #f0f0f08a;}
+
+form.bord{width: 400px; margin-left: 30%; background-color: #191919; color: white; text-align: center;}
+
+form.bord input[type= "text"], form.bord input[type="password"], form.bord input[type= "email"]{border: 0; background: none; width: 200px; margin: 20px auto; text-align: center; display: block; border: 2px solid #3498db; border-radius: 24px; outline: none; color: white; transition: 0.25s;}
+
+form.bord input[type= "text"]:focus, form.bord input[type="password"]:focus, form.bord input[type= "email"]:focus{width: 300px; border-color: #2ecc71; outline: none;}
+
+form.bord input[type="submit"]{width: 150px; background: none; border: 0; color: white; border: 2px solid #2ecc71; border-radius: 24px; cursor: pointer; margin: 20px auto; padding: 10px 20px;}
+
+form.bord input[type="submit"]:hover{background: #2ecc71;}
+
+form.bord input[type="checkbox"]{position: absolute; opacity: 0; cursor: pointer; height: 0; width: 0;}
+
+form.bord .checkmark{position: absolute; top: 0; left: 0; height: 25px; width: 25px; border: 2px solid #3498db; border-radius: 10px; margin-left: 25%;}
+
+form.bord input[type="checkbox"] ~ .checkmark:hover{background-color: rgb(54, 52, 52);}
+
+form.bord input[type="checkbox"]:checked ~ .checkmark:hover{background-color: #2ecc71;}
+
+form.bord input[type="checkbox"]:checked ~ .checkmark:hover:after{border-color: white;}
+
+form.bord .checkmark:after{content: ""; position: absolute; display: none; left: 9px; top: 5px; width: 5px; height: 10px; border: solid white; border-width: 0 3px 3px 0; -webkit-transform: rotate(45deg); -ms-transform: rotate(45deg); transform: rotate(45deg);}
+
+form.bord input[type="checkbox"]:checked ~ .checkmark:after{display: block; border-color: #2ecc71;}
+
+form.bord input[type="checkbox"]:checked ~ .checkmark{border-color: #2ecc71;}

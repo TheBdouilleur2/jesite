@@ -1,21 +1,33 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'] . '/models/Manager.php');
+require_once('CommentsManager.php');
 
-//TODO adapter le model.
+
 /**
  * Model to manage projects.
  */
-class ProjectsManager extends Manager
+class ProjectsManager extends Model
 {
+    public $table = "projects";
+    public $Comments = false;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->Comments = new CommentsManager;
+    }
+
+
     /**
      * Renvoie les differents projets.
      */
     public function getProjects($page, $perPage){
-        $db = $this->dbConnect();
         $begin = ($page-1)*4;
-        $req_projects = $db->query("SELECT p.ID ID, u.username creator, p.title title, p.summary summary, DATE_FORMAT(publication_date, '%d/%m/%Y à %Hh%imin') AS date_fr, tags FROM projects p INNER JOIN users u ON u.ID = p.creator_id ORDER BY publication_date DESC LIMIT $begin,$perPage");
-        $projects = $req_projects->fetchAll();
-        $req_projects->closeCursor();
+        $projects = $this->find(array("selection"=>"p.ID ID, u.username creator, p.title title, p.summary summary, DATE_FORMAT(publication_date, '%d/%m/%Y à %Hh%imin') AS date_fr, tags FROM projects p INNER JOIN users u ON u.ID = p.creator_id", "order"=>"publication_date DESC", "limit"=>"$begin,$perPage"));
+        for ($i=0; $i < count($projects); $i++) { 
+            $projects[$i]["summary"] = $this->Parsedown->line($projects[$i]["summary"]);
+            $projects[$i]["tags"] = explode("/", $projects[$i]["tags"]);
+        }
         return $projects; 
     }
 
@@ -24,49 +36,42 @@ class ProjectsManager extends Manager
      * @param int $id ID de l'utilisateur
      * @return array $projects Projets de l'utilisateur
      */
-    public function getProjectsByUser(int $id){
-        $db = $this->dbConnect();
-        $req_projects = $db->prepare("SELECT p.ID ID, p.creator_id, u.username creator, p.title title, p.summary summary, DATE_FORMAT(publication_date, '%d/%m/%Y à %Hh%imin') AS date_fr, tags FROM projects p INNER JOIN users u ON u.ID = p.creator_id WHERE p.creator_id=? ORDER BY publication_date DESC");
-        $req_projects->execute(array($id));
-        $projects = $req_projects->fetchAll();
-        $req_projects->closeCursor();
+    public function getProjectsByUser(int $userId){
+        $userId = (int)$userId;
+        $projects = $this->find(array("selection"=>"p.ID ID, p.creator_id, u.username creator, p.title title, p.summary summary, DATE_FORMAT(publication_date, '%d/%m/%Y à %Hh%imin') AS date_fr, tags FROM projects p INNER JOIN users u ON u.ID = p.creator_id WHERE p.creator_id=$userId", "order"=>"publication_date DESC"));
+        for ($i=0; $i < count($projects); $i++) { 
+            $projects[$i]["summary"] = $this->Parsedown->line($projects[$i]["summary"]);
+            $projects[$i]["tags"] = explode("/", $projects[$i]["tags"]);
+        }
         return $projects;
     }
 
-    public function getProject($project_id){
+    public function getProject(int $project_id, bool $parsedown=true){
         $project_id = (int)$project_id;
-        $db = $this->dbConnect();
-        $req_project = $db->prepare('SELECT p.ID ID, p.creator_id, u.username creator, p.title title, p.content content, p.summary summary,  publication_date, DATE_FORMAT(publication_date, \'%d/%m/%Y à %Hh%imin\') AS date_fr,  tags FROM projects p INNER JOIN users u ON u.ID = p.creator_id WHERE p.ID=? ');
-        $req_project->execute(array($project_id));
-        $project =$req_project->fetch();
-        $req_project->closeCursor();
+        $project = $this->findFirst(array("selection"=>"p.ID ID, u.username creator, p.creator_id creator_id, p.title title, p.content content, p.summary summary,  publication_date, DATE_FORMAT(publication_date, '%d/%m/%Y à %Hh%imin') AS date_fr,  tags FROM projects p INNER JOIN users u ON u.ID = p.creator_id", "conditions"=>"p.ID=$project_id"));
+        if($parsedown){
+            $project['comments'] =  $this->Comments->getCommentsByProject($project_id); 
+            $project['content'] = $this->Parsedown->text($project['content']);
+            $project["tags"] = explode("/", $project["tags"]);
+        }
         return $project; 
     }
 
     public function getProjectsNumber(){
-        $db = $this->dbConnect();
-        $req_number = $db->query("SELECT COUNT(ID) AS nbProjects FROM projects");
-        $data = $req_number->fetch();
+        $data = $this->findFirst(array("selection"=>"COUNT(ID) AS nbProjects FROM projects"));
         $nbProjects = $data['nbProjects'];
-        $req_number->closeCursor();
         return $nbProjects;
     }
 
-    public function createProject(string $title, int $creator, string $content, string $summary, string $tags){
+    public function createProject(string $title, int $creatorID, string $content, string $summary, string $tags){
         $title = htmlspecialchars($title);
-        $creator = (int)$creator;
-        $db = $this->dbConnect();
-        $req_project = $db->prepare('INSERT INTO projects (title, creator_id, content, summary, publication_date, tags) VALUES(?, ?, ?, ?, NOW(), ?)');
-        $req_project->execute(array($title, $creator, $content, $summary, $tags));
-        $req_project->closeCursor();
+        $creatorID = (int)$creatorID;
+        $this->save(array("title"=>$title, "creator_id"=>$creatorID, "content"=>$content, "summary"=>$summary, "tags"=>$tags));
     }
 
-    function deleteProject(int $id){
-        $db = $this->dbConnect();
-
-        $req_delete = $db->prepare("DELETE FROM projects WHERE ID=?");
-        $req_delete->execute(array($id));
-        $req_delete->closeCursor();
+    function deleteProject(int $projectId){
+        $this->delete((int)$projectId);
+        $this->Comments->deleteCommentsByProject((int)$projectId);
     }
 
     /** titleTest:
@@ -74,71 +79,21 @@ class ProjectsManager extends Manager
     *return: True -> if the title is used
     *        False -> if the title is not used. */
     public function titleTest($title){
-        $db = $this->dbConnect();
         $title = htmlspecialchars(strip_tags($title));
-        $reqTitleTest = $db->prepare("SELECT * FROM projects WHERE `title`=?");
-        $reqTitleTest->execute(array($title));
-        $is_project_exist = $reqTitleTest->rowCount();
-        if ($is_project_exist === 0) {
-            $reqTitleTest->closeCursor();
+        $reqTitleTest = $this->findFirst(array("conditions"=>"`title` = '$title'"));
+        if (!$reqTitleTest) {
             return false;
         }else{
-            $reqTitleTest->closeCursor();
             return true;
         }
     }
 
-    /** setTitle:
-    *Change a value of an paroject's title.
-    *@params: int $project_id ID of the project 
-    *         $new_value change value 
-    */
-    public function setTitle(int $project_id, $new_value){
-        $db = $this->dbConnect();
-        $new_value = htmlspecialchars(strip_tags($new_value));
-        $project_info = $this->getProject($project_id);
-        $set_project = $db->prepare("UPDATE projects SET `title`=?, publication_date=? WHERE ID=?");
-        $set_project->execute(array($new_value, $project_info['publication_date'], $project_id));
-        $set_project->closeCursor();
+    public function setProject(int $projectId, string $fieldName, $newValue){
+        $newValue = htmlspecialchars(strip_tags($newValue));
+        $projectId = (int)$projectId;
+        $projectInfo = $this->getProject($projectId);
+        $this->save(array("ID"=>$projectId, $fieldName=>$newValue, "publication_date"=>$projectInfo['publication_date']));
     }
-
-    /** setContent:
-    *Change a value of an project's content.
-    *params: - ID of the project 
-    *        - change value 
-    */
-    public function setContent(int $project_id, $new_value){
-        $db = $this->dbConnect();
-        $new_value = htmlspecialchars(strip_tags($new_value));
-        $set_project = $db->prepare("UPDATE projects SET `content`=? WHERE ID=?");
-        $set_project->execute(array($new_value, $project_id));
-        $set_project->closeCursor();
-    }
-
-    /** setSummary:
-    *Change a value of an project's summary.
-    *params: - ID of the project 
-    *        - change value */
-    public function setSummary(int $project_id, $new_value){
-        $db = $this->dbConnect();
-        $new_value = htmlspecialchars(strip_tags($new_value));
-        $set_project = $db->prepare("UPDATE projects SET `summary`=? WHERE ID=?");
-        $set_project->execute(array($new_value, $project_id));
-        $set_project->closeCursor();
-    }
-
-    /** setTags:
-    *Change a value of an project's tags.
-    *params: - ID of the project 
-    *       - change value */
-    public function setTags(int $project_id, $new_value){
-        $db = $this->dbConnect();
-        $new_value = htmlspecialchars(strip_tags($new_value));
-        $set_project = $db->prepare("UPDATE projects SET `tags`=? WHERE ID=?");
-        $set_project->execute(array($new_value, $project_id));
-        $set_project->closeCursor();
-    }
-
 
 }
 ?>

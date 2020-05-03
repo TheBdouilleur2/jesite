@@ -8,19 +8,20 @@
 	<link rel="stylesheet" href="/public/style/style.css">
 	<link rel='shortcut icon' href="/public/Images/Pythonsign.ico">
 	<link href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet">
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
 <body>
 	<header>
 		<?php require_once('controllers/php/functions.php') ?>
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<a class="navbar-brand" href="/index.php">
-		    <img src="/public/Images/logo2.png" alt="Logo des JE">
+		    <img src="/public/Images/logo.png" alt="Logo des JE">
  		</a>
 		<ul class="navbar-nav mr-auto">
 			<li class='nav_item'><a class="nav-link" href="/index.php">Accueil</a></li>
 			<?php
 			if(isset($_SESSION['ID'], $_SESSION['state']) AND $_SESSION['state']=='admin'){?>
-				<li class='nav-item'><a class="nav-link" href="/admin_space">Espace admin</a></li>
+				<li class='nav-item'><a class="nav-link" href="/admin">Espace admin</a></li>
 			<?php } ?>
 			<!-- <li>Articles</li> -->
 			<li class='nav-item'><a class="nav-link" href="/projects" class="nav-link">Projets</a></li>
@@ -31,7 +32,7 @@
         				</a>
         				<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           					<a class="dropdown-item" href="/chat">Discussion utilisateur</a>
-						<a class="dropdown-item" href="/chat_admin">Discussion admin</a>
+						<a class="dropdown-item" href="/admin/chat">Discussion admin</a>
         				</div>
       				</li>
 			<?php } else if(isset($_SESSION['ID'])){ ?>
@@ -74,12 +75,11 @@
 	</header>
 
 <section class="container">
-<?= $content ?>
+<?= $contentForTemplate ?>
 </section>
 
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </body>
 </html>

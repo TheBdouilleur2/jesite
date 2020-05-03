@@ -1,13 +1,9 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'] . '/models/ChatManager.php');
-require_once($_SERVER['DOCUMENT_ROOT'] . '/controllers/php/functions.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/models/ChatsManager.php');
 
-$ChatManager = new ChatManager();
+$ChatsManager = new ChatsManager();
 
-$messages = $ChatManager->getAdminMessages(1, 20);
-for($i = 0; $i< count($messages); $i++){
-	$messages[$i]['age'] = getOld($messages[$i]['sending_date']);
-}
+$messages = $ChatsManager->getAdminMessages(1, 20);
 foreach($messages as $message) {?>
 	<div class="msg">
 		<p><a href="/profile/<?=$message['sender_ID']?>" class="unlike"><strong>@<?php echo htmlspecialchars($message['sender']); ?></strong></a>[<?= $message['age']?>]: <?php echo $message['msg']; ?></p>
