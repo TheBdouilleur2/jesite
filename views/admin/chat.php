@@ -17,7 +17,14 @@
 <form id='send_msg' >
 	<div class="form-group">
 		<label for="msg" ><?= $_SESSION['username']?>:</label>
-		<textarea autofocus class="form-control" id="msg" name='msg'></textarea>
+    <textarea autofocus class="form-control" id="msg" name='msg'></textarea>
+    <div class="container d-flex justify-content-end">
+            <div class="row d-flex justify-content-end">
+                <div class="col">
+                <svg xmlns="http://www.w3.org/2000/svg" width="108" height="18" viewBox="0 0 208 128"><rect width="198" height="118" x="5" y="5" ry="10" stroke="#000" stroke-width="10" fill="none"/><path d="M30 98V30h20l20 25 20-25h20v68H90V59L70 84 50 59v39zm125 0l-30-33h20V30h20v35h20z"/></svg>
+                </div>
+            </div>
+        </div>
 		<input type="text" hidden value='admin' name='category' id='category'>
 	</div>
 	<input type='submit' class="btn btn-outline-dark" name='send_msg_admin' id="send_msg_admin" value="Poster" />

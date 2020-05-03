@@ -17,7 +17,14 @@
     </div>
     <div class="form-group">
       <label for="bio">Bio:</label>
-      <textarea class="form-control" name="bio" id="bio" placeholder="Parler nous un peu de vous (Markdown suporté)"><?php if(isset($_SESSION['bio'])) { echo $_SESSION['bio']; } ?></textarea>
+      <textarea class="form-control" name="bio" id="bio" placeholder="Parler nous un peu de vous"><?php if(isset($_SESSION['bio'])) { echo $_SESSION['bio']; } ?></textarea>
+      <div class="container d-flex justify-content-end">
+            <div class="row d-flex justify-content-end">
+                <div class="col">
+                <svg xmlns="http://www.w3.org/2000/svg" width="108" height="18" viewBox="0 0 208 128"><rect width="198" height="118" x="5" y="5" ry="10" stroke="#000" stroke-width="10" fill="none"/><path d="M30 98V30h20l20 25 20-25h20v68H90V59L70 84 50 59v39zm125 0l-30-33h20V30h20v35h20z"/></svg>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="form-group">
         <label for="skills">Compétences (séparées par des /):</label>
