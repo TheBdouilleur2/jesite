@@ -62,7 +62,7 @@ class ProjectsController extends Controller{
             $msg = 'Le titre est trop long, il ne doit pas exéder 250 caractères.';
             }
         }else{
-            $msg = 'Tout les champs doivent être remplis';
+            $msg = 'Tout les champs doivent être complétés';
         }
         if(!empty($msg)){
             $_SESSION['error'] = $msg;
