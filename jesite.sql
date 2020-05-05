@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
--- https://www.phpmyadmin.net/
+-- version 4.5.3.1
+-- http://www.phpmyadmin.net
 --
--- Hôte : 127.0.0.1
--- Généré le :  Dim 02 fév. 2020 à 18:50
--- Version du serveur :  10.4.11-MariaDB
--- Version de PHP :  7.4.1
+-- Host: localhost
+-- Generation Time: May 05, 2020 at 02:35 PM
+-- Server version: 5.7.30-0ubuntu0.18.04.1
+-- PHP Version: 7.2.24-0ubuntu0.18.04.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -19,13 +17,26 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données :  `jesite`
+-- Database: `jesite`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `comment_projects`
+-- Table structure for table `adminChat`
+--
+
+CREATE TABLE `adminChat` (
+  `ID` int(11) NOT NULL,
+  `sender_ID` int(11) NOT NULL,
+  `msg` text NOT NULL,
+  `sending_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `comment_projects`
 --
 
 CREATE TABLE `comment_projects` (
@@ -33,13 +44,13 @@ CREATE TABLE `comment_projects` (
   `project_id` int(11) NOT NULL,
   `sender_id` int(11) NOT NULL,
   `msg` text NOT NULL,
-  `publication_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `publication_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `projects`
+-- Table structure for table `projects`
 --
 
 CREATE TABLE `projects` (
@@ -48,71 +59,104 @@ CREATE TABLE `projects` (
   `title` varchar(255) NOT NULL,
   `content` text NOT NULL,
   `summary` text NOT NULL,
-  `publication_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `tags` varchar(255) NOT NULL
+  `publication_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `tags` varchar(255) NOT NULL,
+  `online` int(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
   `ID` int(11) NOT NULL,
   `username` varchar(20) NOT NULL,
-  `mail` varchar(255) NOT NULL,
+  `mail` varchar(255) DEFAULT NULL,
   `passwd` varchar(255) NOT NULL,
-  `state` varchar(5) NOT NULL,
-  `msg` varchar(255) NOT NULL,
-  `login_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `state` varchar(5) NOT NULL DEFAULT 'user',
+  `bio` text,
+  `skills` varchar(255) DEFAULT NULL,
+  `login_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
--- Index pour les tables déchargées
+-- Table structure for table `usersChat`
+--
+
+CREATE TABLE `usersChat` (
+  `ID` int(11) NOT NULL,
+  `sender_ID` int(11) NOT NULL,
+  `msg` text NOT NULL,
+  `sending_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Indexes for dumped tables
 --
 
 --
--- Index pour la table `comment_projects`
+-- Indexes for table `adminChat`
+--
+ALTER TABLE `adminChat`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `comment_projects`
 --
 ALTER TABLE `comment_projects`
   ADD PRIMARY KEY (`ID`);
 
 --
--- Index pour la table `projects`
+-- Indexes for table `projects`
 --
 ALTER TABLE `projects`
   ADD PRIMARY KEY (`ID`);
 
 --
--- Index pour la table `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`ID`);
 
 --
--- AUTO_INCREMENT pour les tables déchargées
+-- Indexes for table `usersChat`
+--
+ALTER TABLE `usersChat`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT pour la table `comment_projects`
+-- AUTO_INCREMENT for table `adminChat`
+--
+ALTER TABLE `adminChat`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+--
+-- AUTO_INCREMENT for table `comment_projects`
 --
 ALTER TABLE `comment_projects`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
-
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
--- AUTO_INCREMENT pour la table `projects`
+-- AUTO_INCREMENT for table `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
-
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
--- AUTO_INCREMENT pour la table `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
-COMMIT;
-
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `usersChat`
+--
+ALTER TABLE `usersChat`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
