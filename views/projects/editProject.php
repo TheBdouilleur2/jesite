@@ -6,7 +6,7 @@
       </div>
 <?php }?>
 
-<p>Les champs marqués d'une * sont à renseigner obligatoirement.</p>
+<p>Les champs marqués d'une * sont à renseigner obligatoirement. Le <a href=https://fr.wikipedia.org/wiki/Markdown>Markdown</a> est pris en charge (voir <a href=https://www.markdownguide.org/cheat-sheet/ >tuto rapide</a>). </p>
 <form id="project_edition" method="POST" action="/set_project">
     <div class="from-group">
         <label for="newtitle">Titre*:</label>
