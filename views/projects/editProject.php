@@ -6,7 +6,7 @@
       </div>
 <?php }?>
 
-<p>Les champs marqué d'une * sont à renseigner obligatoirement.</p>
+<p>Les champs marqués d'une * sont à renseigner obligatoirement.</p>
 <form id="project_edition" method="POST" action="/set_project">
     <div class="from-group">
         <label for="newtitle">Titre*:</label>
@@ -24,8 +24,8 @@
         <input class="form-control" type="text" id="newtags" name='newtags' value="<?=$project['tags']?>">
     </div>
     <div class="from-group">
-        <label for="newsummary">Resumé*:</label>
-        <textarea class="form-control" placeholder="Votre resumé" id="newsummary" name="newsummary" ><?= nl2br($project['summary'])?></textarea>
+        <label for="newsummary">Résumé*:</label>
+        <textarea class="form-control" placeholder="Votre résumé" id="newsummary" name="newsummary" ><?= nl2br($project['summary'])?></textarea>
         <div class="container d-flex justify-content-end">
             <div class="row d-flex justify-content-end">
                 <div class="col">
