@@ -61,7 +61,7 @@ class UsersController extends Controller{
 						$_SESSION = $user_info;
 						$_SESSION['error'] = "";
 					}else {
-						$msg = "Vos mots de passes ne correspondent pas !";
+						$msg = "Les mots de passes ne correspondent pas !";
 					}
 				}else {
 					$msg = "Le pseudo est déjà utilisé!";
