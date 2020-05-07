@@ -34,7 +34,7 @@
 <?php }else{ ?>
     <div class="alert alert-info" role="alert">
     Veuillez vous connecter pour poster un commentaire.
-    Si vous n'avez pas de compte créer en un <a href="/sign_up" class="alert-link">ici</a>.
+    Si vous n'avez pas de compte, créez en un <a href="/sign_up" class="alert-link">ici</a>.
     </div>
 <?php } ?>
 
