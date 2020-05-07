@@ -102,7 +102,7 @@ class UsersController extends Controller{
 				$msg = "Pseudo inconnu, si vous n'avez pas de compte, créez en un <a href='sign_up'>ici</a>";
 			}
 		}else{
-			$msg = 'Tout les champs doivent être remplis';
+			$msg = 'Tout les champs doivent être complétés';
 		}
 		if($success === 1){
 			$_SESSION['error'] = "";
