@@ -24,8 +24,8 @@
       <input class="form-control" type="text" placeholder="tag1/tag2/..." id="tags" name="tags" value="<?php if(isset($_SESSION['project_info']['tags'])){echo $_SESSION['project_info']['tags'];}?>" />
    </div>
    <div class="form-group">
-      <label for="summary">Resumé*:</label>
-      <textarea class="form-control" placeholder="Votre resumé" id="summary" name="summary"><?php if(isset($_SESSION['project_info']['summary'])){echo $_SESSION['project_info']['summary'];}?></textarea>
+      <label for="summary">Résumé*:</label>
+      <textarea class="form-control" placeholder="Votre résumé" id="summary" name="summary"><?php if(isset($_SESSION['project_info']['summary'])){echo $_SESSION['project_info']['summary'];}?></textarea>
       <div class="container d-flex justify-content-end">
             <div class="row d-flex justify-content-end">
                 <div class="col">
