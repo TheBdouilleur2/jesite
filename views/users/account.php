@@ -17,7 +17,7 @@
     </div>
     <div class="form-group">
       <label for="bio">Bio:</label>
-      <textarea class="form-control" name="bio" id="bio" placeholder="Parler nous un peu de vous"><?php if(isset($_SESSION['bio'])) { echo $_SESSION['bio']; } ?></textarea>
+      <textarea class="form-control" name="bio" id="bio" placeholder="Parlez-nous un peu de vous"><?php if(isset($_SESSION['bio'])) { echo $_SESSION['bio']; } ?></textarea>
       <div class="container d-flex justify-content-end">
             <div class="row d-flex justify-content-end">
                 <div class="col">
