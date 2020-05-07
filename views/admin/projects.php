@@ -22,7 +22,7 @@
         <th scope="col">Titre</th>
         <th scope='col'>Créateur</th>
         <th scope='col'>Résumé</th>
-        <th scope='col'>Suprimer</th>
+        <th scope='col'>Supprimer</th>
       </tr>
     </thead>
     <tbody>
