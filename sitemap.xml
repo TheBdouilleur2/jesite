@@ -9,48 +9,78 @@
 
 <url>
   <loc>http://je.yo.fr/</loc>
-  <lastmod>2020-04-20T13:17:29+00:00</lastmod>
+  <lastmod>2020-05-07T14:05:19+00:00</lastmod>
   <priority>1.00</priority>
 </url>
 <url>
   <loc>http://je.yo.fr/index.php</loc>
-  <lastmod>2020-04-20T13:17:29+00:00</lastmod>
-  <priority>0.80</priority>
+  <lastmod>2020-05-07T14:05:19+00:00</lastmod>
+  <priority>1.00</priority>
 </url>
 <url>
   <loc>http://je.yo.fr/projects</loc>
-  <lastmod>2020-04-20T13:17:29+00:00</lastmod>
+  <lastmod>2020-05-07T14:05:19+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://je.yo.fr/sign_in</loc>
-  <lastmod>2020-04-20T13:17:29+00:00</lastmod>
+  <lastmod>2020-05-07T14:05:19+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://je.yo.fr/sign_up</loc>
-  <lastmod>2020-04-20T13:17:29+00:00</lastmod>
+  <lastmod>2020-05-07T14:05:19+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://je.yo.fr/project/7</loc>
+  <lastmod>2020-05-07T14:05:19+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://je.yo.fr/project/6</loc>
+  <lastmod>2020-05-07T14:05:19+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://je.yo.fr/project/5</loc>
+  <lastmod>2020-05-07T14:05:19+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://je.yo.fr/project/4</loc>
-  <lastmod>2020-04-20T13:17:29+00:00</lastmod>
-  <priority>0.80</priority>
+  <lastmod>2020-05-07T14:05:19+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
-  <loc>http://je.yo.fr/project/3</loc>
-  <lastmod>2020-04-20T13:17:29+00:00</lastmod>
-  <priority>0.80</priority>
+  <loc>http://je.yo.fr/projects/2</loc>
+  <lastmod>2020-05-07T14:05:19+00:00</lastmod>
+  <priority>0.75</priority>
+</url>
+<url>
+  <loc>http://je.yo.fr/profile/9</loc>
+  <lastmod>2020-05-07T14:05:19+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://je.yo.fr/profile/7</loc>
+  <lastmod>2020-05-07T14:05:19+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://je.yo.fr/profile/1</loc>
+  <lastmod>2020-05-07T14:05:19+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 <url>
   <loc>http://je.yo.fr/project/2</loc>
-  <lastmod>2020-04-20T13:17:29+00:00</lastmod>
-  <priority>0.80</priority>
+  <lastmod>2020-05-07T14:05:19+00:00</lastmod>
+  <priority>0.51</priority>
 </url>
 <url>
-  <loc>http://je.yo.fr/projects/1</loc>
-  <lastmod>2020-04-20T13:17:29+00:00</lastmod>
-  <priority>0.64</priority>
+  <loc>http://je.yo.fr/project/3</loc>
+  <lastmod>2020-05-07T14:05:19+00:00</lastmod>
+  <priority>0.51</priority>
 </url>
 
 
