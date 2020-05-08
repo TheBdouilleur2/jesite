@@ -1,5 +1,6 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/eb9b9b3154dd428ea422614a82006108)](https://www.codacy.com/manual/TheBdouilleur2/jesite?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=TheBdouilleur2/jesite&amp;utm_campaign=Badge_Grade)
 [![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/TheBdouilleur2/jesite) 
+[![CodeFactor](https://www.codefactor.io/repository/github/thebdouilleur2/jesite/badge?s=de7b0c1d2a53d84687f5522c648ccadaf5fb6cd1)](https://www.codefactor.io/repository/github/thebdouilleur2/jesite)
 
 # jesite
 This is the developer version of the source code of the [jesite](https://je.yo.fr).
