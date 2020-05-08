@@ -9,12 +9,10 @@ document.getElementById("send_comment").addEventListener("submit", function(e) {
 
 	xhr.onreadystatechange = function() {
 		if(this.readyState === 4 && this.status === 200) {
-			console.log(this.response);
 			var res = this.response;
 			if (res.success) {
-				console.log("Commentaire posté !!");
 				document.getElementById("msg").value = '';
-				document.location.reload();
+				$('.comments').load('../controllers/php/loadComments.php');
 			} else {
 				alert(res.msg);
 			}
@@ -30,7 +28,7 @@ document.getElementById("send_comment").addEventListener("submit", function(e) {
 	return false;
 });
 
-setInterval( 'loadComments()' , 5000);
+setInterval( 'loadComments()' , 60000);
     
 function loadComments(){
     $('.comments').load('../controllers/php/loadComments.php');
