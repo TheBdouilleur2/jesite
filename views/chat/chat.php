@@ -52,9 +52,3 @@
 </nav> -->
 
 <script src='public/js/chatForm.js'></script>
-<script>
-	setInterval( 'loadMessages()' , 2000);
-	function loadMessages(){
-		$('#msgs_user').load('../controllers/php/loadMessages.php');
-	}
-</script>

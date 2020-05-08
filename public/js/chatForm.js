@@ -5,11 +5,10 @@ document.getElementById("send_msg").addEventListener("submit", function(e) {
 	var xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function() {
 		if(this.readyState === 4 && this.status === 200) {
-			console.log(this.response);
 			var res = this.response;
 			if (res.success) {
-				console.log("Message envoyé !!");
 				document.getElementById("msg").value = '';
+				$('#msgs_user').load('../controllers/php/loadMessages.php');
 			} else {
 				alert(res.msg);
 			}
@@ -24,3 +23,9 @@ document.getElementById("send_msg").addEventListener("submit", function(e) {
 
 	return false;
 });
+
+setInterval( 'loadMessages()' , 30000);
+	
+function loadMessages(){
+	$('#msgs_user').load('../controllers/php/loadMessages.php');
+}

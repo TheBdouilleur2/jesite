@@ -66,9 +66,3 @@
 </nav> -->
 
 <script src='/public/js/chatAdmin.js'></script>
-<script>
-	setInterval( 'loadMessages()' , 2000);
-	function loadMessages(){
-		$('#msgs_admin').load('../../controllers/php/loadAdminMessages.php');
-	}
-</script>
