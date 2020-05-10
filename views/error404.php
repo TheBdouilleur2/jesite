@@ -1,20 +1,12 @@
 <?php $title = 'Oh no·JE'?>
 
 <?php ob_start(); ?>
-	<style type="text/css" media="screen">
-	body {
-	background-color: #f6f8fa;
+<style type="text/css" media="screen">
+	section {
 	color: #24292e;
 	font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
 	font-size: 14px;
 	line-height: 1.5;
-	margin: 0;
-	}
-	.container {
-	margin: 50px auto;
-	max-width: 600px;
-	text-align: center;
-	padding: 0 24px;
 	}
 
 	a {
@@ -38,20 +30,10 @@
 	font-size: 130%
 	}
 
-	ul {
-	list-style: none;
-	margin: 25px 0;
-	padding: 0;
-	}
-	li {
-	display: table-cell;
-	font-weight: bold;
-	width: 1%;
-	}
-
 	.logo {
 	display: inline-block;
 	margin-top: 35px;
+	margin-left: 50px;
 	}
 	.logo-img-2x {
 	display: none;
@@ -85,16 +67,18 @@
 
 </style>
 
-<div class="container">
+
+<div class="col justify-content-center">
 	<h1>Oopsy daisy!!!</h1>
 	<p>La page que vous recherchez n'est pas disponible pour le moment. </p>
 	<div id="suggestions">
-	<a href="mailto:bdouilleur@gmail.com">Nous contacter</a> —
-	<a href="/index.php">Retour à la page d'accueil</a>
+	<a href="mailto:contact@je.yo.fr">Nous contacter</a> —
+	<a href="/">Retour à la page d'accueil</a>
 	</div>
-	<a href="/index.php" class="logo logo-img-1x">
-	<img width="32" height="32" title="" alt="" src="/public/Images/logo2.png">
+	<a href="/" class="logo logo-img-1x">
+	<img title="Logo des JE" alt="Retour à la page d'acceuil" src="/public/Images/logo2.png">
 	</a>
 </div>
-<?php $content = ob_get_clean();?>
-<?php require_once('views/templates/template.php');?>/^
+
+<?php $contentForTemplate = ob_get_clean();?>
+<?php require_once('views/templates/default.php');?>
