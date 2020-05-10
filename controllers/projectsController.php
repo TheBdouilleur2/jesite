@@ -20,6 +20,20 @@ class ProjectsController extends Controller{
         
         $this->setVariables(compact("title", "projects", "nbPage", "page"));
         $this->render("projects", "projects");
+    }
+
+    public function my_projects($page = 1){
+        $perPage = 4;
+        $nbProjects = $this->Projects->getProjectsNumberByUser($_SESSION['ID']);
+        $nbPage = ceil($nbProjects/$perPage);
+    
+        $page = !($page>0 && $page<=$nbPage) ? 1 : $page;
+    
+        $projects = $this->Projects->getProjectsByUser($_SESSION['ID'], $page, $perPage, false);
+        $title = "Mes projets·JE";
+        
+        $this->setVariables(compact("title", "projects", "nbPage", "page"));
+        $this->render("projects", "my_projects");
     } 
 
     public function project(int $project_id){
@@ -48,9 +62,13 @@ class ProjectsController extends Controller{
             if(strlen($project_title)<250){
                 if(strlen($project_content) > strlen($summary)){
                     $project_exist = $this->Projects->titleTest($project_title);
+                    $online = 0;
+                    if(isset($online)){
+                        $online = 1;
+                    }
                     if (!$project_exist) {
                         //TODO:Ne permettre que certains tags, avec une liste en bdd et une barre de recherche;
-                        $this->Projects->createProject($project_title, $_SESSION['ID'], $project_content, $summary, $tags);
+                        $this->Projects->createProject($project_title, $_SESSION['ID'], $project_content, $summary, $tags, (int)$online);
                         $_SESSION['msg'] = 'Votre project <strong>'.$project_title.'</strong> a bien été créé';
                     }else{
                         $msg = 'Le titre que vous avez choisi est déjà utilisé. Veuillez en choisir un autre.';
@@ -115,6 +133,12 @@ class ProjectsController extends Controller{
     
         if(isset($newtags) && !empty($newtags) && $newtags != $project_info['tags']){
             $this->Projects->setProject($id, "tags", $newtags);
+        }
+        
+        $online = (isset($online))?1:0;
+
+        if($online !== $project_info['online']){
+            $this->Projects->setProject($id, "online", $online);
         }
     
         if(!empty($msg)){

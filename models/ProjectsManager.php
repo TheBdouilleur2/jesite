@@ -21,9 +21,9 @@ class ProjectsManager extends Model
     /**
      * Renvoie les differents projets.
      */
-    public function getProjects($page, $perPage){
+    public function getProjects($page, $perPage, int $online = 1){
         $begin = ($page-1)*4;
-        $projects = $this->find(array("selection"=>"p.ID ID, u.username creator, p.title title, p.summary summary, DATE_FORMAT(publication_date, '%d/%m/%Y à %Hh%imin') AS date_fr, tags FROM projects p INNER JOIN users u ON u.ID = p.creator_id", "order"=>"publication_date DESC", "limit"=>"$begin,$perPage"));
+        $projects = $this->find(array("selection"=>"p.ID ID, u.username creator, p.title title, p.summary summary, DATE_FORMAT(publication_date, '%d/%m/%Y à %Hh%imin') AS date_fr, tags FROM projects p INNER JOIN users u ON u.ID = p.creator_id", "order"=>"publication_date DESC", "limit"=>"$begin,$perPage", "conditions"=>"online=$online"));
         for ($i=0; $i < count($projects); $i++) { 
             $projects[$i]["summary"] = $this->Parsedown->line($projects[$i]["summary"]);
             $projects[$i]["tags"] = explode("/", $projects[$i]["tags"]);
@@ -36,9 +36,16 @@ class ProjectsManager extends Model
      * @param int $id ID de l'utilisateur
      * @return array $projects Projets de l'utilisateur
      */
-    public function getProjectsByUser(int $userId){
+    public function getProjectsByUser(int $userId, int $page, int $perPage, $online=false){
+        if($online){
+            $online = (int)$online;
+            $conditions = "online=$online";
+        }else{
+            $conditions = false;
+        }
+        $begin = ($page-1)*4;
         $userId = (int)$userId;
-        $projects = $this->find(array("selection"=>"p.ID ID, p.creator_id, u.username creator, p.title title, p.summary summary, DATE_FORMAT(publication_date, '%d/%m/%Y à %Hh%imin') AS date_fr, tags FROM projects p INNER JOIN users u ON u.ID = p.creator_id WHERE p.creator_id=$userId", "order"=>"publication_date DESC"));
+        $projects = $this->find(array("selection"=>"p.ID ID, p.creator_id, u.username creator, p.title title, p.summary summary, p.online online, DATE_FORMAT(publication_date, '%d/%m/%Y à %Hh%imin') AS date_fr, tags FROM projects p INNER JOIN users u ON u.ID = p.creator_id WHERE p.creator_id=$userId", "order"=>"publication_date DESC", "limit"=>"$begin,$perPage", "conditions"=>$conditions));
         for ($i=0; $i < count($projects); $i++) { 
             $projects[$i]["summary"] = $this->Parsedown->line($projects[$i]["summary"]);
             $projects[$i]["tags"] = explode("/", $projects[$i]["tags"]);
@@ -48,7 +55,7 @@ class ProjectsManager extends Model
 
     public function getProject(int $project_id, bool $parsedown=true){
         $project_id = (int)$project_id;
-        $project = $this->findFirst(array("selection"=>"p.ID ID, u.username creator, p.creator_id creator_id, p.title title, p.content content, p.summary summary,  publication_date, DATE_FORMAT(publication_date, '%d/%m/%Y à %Hh%imin') AS date_fr,  tags FROM projects p INNER JOIN users u ON u.ID = p.creator_id", "conditions"=>"p.ID=$project_id"));
+        $project = $this->findFirst(array("selection"=>"p.ID ID, u.username creator, p.creator_id creator_id, p.title title, p.content content, p.summary summary, p.online online,  publication_date, DATE_FORMAT(publication_date, '%d/%m/%Y à %Hh%imin') AS date_fr,  tags FROM projects p INNER JOIN users u ON u.ID = p.creator_id", "conditions"=>"p.ID=$project_id"));
         if($parsedown){
             $project['comments'] =  $this->Comments->getCommentsByProject($project_id); 
             $project['content'] = $this->Parsedown->text($project['content']);
@@ -57,16 +64,23 @@ class ProjectsManager extends Model
         return $project; 
     }
 
-    public function getProjectsNumber(){
-        $data = $this->findFirst(array("selection"=>"COUNT(ID) AS nbProjects FROM projects"));
+    public function getProjectsNumber(int $online = 1){
+        $data = $this->findFirst(array("selection"=>"COUNT(ID) AS nbProjects FROM projects", "conditions"=>"online=$online"));
         $nbProjects = $data['nbProjects'];
         return $nbProjects;
     }
 
-    public function createProject(string $title, int $creatorID, string $content, string $summary, string $tags){
+    public function getProjectsNumberByUser(int $userId, int $online = 1){
+        $userId = (int)$userId;
+        $data = $this->findFirst(array("selection"=>"COUNT(ID) AS nbProjects FROM projects", "conditions"=>"online=$online AND creator_id=$userId"));
+        $nbProjects = $data['nbProjects'];
+        return $nbProjects;
+    }
+
+    public function createProject(string $title, int $creatorID, string $content, string $summary, string $tags, int $online = 1){
         $title = htmlspecialchars($title);
         $creatorID = (int)$creatorID;
-        $this->save(array("title"=>$title, "creator_id"=>$creatorID, "content"=>$content, "summary"=>$summary, "tags"=>$tags));
+        $this->save(array("title"=>$title, "creator_id"=>$creatorID, "content"=>$content, "summary"=>$summary, "tags"=>$tags, "online"=>$online));
     }
 
     function deleteProject(int $projectId){
