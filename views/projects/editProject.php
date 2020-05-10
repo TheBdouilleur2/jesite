@@ -45,6 +45,12 @@
             </div>
         </div>
     </div>
+    <div class="form-check">
+     <label for="online" class="form-check-label">
+       <input type="checkbox" class="form-check-input" name="online" id="online" value="checkedValue" <?=($project['online']==='1')?"checked":""?>>
+       Mettre en ligne
+     </label>
+   </div>
     <input type="text" hidden name='id' id='id' value="<?=$project['ID']?>">
     <input type="submit" name="formedition" value="Sauvegarder les modifications" />  
 </form>

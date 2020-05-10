@@ -45,5 +45,11 @@
             </div>
         </div>
    </div>
+   <div class="form-check">
+     <label for="online" class="form-check-label">
+       <input type="checkbox" class="form-check-input" name="online" id="online" value="checkedValue" checked>
+       Mettre en ligne
+     </label>
+   </div>
    <input type="submit" name="creationform" value="Création du projet" />
 </form>

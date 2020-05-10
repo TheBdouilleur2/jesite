@@ -1,13 +1,11 @@
-<!-- La page d'affichage des projets -->
+<!-- La page d'affichage des projets d'un utilisateur-->
 
 <!-- Navigation pour Projets | Mes Projets -->
 
-<?php if(isset($_SESSION['ID'])){ ?>
-    <nav class="nav nav-pills ">
-        <a class="nav-link active" href="#">Tous les projets</a>
-        <a class="nav-link" href="/my_projects">Mes projets</a>
-    </nav>
-<?php } ?>
+<nav class="nav nav-pills ">
+    <a class="nav-link" href="/projects">Tous les projets</a>
+    <a class="nav-link active" href="#">Mes projets</a>
+</nav>
 
 <div class="row">
 <div class="col-10">
@@ -15,9 +13,11 @@
         <a href='/project/<?=$project['ID'] ?>' class="unlike">
             <div class="project">
                 <div class="row">
-                    <p class="col"><strong><?=$project['title']?></strong>  publié le <?=$project['date_fr']?> par <strong>@<?=$project['creator']?></strong>
+                    <p class="col"><strong><?=$project['title']?></strong> <?=($project['online']==='1') ? "publié":"enregisté"?> le <?=$project['date_fr']?> par <strong>@<?=$project['creator']?></strong>
                     <?php foreach($project["tags"] as $tag) { ?>
                         <span class="badge badge-secondary"><?=$tag?></span>
+                    <?php } if($project['online']==='1'){ ?>
+                        <span class="badge badge-success">Publié</span>
                     <?php } ?>
                     </p>
                     <div class="col">

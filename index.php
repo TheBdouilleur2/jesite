@@ -60,6 +60,15 @@ try {
 			$page = 1;
 		}
 		$ProjectsController->projects($page);
+	}elseif($url[0]==='my_projects'){
+		require_once('controllers/projectsController.php');
+		$ProjectsController = new ProjectsController;
+		if(isset($url[1])){
+			$page = (int)$url[1];
+		}else{
+			$page = 1;
+		}
+		$ProjectsController->my_projects($page);
 	}elseif($url[0]==='project' && isset($url[1])){
         $project_id = (int)$url[1];
 		require_once('controllers/projectsController.php');
