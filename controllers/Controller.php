@@ -1,5 +1,7 @@
 <?php
 
+require_once(ROOT."/controllers/php/functions.php");
+
 class Controller{
 
     public $template = "default";
@@ -29,10 +31,12 @@ class Controller{
         }else{
             $view = ROOT.DS."views".DS.$viewName.".php";
         }
+
         extract($this->vars);
         ob_start();
         require_once($view);
         $contentForTemplate = ob_get_clean();
+        $date = getTheDate();
         require_once(ROOT.DS."views".DS."templates".DS.$this->template.".php");
     }
 }

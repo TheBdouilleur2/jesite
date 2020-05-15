@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<title><?= $title ?></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="google-site-verification" content="53PRpFv6Bf7gUyxEM2VlAJKjl5nhnvz2-LSt15Vw8qk" />
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 	<link rel="stylesheet" href="/public/style/style.css">
@@ -13,7 +14,6 @@
 </head>
 <body>
 	<header>
-		<?php require_once(ROOT . '/controllers/php/functions.php') ?>
 		<nav class="navbar navbar-expand-lg navbar-light bg-info">
 		<a class="navbar-brand" href="/index.php">
 		    <img src="/public/Images/logo.png" alt="Logo des JE">
@@ -43,12 +43,9 @@
 			<?php }?>
 			
 			</ul>
-				<div class="navbar-brand">
-				<?php
-					$date = getTheDate();
-					echo $date;
-				?>
-			</div>
+				<div class="navbar-brand d-none d-md-block">
+					<?= $date ?>
+				</div>
 			<div>
 			<?php if(isset($_SESSION['ID'])){ ?>
 				<div class='navbar-brand nav-link dropdown' href="/profile">
@@ -60,14 +57,10 @@
 				</div>
 			<?php }else{?>
 				<a href="/sign_in">
-				<div class="sign">
-					<img src="/public/Images/sign-in.png" alt="Sign-in">
-				</div>
+					<img src="/public/Images/sign-in.png" alt="Sign-in" title="Se connecter">
 				</a>
 				<a href="/sign_up">
-					<div class="sign">
-						<img src="/public/Images/sign-up.png" alt="Sign-up">
-					</div>
+					<img src="/public/Images/sign-up.png" alt="Sign-up" title="Créer un compte">
 				</a>
 			<?php } ?>
 		</div>
