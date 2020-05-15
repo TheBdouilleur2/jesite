@@ -13,8 +13,7 @@
             <div class="row">
                 <p class="col"><strong><?=$project['title']?></strong>  publié le <?=$project['date_fr']?> par <strong>@<?=$project['creator']?></strong>
                 <?php 
-                $tags = explode("/", $project['tags']);
-                foreach($tags as $tag) { ?>
+                foreach($project['tags'] as $tag) { ?>
                     <span class="badge badge-secondary"><?=$tag?></span>
                 <?php } ?>
                 </p>
