@@ -39,7 +39,7 @@ class Model {
         }else{
             $sql .= "* FROM ".$this->table;
         }
-        if($req["conditions"]){
+        if(isset($req["conditions"])){
             $sql .= " WHERE ".$req["conditions"];
         }if(isset($req["order"])){
             $order = $req["order"];

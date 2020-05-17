@@ -1,6 +1,3 @@
-<?php $title = 'Oh no·JE'?>
-
-<?php ob_start(); ?>
 <style type="text/css" media="screen">
 	section {
 	color: #24292e;
@@ -79,6 +76,3 @@
 	<img title="Logo des JE" alt="Retour à la page d'acceuil" src="/public/Images/logo2.png">
 	</a>
 </div>
-
-<?php $contentForTemplate = ob_get_clean();?>
-<?php require_once('views/templates/default.php');?>
