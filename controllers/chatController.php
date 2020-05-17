@@ -27,30 +27,9 @@ class ChatController extends Controller{
 				"page"=>$page, 
 				"nbPage"=>$nbPage
 			));
-			$this->render("chat", "chat");
+			$this->render("chat");
 		}else {
 			header("Location: index.php");
 		}
-	}
-	
-	function displayAdminMessages($page = 1){
-		if(isset($_SESSION['ID']) && $_SESSION['state'] === 'admin'){
-			$perPage = 20;
-			$nbMessages = $this->Chats->getNumberAdminMessages();
-			$nbPage = ceil($nbMessages/$perPage);
-	
-			$page = !($page>0 && $page<=$nbPage) ? 1 : $page;
-			$messages = $this->Chats->getAdminMessages($page, $perPage);
-
-			$this->setVariables(array(
-				"title"=>"Discussion admin·JE",
-				"messages"=>$messages,
-				"page"=>$page, 
-				"nbPage"=>$nbPage
-			));
-			$this->template = "admin";
-			$this->render("admin", "chat");
-		}
-		header('Location: index.php');
 	}
 }

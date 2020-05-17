@@ -19,7 +19,7 @@ class ProjectsController extends Controller{
         $title = "Projets·JE";
         
         $this->setVariables(compact("title", "projects", "nbPage", "page"));
-        $this->render("projects", "projects");
+        $this->render("projects");
     }
 
     public function my_projects($page = 1){
@@ -33,7 +33,7 @@ class ProjectsController extends Controller{
         $title = "Mes projets·JE";
         
         $this->setVariables(compact("title", "projects", "nbPage", "page"));
-        $this->render("projects", "my_projects");
+        $this->render("my_projects");
     } 
 
     public function project(int $project_id){
@@ -44,12 +44,12 @@ class ProjectsController extends Controller{
         $title = $project['title'];
 
         $this->setVariables(compact("title", "tags", "project"));
-        $this->render("projects", "project");
+        $this->render("project");
     } 
 
     public function newProject(){
         $this->setVariables("title", "Créer un projet·JE");
-        $this->render("projects", "newProject");
+        $this->render("newProject");
     }
     
     public function createProject(){
@@ -101,7 +101,7 @@ class ProjectsController extends Controller{
         $title = "Edition du projet·JE";
         
         $this->setVariables(compact("title", "project"));
-        $this->render("projects", "editProject");
+        $this->render("editProject");
     }
     
     public function setProject(){

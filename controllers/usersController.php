@@ -11,17 +11,17 @@ class UsersController extends Controller{
 
 	public function sign_up(){
 		$this->setVariables("title", "Créer un compte·JE");
-		$this->render("users", "sign_up");
+		$this->render("sign_up");
 	}
 
 	public function sign_in(){
 		$this->setVariables("title", "Se connecter·JE");
-		$this->render("users", "sign_in");
+		$this->render("sign_in");
 	}
 
 	public function account(){
 		$this->setVariables("title", "Profil·JE");
-		$this->render("users", "account");
+		$this->render("account");
 	}
 
 	/**
@@ -37,7 +37,7 @@ class UsersController extends Controller{
 			"user_info"=>$user_info
 		));
 
-		$this->render("users", "showProfile");
+		$this->render("showProfile");
 	}
 
 	public function create_user(){

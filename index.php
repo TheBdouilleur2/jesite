@@ -7,11 +7,10 @@ define("Base_URL", dirname(dirname($_SERVER['SCRIPT_NAME'])));
 define("DS", DIRECTORY_SEPARATOR);
 define("CORE", ROOT.DS."core");
 
-if(!isset($_SESSION['ID'])){
-	require_once(ROOT.DS."models".DS."UsersManager.php");
-	$UsersManager = new UsersManager;
-	$UsersManager->connectUser();
-}
+require_once(ROOT.DS."models".DS."UsersManager.php");
+$UsersManager = new UsersManager;
+$UsersManager->connectUser();
+
 
 
 $url = '';
@@ -112,14 +111,14 @@ try {
 	elseif($url[0] === 'admin'){
 		if(isset($url[1])){
 			if($url[1]==="chat"){
-				require_once("controllers/chatController.php");
-				$ChatController = new ChatController;
+				require_once("controllers/adminController.php");
+				$AdminController = new AdminController;
 				if(isset($url[2])){
 					$page = (int)$url[2];
 				}else{
 					$page = 1;
 				}
-				$ChatController->displayAdminMessages($page);
+				$AdminController->chat($page);
 			}elseif($url[1]==="projects"){
 				require_once("controllers/adminController.php");
 				$AdminControler = new AdminController;
@@ -132,7 +131,10 @@ try {
 		}
 	}
 	else{
-		require_once('views/error404.php');
+		require_once('controllers/Controller.php');
+		$Controller = new Controller;
+		$Controller->e404();
+
 	}
 } catch (Exception $e) {
 	echo 'Erreur '.$e->getMessage();

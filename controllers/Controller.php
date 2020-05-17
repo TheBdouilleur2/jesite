@@ -25,8 +25,9 @@ class Controller{
         }
     }
 
-    public function render(string $reposName, string $viewName){
-        if($reposName){
+    public function render(string $viewName){
+        $reposName = strtolower(str_replace("Controller", "", get_class($this)));
+        if(!empty($reposName)){
             $view = ROOT.DS."views".DS.$reposName.DS.$viewName.".php";
         }else{
             $view = ROOT.DS."views".DS.$viewName.".php";
@@ -38,5 +39,10 @@ class Controller{
         $contentForTemplate = ob_get_clean();
         $date = getTheDate();
         require_once(ROOT.DS."views".DS."templates".DS.$this->template.".php");
+    }
+
+    public function e404(){
+        $this->setVariables(array("title"=>"Oh no·JE"));
+        $this->render("error404");
     }
 }
