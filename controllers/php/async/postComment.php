@@ -14,7 +14,7 @@ $msg = "Une erreur est survenue (script.php)";
 
 
 if (!empty($_POST['msg'])) {
-	$msg = htmlspecialchars(strip_tags($_POST['msg']));
+	$msg = htmlspecialchars($_POST['msg']);
 	
 	$msg = preg_replace_callback('#@([A-Za-z0-9]+)#', "userMention", $msg);
 

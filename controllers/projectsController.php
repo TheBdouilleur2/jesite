@@ -55,9 +55,9 @@ class ProjectsController extends Controller{
     public function createProject(){
         extract($_POST);
     
-        $project_title = htmlspecialchars(strip_tags($project_title));
-        $project_content = htmlspecialchars(strip_tags($project_content));
-        $summary = htmlspecialchars(strip_tags($summary));
+        $project_title = htmlspecialchars($project_title);
+        $project_content = htmlspecialchars($project_content);
+        $summary = htmlspecialchars($summary);
         if (!empty($project_title) && !empty($project_content) && !empty($summary)) {
             if(strlen($project_title)<250){
                 if(strlen($project_content) > strlen($summary)){
