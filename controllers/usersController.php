@@ -30,7 +30,8 @@ class UsersController extends Controller{
 	 */
 	public function profile(int $user_id){
 		$user_info = $this->Users->getUserByID((int)$user_id);
-		$user_info['projects'] = $this->Projects->getProjectsByUser($user_id); 
+		$projectsNumber = $this->Projects->getProjectsNumberByUser($user_id);
+		$user_info['projects'] = $this->Projects->getProjectsByUser($user_id, 1, $projectsNumber, 1); 
 
 		$this->setVariables(array(
 			"title"=>"Profil·JE de " . $user_info['username'],

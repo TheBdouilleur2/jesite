@@ -36,16 +36,19 @@ class ProjectsManager extends Model
      * @param int $id ID de l'utilisateur
      * @return array $projects Projets de l'utilisateur
      */
-    public function getProjectsByUser(int $userId, int $page, int $perPage, $online=false){
+    public function getProjectsByUser(int $userId, int $page = 1, int $perPage = 4, $online=false){
+        $begin = ($page-1)*4;
+        $userId = (int)$userId;
+
+        $selection = "p.ID ID, p.creator_id, u.username creator, p.title title, p.summary summary, p.online online, DATE_FORMAT(publication_date, '%d/%m/%Y à %Hh%imin') AS date_fr, tags FROM projects p INNER JOIN users u ON u.ID = p.creator_id WHERE p.creator_id=$userId ";
+
         if($online){
             $online = (int)$online;
             $conditions = "online=$online";
-        }else{
-            $conditions = false;
+            $selection .= "AND $conditions ";
         }
-        $begin = ($page-1)*4;
-        $userId = (int)$userId;
-        $projects = $this->find(array("selection"=>"p.ID ID, p.creator_id, u.username creator, p.title title, p.summary summary, p.online online, DATE_FORMAT(publication_date, '%d/%m/%Y à %Hh%imin') AS date_fr, tags FROM projects p INNER JOIN users u ON u.ID = p.creator_id WHERE p.creator_id=$userId", "order"=>"publication_date DESC", "limit"=>"$begin,$perPage", "conditions"=>$conditions));
+
+        $projects = $this->find(array("selection"=>$selection, "order"=>"publication_date DESC", "limit"=>"$begin,$perPage"));
         for ($i=0; $i < count($projects); $i++) { 
             $projects[$i]["summary"] = $this->Parsedown->line($projects[$i]["summary"]);
             $projects[$i]["tags"] = explode("/", $projects[$i]["tags"]);
