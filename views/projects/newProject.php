@@ -53,3 +53,14 @@
    </div>
    <input type="submit" name="creationform" value="Création du projet" />
 </form>
+
+<script>
+    var simplemde = {};
+
+    $('textarea').each(function(idx, ele) {
+        simplemde[ele.id] = new SimpleMDE({
+            element: ele
+        });
+    })
+    console.log(simplemde["newcontent"]);
+</script>
