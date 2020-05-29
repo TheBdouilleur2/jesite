@@ -93,7 +93,7 @@ class ProjectsManager extends Model
     *return: True -> if the title is used
     *        False -> if the title is not used. */
     public function titleTest($title){
-        $title = htmlspecialchars(strip_tags($title));
+        $title = htmlspecialchars($title);
         $reqTitleTest = $this->findFirst(array("conditions"=>"`title` = '$title'"));
         if (!$reqTitleTest) {
             return false;
@@ -103,7 +103,7 @@ class ProjectsManager extends Model
     }
 
     public function setProject(int $projectId, string $fieldName, $newValue){
-        $newValue = htmlspecialchars(strip_tags($newValue));
+        $newValue = htmlspecialchars($newValue);
         $projectId = (int)$projectId;
         $projectInfo = $this->getProject($projectId);
         $this->save(array("ID"=>$projectId, $fieldName=>$newValue, "publication_date"=>$projectInfo['publication_date']));

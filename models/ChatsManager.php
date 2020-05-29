@@ -40,6 +40,9 @@ class ChatsManager extends Model
 
   public function postUserMessage($msg, $sender_id){
     $msg = $this->Parsedown->line($msg);
+    if(strpos($msg, "<") || strpos($msg, "<")==0){
+      $msg = htmlspecialchars_decode($msg);
+    }
     $this->table = "usersChat";
     $post_message = $this->save(array("sender_ID"=>$sender_id, "msg"=>$msg));
   }

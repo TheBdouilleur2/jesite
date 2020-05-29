@@ -42,7 +42,7 @@ class UsersController extends Controller{
 
 	public function create_user(){
 		if (!empty($_POST['username']) AND !empty($_POST['passwd']) AND !empty($_POST['passwd2'])) {
-			$username = htmlspecialchars(strip_tags($_POST['username']));
+			$username = htmlspecialchars($_POST['username']);
 			$passwd = $_POST['passwd'];
 			$passwd2 = $_POST['passwd2'];
 			if(strlen($username) <= 20) {
@@ -51,7 +51,7 @@ class UsersController extends Controller{
 					if($passwd == $passwd2) {
 						$mail = "";
 						if(!empty($_POST['mail'])){
-							$mail = htmlspecialchars(strip_tags($_POST['mail']));
+							$mail = htmlspecialchars($_POST['mail']);
 						}
 						$this->Users->createUser($username, $mail, $passwd);
 						$user_info = $this->Users->getUser($username);
@@ -81,7 +81,7 @@ class UsersController extends Controller{
 	}
 
 	public function connect_user(){
-		$username_connect = htmlspecialchars(strip_tags($_POST['username_connect']));
+		$username_connect = htmlspecialchars($_POST['username_connect']);
 		$passwd_connect = $_POST['passwd_connect'];
 		$success = 0;
 

@@ -12,7 +12,7 @@ $user = $UserManager->getUserByID($_SESSION['ID']);
 extract($_POST);
 
 if(isset($new_username) && $new_username !== $_SESSION['username']){
-    $newUsername = htmlspecialchars(strip_tags($new_username));
+    $newUsername = htmlspecialchars($new_username);
     if (strlen($newUsername) < 21) {
         $is_username_exist = $UserManager->userTest($newUsername);
         if(!$is_username_exist){
@@ -28,7 +28,7 @@ if(isset($new_username) && $new_username !== $_SESSION['username']){
 }
 
 if(isset($new_mail) && $new_mail !== $_SESSION['mail']){
-    $newMail = htmlspecialchars(strip_tags($new_mail));
+    $newMail = htmlspecialchars($new_mail);
     if(filter_var($newMail, FILTER_VALIDATE_EMAIL)){
         $UserManager->setMail($_SESSION['ID'], $newMail);
         $_SESSION['mail'] = $newMail;
@@ -38,8 +38,8 @@ if(isset($new_mail) && $new_mail !== $_SESSION['mail']){
 
 if(!empty($new_passwd)){
     if(!empty($new_passwd2)){
-        $newPasswd = htmlspecialchars(strip_tags($new_passwd));
-        $newPasswd2 = htmlspecialchars(strip_tags($new_passwd2));
+        $newPasswd = htmlspecialchars($new_passwd);
+        $newPasswd2 = htmlspecialchars($new_passwd2);
         if($newPasswd == $newPasswd2){
             $user = $UserManager->getUser($_SESSION['username']);
             if(!password_verify($newPasswd, $user['passwd'])){
@@ -57,14 +57,14 @@ if(!empty($new_passwd)){
 }
 
 if(isset($bio) && $bio !== $_SESSION['bio']){
-    $bio = htmlspecialchars(strip_tags($bio));
+    $bio = htmlspecialchars($bio);
     $UserManager->setBio($_SESSION['ID'], $bio);
     $_SESSION['bio'] = $bio;
     $success = 1;
 }
 
 if(isset($skills) && $skills !== $_SESSION['skills']){
-    $skills = htmlspecialchars(strip_tags($skills));
+    $skills = htmlspecialchars($skills);
     $UserManager->setSkills($_SESSION['ID'], $skills);
     $_SESSION['skills'] = $skills;
     $success = 1;
