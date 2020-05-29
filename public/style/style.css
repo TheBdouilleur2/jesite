@@ -1,3 +1,12 @@
+/**
+* NavBar
+**/
+.dropdown:hover .dropdown-menu{display: block;}
+.nav-link{font-size: 20px;}
+
+
+
+
 .unlike{text-decoration: none;  color: black;}
 
 .unlike:hover{text-decoration: none; color: black;}
@@ -31,9 +40,6 @@ form.bord .checkmark:after{content: ""; position: absolute; display: none; left:
 form.bord input[type="checkbox"]:checked ~ .checkmark:after{display: block; border-color: #2ecc71;}
 
 form.bord input[type="checkbox"]:checked ~ .checkmark{border-color: #2ecc71;}
-
-.dropdown:hover .dropdown-menu{display: block;}
-
 
 /****************************************
 * Code 
