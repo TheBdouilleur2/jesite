@@ -2,7 +2,7 @@
 * NavBar
 **/
 .dropdown:hover .dropdown-menu{display: block;}
-.nav-link{font-size: 20px;}
+.nav-link{font-size: 19px;}
 
 
 
@@ -51,3 +51,9 @@ form.bord input[type="checkbox"]:checked ~ .checkmark{border-color: #2ecc71;}
 * Code 
 *****************************************/
 pre{background-color: #191919dc; color: whitesmoke; border-radius: 10px; padding: 10px; width:500px;}
+
+
+/*
+*  FOOTER
+*/
+footer{margin-top: 40px;}
