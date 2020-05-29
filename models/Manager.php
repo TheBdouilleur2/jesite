@@ -65,7 +65,7 @@ class Model {
             foreach($data as $k=>$v){
                 if($k !== 'ID'){
                     if(is_string($v)){
-                        $sql .= "`$k`='$v',";
+                        $sql .= "`$k`=\"$v\",";
                     }else{
                         $sql .= "`$k`=$v,";
                     }
