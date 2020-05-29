@@ -43,7 +43,7 @@ class ProjectsController extends Controller{
         $_SESSION['loadCommentsProjectId'] = $project_id;
         $title = $project['title'];
 
-        $this->setVariables(compact("title", "tags", "project"));
+        $this->setVariables(compact("title", "project"));
         $this->render("project");
     } 
 
@@ -97,6 +97,9 @@ class ProjectsController extends Controller{
     
         $project = $this->Projects->getProject($project_id, false);
         // TODO:Changer les <br /> en retour à la ligne
+
+        $project['content'] = str_replace("&lt;br /&gt;", "",  $project['content']);
+        $project['summary'] = str_replace("&lt;br /&gt;", "",  $project['summary']);
     
         $title = "Edition du projet·JE";
         

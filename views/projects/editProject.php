@@ -27,7 +27,7 @@
     </div>
     <div class="from-group">
         <label for="newsummary">Résumé*:</label>
-        <textarea class="form-control" placeholder="Votre résumé" id="newsummary" name="newsummary" ><?= nl2br($project['summary'])?></textarea>
+        <textarea class="form-control" placeholder="Votre résumé" id="newsummary" name="newsummary" ><?=$project['summary']?></textarea>
         <div class="container d-flex justify-content-end">
             <div class="row d-flex justify-content-end">
                 <div class="col">
@@ -38,7 +38,7 @@
     </div>
     <div class="from-group">
         <label for="newcontent">Contenu*:</label>
-        <textarea class="form-control" placeholder="Votre contenu" id="newcontent" name="newcontent" ><?=nl2br($project['content'])?></textarea>
+        <textarea class="form-control" placeholder="Votre contenu" id="newcontent" name="newcontent" ><?=$project['content']?></textarea>
         <div class="container d-flex justify-content-end">
             <div class="row d-flex justify-content-end">
                 <div class="col">

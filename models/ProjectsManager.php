@@ -26,6 +26,9 @@ class ProjectsManager extends Model
         $projects = $this->find(array("selection"=>"p.ID ID, u.username creator, p.title title, p.summary summary, DATE_FORMAT(publication_date, '%d/%m/%Y à %Hh%imin') AS date_fr, tags FROM projects p INNER JOIN users u ON u.ID = p.creator_id", "order"=>"publication_date DESC", "limit"=>"$begin,$perPage", "conditions"=>"online=$online"));
         for ($i=0; $i < count($projects); $i++) { 
             $projects[$i]["summary"] = $this->Parsedown->line($projects[$i]["summary"]);
+            if(strpos($projects[$i]["summary"], "<") || strpos($projects[$i]["summary"], "<")==0){
+                $projects[$i]["summary"] = htmlspecialchars_decode($projects[$i]["summary"]);
+            }
             $projects[$i]["tags"] = explode("/", $projects[$i]["tags"]);
         }
         return $projects; 
@@ -51,6 +54,9 @@ class ProjectsManager extends Model
         $projects = $this->find(array("selection"=>$selection, "order"=>"publication_date DESC", "limit"=>"$begin,$perPage"));
         for ($i=0; $i < count($projects); $i++) { 
             $projects[$i]["summary"] = $this->Parsedown->line($projects[$i]["summary"]);
+            if(strpos($projects[$i]["summary"], "<") || strpos($projects[$i]["summary"], "<")==0){
+                $projects[$i]["summary"] = htmlspecialchars_decode($projects[$i]["summary"]);
+            }
             $projects[$i]["tags"] = explode("/", $projects[$i]["tags"]);
         }
         return $projects;
@@ -109,7 +115,7 @@ class ProjectsManager extends Model
         $newValue = htmlspecialchars($newValue);
         $projectId = (int)$projectId;
         $projectInfo = $this->getProject($projectId);
-        $this->save(array("ID"=>$projectId, $fieldName=>$newValue, "publication_date"=>$projectInfo['publication_date']));
+        $this->save(array("ID"=>$projectId, $fieldName=>"$newValue", "publication_date"=>$projectInfo['publication_date']));
     }
 
 }
