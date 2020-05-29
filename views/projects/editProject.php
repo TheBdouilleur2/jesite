@@ -56,3 +56,14 @@
     <input type="text" hidden name='id' id='id' value="<?=$project['ID']?>">
     <input type="submit" name="formedition" value="Sauvegarder les modifications" />  
 </form>
+
+<script>
+    var simplemde = {};
+
+    $('textarea').each(function(idx, ele) {
+        simplemde[ele.id] = new SimpleMDE({
+            element: ele
+        });
+    })
+    console.log(simplemde["newcontent"]);
+</script>
