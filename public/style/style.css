@@ -33,3 +33,9 @@ form.bord input[type="checkbox"]:checked ~ .checkmark:after{display: block; bord
 form.bord input[type="checkbox"]:checked ~ .checkmark{border-color: #2ecc71;}
 
 .dropdown:hover .dropdown-menu{display: block;}
+
+
+/****************************************
+* Code 
+*****************************************/
+pre{background-color: #191919dc; color: whitesmoke; border-radius: 10px; padding: 10px; width:500px;}
